@@ -14,6 +14,14 @@ const App: React.FC = () => {
   // For non-authenticated users or auth pages, don't show right sidebar
   const showRightSidebar = isAuthenticated || !isAuthPage;
 
+  if (isAuthPage) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center bg-gray-50">
+        <MainContent />
+      </div>
+    );
+  }
+
   return (
     <div className="grid h-screen grid-cols-[16rem_1fr_auto] overflow-hidden">
       {/* Left Sidebar - Navigation */}
