@@ -66,6 +66,15 @@ export const routes: RouteConfig[] = [
     category: "education",
     meta: { description: "University resources and academics" },
   },
+  // Catch-all for university subpages
+  {
+    path: "/university/*",
+    component: lazy(() => import("../pages/University")),
+    requireAuth: true,
+    title: "University",
+    category: "education",
+    meta: { description: "University resources and academics (nested)" },
+  },
   {
     path: "/classroom",
     component: lazy(() => import("../pages/ClassRoom")),
