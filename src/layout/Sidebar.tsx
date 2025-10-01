@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
-  FaHome,
   FaUser,
   FaUsers,
   FaCog,
@@ -20,12 +19,6 @@ const Sidebar: React.FC = () => {
   const location = useLocation();
 
   const navigationItems = [
-    {
-      icon: FaHome,
-      label: "Home",
-      path: "/",
-      active: location.pathname === "/",
-    },
     {
       icon: FaLayerGroup,
       label: "Groups",

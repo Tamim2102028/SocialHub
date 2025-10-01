@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FaUniversity, FaSearch, FaEnvelope } from "react-icons/fa";
+import { FaUniversity, FaSearch, FaEnvelope, FaHome } from "react-icons/fa";
 import { useAppSelector } from "../store/hooks";
 import { IoExtensionPuzzleOutline } from "react-icons/io5";
 
@@ -12,6 +12,7 @@ const Navbar: React.FC = () => {
   }
 
   const navItems = [
+    { to: "/", icon: FaHome, label: "Home" },
     { to: "/gaming", icon: IoExtensionPuzzleOutline, label: "Gaming" },
     { to: "/university", icon: FaUniversity, label: "University" },
     { to: "/search", icon: FaSearch, label: "Search" },
