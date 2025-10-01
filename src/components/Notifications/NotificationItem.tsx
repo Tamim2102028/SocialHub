@@ -59,9 +59,9 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
 
   return (
     <div
-      className={`cursor-pointer rounded-lg border p-4 transition-all duration-200 ${
+      className={`cursor-pointer rounded-lg border p-3 transition-all duration-200 ${
         !isRead
-          ? "border-blue-200 bg-blue-50 hover:bg-blue-100"
+          ? "border-blue-500 bg-blue-100 hover:bg-blue-100"
           : "border-gray-200 bg-white hover:bg-gray-50"
       }`}
       onClick={handleClick}
@@ -87,7 +87,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
             <span className="text-gray-700">{content}</span>
           </div>
           {postContent && (
-            <div className="rounded-lg bg-gray-100 p-3 text-sm text-gray-600 italic">
+            <div className="rounded-lg bg-gray-100 p-3 text-sm text-gray-600">
               "{postContent}"
             </div>
           )}

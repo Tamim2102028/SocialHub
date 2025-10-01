@@ -35,7 +35,7 @@ const Notifications: React.FC = () => {
         {unreadCount > 0 && (
           <button
             onClick={markAllAsRead}
-            className="flex items-center gap-2 font-medium text-blue-600 hover:text-blue-700"
+            className="flex items-center gap-2 font-medium text-blue-600 cursor-pointer"
           >
             <FaCheck className="h-4 w-4" />
             Mark all as read
