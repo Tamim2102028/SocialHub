@@ -1,5 +1,6 @@
 import React from "react";
 import { FaExclamationTriangle } from "react-icons/fa";
+import { NavLink } from "react-router";
 
 const NotFound: React.FC = () => {
   return (
@@ -12,12 +13,12 @@ const NotFound: React.FC = () => {
         <p className="mb-8 text-xl text-gray-600">
           Sorry, the page you are looking for doesn't exist.
         </p>
-        <a
-          href="/"
+        <NavLink
+          to="/"
           className="inline-flex items-center rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
         >
           Go back home
-        </a>
+        </NavLink>
       </div>
     </div>
   );

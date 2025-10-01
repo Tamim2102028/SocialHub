@@ -59,55 +59,27 @@ const navItems = [
 
 const UniversityNavbar: React.FC = () => {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-      <div className="space-y-2">
-        {/* First Row */}
-        <div className="grid grid-cols-4 gap-2">
-          {navItems.slice(0, 4).map((item) => {
-            const Icon = item.icon;
-            return (
-              <NavLink
-                key={item.id}
-                to={item.path}
-                className={({ isActive }) =>
-                  `flex flex-col items-center rounded-lg p-3 transition-all ` +
-                  (isActive
-                    ? "bg-blue-50 text-blue-700"
-                    : "text-gray-600 hover:bg-blue-50")
-                }
-              >
-                <Icon className="mb-1 h-5 w-5" />
-                <span className="text-center text-xs font-medium">
-                  {item.label}
-                </span>
-              </NavLink>
-            );
-          })}
-        </div>
-        {/* Second Row */}
-        <div className="grid grid-cols-4 gap-2">
-          {navItems.slice(4, 8).map((item) => {
-            const Icon = item.icon;
-            return (
-              <NavLink
-                key={item.id}
-                to={item.path}
-                className={({ isActive }) =>
-                  `flex flex-col items-center rounded-lg p-3 transition-all ` +
-                  (isActive
-                    ? "bg-blue-50 text-blue-700"
-                    : "text-gray-600 hover:bg-blue-50")
-                }
-              >
-                <Icon className="mb-1 h-5 w-5" />
-                <span className="text-center text-xs font-medium">
-                  {item.label}
-                </span>
-              </NavLink>
-            );
-          })}
-        </div>
-      </div>
+    <div className="grid grid-cols-4 gap-2 rounded-xl border border-gray-200 bg-white p-2 shadow-sm">
+      {navItems.map((item) => {
+        const Icon = item.icon;
+        return (
+          <NavLink
+            key={item.id}
+            to={item.path}
+            className={({ isActive }) =>
+              `flex flex-col items-center rounded-lg p-3 transition-all ` +
+              (isActive
+                ? "bg-blue-50 text-blue-700"
+                : "text-gray-600 hover:bg-blue-50")
+            }
+          >
+            <Icon className="mb-1 h-5 w-5" />
+            <span className="text-center text-xs font-medium">
+              {item.label}
+            </span>
+          </NavLink>
+        );
+      })}
     </div>
   );
 };

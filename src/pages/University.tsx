@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import UniversityNavbar from "../components/University/UniversityNavbar";
 import UniversityHeader from "../components/University/Universityheader";
 import AcademicTimeline from "./University/AcademicTimeline";
@@ -10,6 +10,7 @@ import UniversityMarketplace from "./University/Marketplace";
 import UniversityMore from "./University/More";
 import UniversityNoticeBoard from "./University/NoticeBoard";
 import TeachersCorner from "./University/TeachersCorner";
+import NotFound from "./Fallbacks/NotFound";
 
 const University: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const University: React.FC = () => {
       <UniversityNavbar />
       <div>
         <Routes>
+          <Route index element={<UniversityDashboard />} />
           <Route path="dashboard" element={<UniversityDashboard />} />
           <Route path="noticeboard" element={<UniversityNoticeBoard />} />
           <Route path="academictimeline" element={<AcademicTimeline />} />
@@ -26,8 +28,8 @@ const University: React.FC = () => {
           <Route path="marketplace" element={<UniversityMarketplace />} />
           <Route path="teacherscorner" element={<TeachersCorner />} />
           <Route path="more" element={<UniversityMore />} />
-          {/* Default route: redirect to dashboard */}
-          <Route path="*" element={<Navigate to="dashboard" replace />} />
+          {/* Default route: show 404 not found */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </>
