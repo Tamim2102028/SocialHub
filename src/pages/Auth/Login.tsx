@@ -240,7 +240,7 @@ const Login: React.FC = () => {
             className="w-full rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
           >
             {isLoading ? (
-              <div className="flex items-center">
+              <div className="flex items-center justify-center">
                 <div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
                 Signing in...
               </div>
