@@ -2,7 +2,6 @@
 export interface SearchPerson {
   name: string;
   username: string;
-  followers: string;
   avatar: string;
 }
 
@@ -30,20 +29,52 @@ export const mockSearchResults: SearchResults = {
     {
       name: "Alex Johnson",
       username: "@alex_j",
-      followers: "2.3K",
       avatar: "👤",
     },
     {
       name: "Sarah Wilson",
       username: "@sarah_w",
-      followers: "1.8K",
       avatar: "👤",
     },
     {
       name: "Mike Chen",
       username: "@mike_c",
-      followers: "950",
       avatar: "👤",
+    },
+    {
+      name: "Emma Davis",
+      username: "@emma_d",
+      avatar: "👩‍🎓",
+    },
+    {
+      name: "John Smith",
+      username: "@john_smith",
+      avatar: "👨‍💼",
+    },
+    {
+      name: "Lisa Park",
+      username: "@lisa_park",
+      avatar: "👩‍💻",
+    },
+    {
+      name: "David Lee",
+      username: "@david_lee",
+      avatar: "👨‍🎓",
+    },
+    {
+      name: "Sophia Turner",
+      username: "@sophia_t",
+      avatar: "👩‍🏫",
+    },
+    {
+      name: "Michael Brown",
+      username: "@michael_b",
+      avatar: "👨‍💻",
+    },
+    {
+      name: "Olivia Green",
+      username: "@olivia_g",
+      avatar: "👩‍🎤",
     },
   ],
   posts: [

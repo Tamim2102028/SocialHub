@@ -1,11 +1,11 @@
 import React from "react";
 import { FaUserPlus, FaComment, FaCheck, FaTimes } from "react-icons/fa";
-import type { Friend } from "./dummyData/friendsData";
+import type { Friend } from "../components/Friends/dummyData/friendsData";
 import { NavLink } from "react-router-dom";
 
 interface FriendCardProps {
   friend: Friend;
-  type: "friend" | "request" | "suggestion";
+  type: "friend" | "request" | "suggestion" | "search";
   onAcceptRequest?: (id: string) => void;
   onRejectRequest?: (id: string) => void;
   onAddFriend?: (id: string) => void;
@@ -27,7 +27,6 @@ const FriendCard: React.FC<FriendCardProps> = ({
         </button>
       );
     }
-
     if (type === "request") {
       return (
         <div className="flex space-x-2">
@@ -48,7 +47,6 @@ const FriendCard: React.FC<FriendCardProps> = ({
         </div>
       );
     }
-
     if (type === "suggestion") {
       return (
         <button
@@ -60,7 +58,9 @@ const FriendCard: React.FC<FriendCardProps> = ({
         </button>
       );
     }
-
+    if (type === "search") {
+      return null;
+    }
     return null;
   };
 
