@@ -36,7 +36,7 @@ const GroupCard: React.FC<GroupCardProps> = ({
   return (
     <div
       onClick={handleCardClick}
-      className="cursor-pointer overflow-hidden rounded-lg border border-gray-200 transition-shadow duration-200 hover:shadow-lg"
+      className="cursor-pointer overflow-hidden rounded-lg border bg-gray-50 transition-shadow duration-200 hover:shadow-lg"
     >
       <div className="relative overflow-hidden">
         <img
@@ -44,7 +44,7 @@ const GroupCard: React.FC<GroupCardProps> = ({
           alt={group.name}
           className="h-40 w-full object-cover transition-transform duration-300 hover:scale-110"
         />
-        <div className="absolute top-3 right-3">
+        <div className="absolute top-2 right-2">
           {group.isPrivate ? (
             <div className="bg-opacity-75 flex items-center gap-1 rounded-full bg-gray-800 px-2 py-1 text-xs text-white">
               <FaLock size={10} />
@@ -62,7 +62,7 @@ const GroupCard: React.FC<GroupCardProps> = ({
           )}
         </div>
       </div>
-      <div className="p-4">
+      <div className="p-3">
         <h3 className="mb-2 text-lg font-semibold text-gray-900">
           {group.name}
         </h3>
