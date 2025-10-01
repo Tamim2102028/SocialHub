@@ -36,7 +36,7 @@ const ProfileEdit: React.FC = () => {
   };
 
   return (
-    <form className="space-y-5 bg-gray-50">
+    <form className="space-y-5">
       {/* Header */}
       <div className="rounded-lg border bg-white p-6 shadow-md">
         <div className="flex items-center justify-between">
@@ -89,7 +89,7 @@ const ProfileEdit: React.FC = () => {
             </label>
           </div>
           <div className="text-sm text-gray-600">
-            <p>Upload a new profile picture. Recommended size: 400x400px</p>
+            <p>Upload a new profile picture. Recommended size: 400 x 400px</p>
             <p className="mt-1">Supported formats: JPG, PNG, GIF</p>
           </div>
         </div>
