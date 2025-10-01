@@ -82,8 +82,13 @@ const FriendCard: React.FC<FriendCardProps> = ({
               {friend.mutualFriends} mutual friends
             </p>
           )}
-          {isFriend(friend) && friend.location && (
-            <p className="text-sm text-gray-500">{friend.location}</p>
+          {isFriend(friend) && friend.university && (
+            <p className="text-sm text-gray-500">
+              {friend.university}
+              {friend.role
+                ? ` - ${friend.role === "student" ? "Student" : "Teacher"}`
+                : ""}
+            </p>
           )}
         </div>
         {renderActions()}
