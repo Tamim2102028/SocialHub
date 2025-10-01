@@ -8,19 +8,19 @@ const FriendsHeader: React.FC = () => {
   const searchQuery = useAppSelector((state) => state.ui.friends.searchQuery);
 
   return (
-    <div className="mb-6 flex items-center justify-between">
+    <div className="flex items-center justify-between">
       <h1 className="flex items-center text-2xl font-bold text-gray-900">
         <FaUsers className="mr-3 text-blue-600" />
         Friends
       </h1>
       <div className="relative">
-        <FaSearch className="absolute top-1/2 left-3 -translate-y-1/2 transform text-gray-400" />
+        <FaSearch className="absolute top-1/2 left-3 -translate-y-1/2 transform text-gray-500" />
         <input
           type="text"
           placeholder="Search friends..."
           value={searchQuery}
           onChange={(e) => dispatch(setFriendsSearchQuery(e.target.value))}
-          className="rounded-lg border border-gray-300 py-2 pr-4 pl-10 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          className="rounded-lg border border-gray-700 py-2 pr-4 pl-10 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
         />
       </div>
     </div>

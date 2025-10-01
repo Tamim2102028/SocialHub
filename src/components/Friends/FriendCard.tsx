@@ -1,9 +1,10 @@
 import React from "react";
 import { FaUserPlus, FaComment, FaCheck, FaTimes } from "react-icons/fa";
-import type { Friend, FriendRequest } from "./dummyData/friendsData";
+import type { Friend } from "./dummyData/friendsData";
+import { NavLink } from "react-router-dom";
 
 interface FriendCardProps {
-  friend: Friend | FriendRequest;
+  friend: Friend;
   type: "friend" | "request" | "suggestion";
   onAcceptRequest?: (id: string) => void;
   onRejectRequest?: (id: string) => void;
@@ -17,10 +18,6 @@ const FriendCard: React.FC<FriendCardProps> = ({
   onRejectRequest,
   onAddFriend,
 }) => {
-  const isFriend = (friend: Friend | FriendRequest): friend is Friend => {
-    return "isOnline" in friend;
-  };
-
   const renderActions = () => {
     if (type === "friend") {
       return (
@@ -68,31 +65,34 @@ const FriendCard: React.FC<FriendCardProps> = ({
   };
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
-      <div className="flex items-center space-x-4">
-        <img
-          src={friend.avatar}
-          alt={friend.name}
-          className="h-12 w-12 rounded-full object-cover"
-        />
-        <div className="flex-1">
-          <h3 className="font-semibold text-gray-900">{friend.name}</h3>
-          {friend.mutualFriends && (
-            <p className="text-sm text-gray-500">
-              {friend.mutualFriends} mutual friends
-            </p>
-          )}
-          {isFriend(friend) && friend.university && (
-            <p className="text-sm text-gray-500">
-              {friend.university}
-              {friend.role
-                ? ` - ${friend.role === "student" ? "Student" : "Teacher"}`
-                : ""}
-            </p>
-          )}
-        </div>
-        {renderActions()}
+    <div className="flex items-center space-x-4 rounded-lg border border-gray-300 bg-white p-3 shadow-sm">
+      <img
+        src={friend.avatar}
+        alt={friend.name}
+        className="h-12 w-12 rounded-full object-cover"
+      />
+      <div className="flex-1">
+        <h3>
+          <NavLink
+            to={`/profile/${friend.username}`}
+            className="font-semibold text-gray-900 transition-colors hover:text-blue-600 hover:underline"
+          >
+            {friend.name}
+          </NavLink>
+        </h3>
+        {friend.mutualFriends && (
+          <p className="text-sm text-gray-500">
+            {friend.mutualFriends} mutual friends
+          </p>
+        )}
+        {friend.university && friend.role && (
+          <p className="text-sm text-gray-500">
+            {friend.university} -{" "}
+            {friend.role === "student" ? "Student" : "Teacher"}
+          </p>
+        )}
       </div>
+      {renderActions()}
     </div>
   );
 };

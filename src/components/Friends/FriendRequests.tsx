@@ -1,15 +1,12 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import {
-  mockFriendRequests,
-  type FriendRequest,
-} from "./dummyData/friendsData";
+import { mockFriendRequests } from "./dummyData/friendsData";
 import FriendCard from "./FriendCard";
 
 const FriendRequests: React.FC = () => {
   const searchQuery = useAppSelector((state) => state.ui.friends.searchQuery);
 
-  const filteredRequests = mockFriendRequests.filter((request: FriendRequest) =>
+  const filteredRequests = mockFriendRequests.filter((request) =>
     request.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -26,7 +23,7 @@ const FriendRequests: React.FC = () => {
   if (filteredRequests.length === 0) {
     return (
       <div className="py-8 text-center">
-        <p className="text-gray-500">
+        <p className="text-gray-700">
           {searchQuery
             ? "No friend requests found matching your search."
             : "No pending friend requests."}
@@ -36,8 +33,8 @@ const FriendRequests: React.FC = () => {
   }
 
   return (
-    <div className="space-y-4">
-      {filteredRequests.map((request: FriendRequest) => (
+    <div className="space-y-3">
+      {filteredRequests.map((request) => (
         <FriendCard
           key={request.id}
           friend={request}

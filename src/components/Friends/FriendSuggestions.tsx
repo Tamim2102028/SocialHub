@@ -29,7 +29,7 @@ const FriendSuggestions: React.FC = () => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {filteredSuggestions.map((suggestion: Friend) => (
         <FriendCard
           key={suggestion.id}
