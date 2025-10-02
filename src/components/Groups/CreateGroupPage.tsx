@@ -26,13 +26,14 @@ const CreateGroupPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const categories = [
+    "HSC",
+    "University",
+    "Medical College",
     "Study Groups",
-    "Technology",
     "Sports & Fitness",
     "Art & Design",
     "Music",
     "Gaming",
-    "Business",
     "Science",
     "Languages",
     "Hobbies",

@@ -46,7 +46,7 @@ export const mockMyGroups: Group[] = [
     coverImage:
       "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=200&fit=crop",
     lastActivity: "2 hours ago",
-    category: "Technology",
+    category: "University",
     description:
       "A community for React developers to share knowledge, discuss best practices, and collaborate on projects. Whether you're a beginner or an expert, everyone is welcome!",
     rules: [
@@ -161,7 +161,7 @@ export const mockMyGroups: Group[] = [
     coverImage:
       "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=200&fit=crop",
     lastActivity: "5 hours ago",
-    category: "Design",
+    category: "University",
     description:
       "An exclusive community for UI/UX designers to showcase work, get feedback, and discuss design trends. Private group for serious designers only.",
     rules: [
@@ -275,7 +275,7 @@ export const mockMyGroups: Group[] = [
     coverImage:
       "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=200&fit=crop",
     lastActivity: "1 day ago",
-    category: "Business",
+    category: "HSC",
     description:
       "Connect with fellow entrepreneurs, share startup experiences, and learn from successful founders. Get advice on funding, scaling, and building great products.",
     rules: [
@@ -388,7 +388,7 @@ export const mockSuggestedGroups: Group[] = [
     isPrivate: false,
     coverImage:
       "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=200&fit=crop",
-    category: "Technology",
+    category: "Medical College",
     description:
       "Explore the future of the internet with blockchain, cryptocurrencies, NFTs, and decentralized applications. Learn and discuss Web3 technologies.",
     rules: [
@@ -498,7 +498,7 @@ export const mockSuggestedGroups: Group[] = [
     isPrivate: false,
     coverImage:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop",
-    category: "Business",
+    category: "HSC",
     description:
       "Master digital marketing strategies, SEO, social media marketing, content creation, and analytics. Share campaigns and learn from experts.",
     rules: [
