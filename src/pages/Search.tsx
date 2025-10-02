@@ -22,12 +22,15 @@ const Search: React.FC = () => {
       {/* Search Results */}
       <div className="space-y-5">
         <PeopleResults
+          searchQuery={searchQuery}
           isVisible={activeFilter === "all" || activeFilter === "people"}
         />
         <PostsResults
+          searchQuery={searchQuery}
           isVisible={activeFilter === "all" || activeFilter === "posts"}
         />
         <HashtagsResults
+          searchQuery={searchQuery}
           isVisible={activeFilter === "all" || activeFilter === "hashtags"}
         />
       </div>

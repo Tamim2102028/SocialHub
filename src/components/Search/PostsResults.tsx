@@ -2,34 +2,49 @@ import React from "react";
 import { mockSearchResults } from "./dummyData/searchData";
 
 interface PostsResultsProps {
+  searchQuery: string;
   isVisible: boolean;
 }
 
-const PostsResults: React.FC<PostsResultsProps> = ({ isVisible }) => {
+const PostsResults: React.FC<PostsResultsProps> = ({
+  searchQuery,
+  isVisible,
+}) => {
   if (!isVisible) return null;
 
   const handleLike = (postIndex: number) => {
-    // TODO: Implement like logic
     console.log("Liking post:", postIndex);
   };
 
   const handleComment = (postIndex: number) => {
-    // TODO: Implement comment logic
     console.log("Commenting on post:", postIndex);
   };
 
   const handleShare = (postIndex: number) => {
-    // TODO: Implement share logic
     console.log("Sharing post:", postIndex);
   };
 
+  // Filter posts based on search query
+  const filteredPosts = mockSearchResults.posts.filter((post) => {
+    if (!searchQuery.trim()) return true;
+    const query = searchQuery.toLowerCase();
+    return (
+      post.content.toLowerCase().includes(query) ||
+      post.user.toLowerCase().includes(query)
+    );
+  });
+
+  if (filteredPosts.length === 0) return null;
+
   return (
     <div>
-      <h2 className="mb-4 text-xl font-bold text-gray-900">Posts</h2>
+      <h2 className="mb-4 text-xl font-bold text-gray-900">
+        Posts ({filteredPosts.length})
+      </h2>
       <div className="space-y-4">
-        {mockSearchResults.posts.map((post, index) => (
+        {filteredPosts.map((post, index) => (
           <div
-            key={index}
+            key={`${post.user}-${post.time}-${index}`}
             className="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
           >
             <div className="mb-3 flex items-center space-x-3">
