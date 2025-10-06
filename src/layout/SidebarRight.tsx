@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { setSelectedConversation } from "../store/slices/uiSlice";
 import {
-  FaFire,
-  FaHashtag,
   FaUsers,
   FaCalendarAlt,
   FaBirthdayCake,
@@ -13,9 +11,10 @@ import {
   FaSearch,
   FaComments,
   FaEllipsisH,
+  FaPoll,
+  FaBullhorn,
 } from "react-icons/fa";
 import {
-  mockTrendingTopics,
   mockSuggestedConnections,
   mockUpcomingEvents,
 } from "./dummyData/rightSidebarData";
@@ -23,6 +22,7 @@ import { mockConversations } from "../components/Messages/dummyData/messagesData
 
 const SidebarRight: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   const selectedConversation = useAppSelector(
@@ -30,9 +30,39 @@ const SidebarRight: React.FC = () => {
   );
   const isMessagesPage = location.pathname === "/messages";
 
-  const trendingTopics = mockTrendingTopics;
   const suggestedConnections = mockSuggestedConnections;
   const upcomingEvents = mockUpcomingEvents;
+
+  // CR Corner Quick Links Data
+  const crCornerPolls = [
+    {
+      id: 1,
+      question: "Do you support the new midterm exam schedule?",
+      totalVotes: 80,
+      date: "2 hours ago",
+    },
+  ];
+
+  const crCornerAnnouncements = [
+    {
+      id: 1,
+      title: "Class Representative Meeting",
+      date: "Oct 5, 2025",
+      postedBy: "Tamim Ahmed (CR)",
+    },
+    {
+      id: 2,
+      title: "Circuit Analysis Notes - Shared by Sir",
+      date: "Oct 3, 2025",
+      postedBy: "Sadia Rahman (CR)",
+    },
+    {
+      id: 3,
+      title: "Assignment Deadline Extended",
+      date: "Oct 2, 2025",
+      postedBy: "Tamim Ahmed (CR)",
+    },
+  ];
 
   const quickLinks = [
     { name: "Developer Tools", icon: FaGlobe },
@@ -154,43 +184,89 @@ const SidebarRight: React.FC = () => {
 
   return (
     <div className="h-full space-y-6 overflow-y-auto p-4">
-      {/* Trending Topics */}
+      {/* Active Polls */}
       <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
         <div className="border-b border-gray-100 p-4">
           <div className="flex items-center">
-            <FaFire className="mr-2 h-5 w-5 text-orange-500" />
+            <FaPoll className="mr-2 h-5 w-5 text-blue-600" />
             <h2 className="text-lg font-semibold text-gray-900">
-              Trending Now
+              Active Polls
             </h2>
           </div>
         </div>
         <div className="divide-y divide-gray-100">
-          {trendingTopics.map((topic, index) => (
+          {crCornerPolls.map((poll) => (
             <div
-              key={index}
+              key={poll.id}
               className="cursor-pointer p-4 transition-colors hover:bg-gray-50"
+              onClick={() => navigate("/university/crcorner")}
             >
-              <div className="flex items-center justify-between">
+              <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <div className="flex items-center">
-                    <FaHashtag className="mr-1 h-3 w-3 text-blue-500" />
-                    <span className="font-medium text-gray-900">
-                      {topic.hashtag}
-                    </span>
-                    {topic.trending && (
-                      <FaFire className="ml-2 h-3 w-3 text-orange-500" />
-                    )}
+                  <p className="text-sm font-medium text-gray-900">
+                    {poll.question}
+                  </p>
+                  <div className="mt-2 flex items-center gap-3 text-xs text-gray-500">
+                    <span>{poll.totalVotes} votes</span>
+                    <span>•</span>
+                    <span>{poll.date}</span>
                   </div>
-                  <p className="mt-1 text-xs text-gray-500">{topic.posts}</p>
                 </div>
-                <FaChevronRight className="h-3 w-3 text-gray-400" />
+                <FaChevronRight className="ml-2 h-3 w-3 flex-shrink-0 text-gray-400" />
               </div>
             </div>
           ))}
         </div>
         <div className="border-t border-gray-100 p-3">
-          <button className="text-sm font-medium text-blue-600 hover:text-blue-700">
-            Show more trends
+          <button
+            onClick={() => navigate("/university/crcorner")}
+            className="text-sm font-medium text-blue-600 hover:text-blue-700"
+          >
+            View all polls
+          </button>
+        </div>
+      </div>
+
+      {/* Recent Announcements */}
+      <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
+        <div className="border-b border-gray-100 p-4">
+          <div className="flex items-center">
+            <FaBullhorn className="mr-2 h-5 w-5 text-orange-500" />
+            <h2 className="text-lg font-semibold text-gray-900">
+              Recent Announcements
+            </h2>
+          </div>
+        </div>
+        <div className="divide-y divide-gray-100">
+          {crCornerAnnouncements.map((announcement) => (
+            <div
+              key={announcement.id}
+              className="cursor-pointer p-4 transition-colors hover:bg-gray-50"
+              onClick={() => navigate("/university/crcorner")}
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-gray-900">
+                    {announcement.title}
+                  </p>
+                  <p className="mt-1 text-xs text-gray-500">
+                    By {announcement.postedBy}
+                  </p>
+                  <p className="mt-1 text-xs text-gray-400">
+                    {announcement.date}
+                  </p>
+                </div>
+                <FaChevronRight className="ml-2 h-3 w-3 flex-shrink-0 text-gray-400" />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="border-t border-gray-100 p-3">
+          <button
+            onClick={() => navigate("/university/crcorner")}
+            className="text-sm font-medium text-blue-600 hover:text-blue-700"
+          >
+            View all announcements
           </button>
         </div>
       </div>
