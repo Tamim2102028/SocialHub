@@ -1,16 +1,11 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../store/hooks";
-import { setSelectedConversation } from "../store/slices/uiSlice";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FaUsers,
   FaCalendarAlt,
   FaBirthdayCake,
   FaGlobe,
   FaChevronRight,
-  FaSearch,
-  FaComments,
-  FaEllipsisH,
   FaPoll,
   FaBullhorn,
 } from "react-icons/fa";
@@ -18,17 +13,9 @@ import {
   mockSuggestedConnections,
   mockUpcomingEvents,
 } from "./dummyData/rightSidebarData";
-import { mockConversations } from "../components/Messages/dummyData/messagesData";
 
 const SidebarRight: React.FC = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const [searchQuery, setSearchQuery] = useState("");
-  const selectedConversation = useAppSelector(
-    (state) => state.ui.messages.selectedConversation
-  );
-  const isMessagesPage = location.pathname === "/messages";
 
   const suggestedConnections = mockSuggestedConnections;
   const upcomingEvents = mockUpcomingEvents;
@@ -70,117 +57,6 @@ const SidebarRight: React.FC = () => {
     { name: "Help Center", icon: FaGlobe },
     { name: "Privacy Policy", icon: FaGlobe },
   ];
-
-  const handleSelectConversation = (conversationId: string) => {
-    dispatch(setSelectedConversation(conversationId));
-  };
-
-  const formatTime = (timeStr: string) => {
-    // Simple time formatting
-    if (timeStr.includes("min")) return timeStr.replace(" ago", "");
-    if (timeStr.includes("hour")) return timeStr.replace(" ago", "");
-    if (timeStr.includes("day")) return timeStr.replace(" ago", "");
-    return timeStr;
-  };
-
-  const filteredConversations = mockConversations.filter((conv) =>
-    conv.user.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  // Show messenger-style user list for Messages page
-  if (isMessagesPage) {
-    return (
-      <div className="flex h-full flex-col bg-white">
-        {/* Header */}
-        <div className="border-b border-gray-200 p-4">
-          <div className="mb-4 flex items-center justify-between">
-            <h1 className="text-xl font-bold text-gray-900">Chats</h1>
-            <button className="rounded-full p-2 text-gray-500 hover:bg-gray-100">
-              <FaEllipsisH className="h-4 w-4" />
-            </button>
-          </div>
-
-          {/* Search Box */}
-          <div className="relative">
-            <FaSearch className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search conversations..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-full bg-gray-100 py-2 pr-4 pl-10 text-sm focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-          </div>
-        </div>
-
-        {/* Conversations List */}
-        <div className="flex-1 overflow-y-auto">
-          {filteredConversations.map((conv) => (
-            <div
-              key={conv.id}
-              className={`cursor-pointer border-b border-gray-100 p-3 transition-all hover:bg-gray-50 ${
-                selectedConversation === conv.id
-                  ? "border-l-4 border-l-blue-500 bg-blue-50"
-                  : ""
-              }`}
-              onClick={() => handleSelectConversation(conv.id)}
-            >
-              <div className="flex items-center space-x-3">
-                {/* Avatar with online status */}
-                <div className="relative flex-shrink-0">
-                  <img
-                    src={conv.user.avatar}
-                    alt={conv.user.name}
-                    className="h-12 w-12 rounded-full object-cover"
-                  />
-                  {conv.user.isOnline && (
-                    <div className="absolute -right-1 -bottom-1 h-4 w-4 rounded-full border-2 border-white bg-green-500"></div>
-                  )}
-                </div>
-
-                {/* Message info */}
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center justify-between">
-                    <h3 className="truncate text-sm font-semibold text-gray-900">
-                      {conv.user.name}
-                    </h3>
-                    <span className="text-xs text-gray-500">
-                      {formatTime(conv.lastMessageTime)}
-                    </span>
-                  </div>
-
-                  <div className="mt-1 flex items-center justify-between">
-                    <p className="max-w-[180px] truncate text-sm text-gray-600">
-                      {conv.lastMessage}
-                    </p>
-                    {conv.unreadCount > 0 && (
-                      <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-xs font-medium text-white">
-                        {conv.unreadCount}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Quick Actions Footer */}
-        <div className="border-t border-gray-200 p-4">
-          <div className="space-y-2">
-            <button className="flex w-full items-center space-x-3 rounded-lg p-2 text-left text-sm hover:bg-gray-100">
-              <FaComments className="h-4 w-4 text-blue-500" />
-              <span className="text-gray-700">New Group Chat</span>
-            </button>
-            <button className="flex w-full items-center space-x-3 rounded-lg p-2 text-left text-sm hover:bg-gray-100">
-              <FaUsers className="h-4 w-4 text-green-500" />
-              <span className="text-gray-700">Find Friends</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="h-full space-y-6 overflow-y-auto p-4">

@@ -10,6 +10,7 @@ const App: React.FC = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
+  const isMessagesPage = location.pathname === "/messages";
 
   // For non-authenticated users or auth pages, don't show right sidebar
   const showRightSidebar = isAuthenticated || !isAuthPage;
@@ -31,14 +32,14 @@ const App: React.FC = () => {
 
       {/* Main Content - Middle Column */}
       <div className="h-full overflow-y-auto">
-        <div className="mx-20">
+        <div className={isMessagesPage ? "mx-5" : "mx-20"}>
           <MainContent />
         </div>
       </div>
 
       {/* Right Sidebar - Trending/Quick Links */}
       {showRightSidebar && (
-        <div className="h-full w-80 overflow-y-auto border-l border-gray-500 bg-white">
+        <div className="h-full w-75 overflow-y-auto border-l border-gray-500 bg-white">
           <SidebarRight />
         </div>
       )}

@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 flex h-13 w-full items-center justify-evenly border-b border-gray-200 bg-white shadow-sm">
+    <nav className="sticky top-0 z-50 flex h-12 w-full items-center justify-evenly border-b border-gray-200 bg-white shadow-sm">
       {/* 4 buttons with map */}
       {navItems.map(({ to, icon: Icon, label, badge }) => (
         <div key={to} className="group relative">

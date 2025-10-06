@@ -24,10 +24,6 @@ interface UIState {
   notifications: {
     filter: "all" | "unread";
   };
-  messages: {
-    selectedConversation: string;
-    newMessage: string;
-  };
   friends: {
     activeTab: "friends" | "requests" | "suggestions";
     searchQuery: string;
@@ -40,7 +36,6 @@ interface UIState {
       likes: boolean;
       comments: boolean;
       follows: boolean;
-      messages: boolean;
       push: boolean;
       email: boolean;
       sms: boolean;
@@ -89,10 +84,6 @@ const initialState: UIState = {
   notifications: {
     filter: "all",
   },
-  messages: {
-    selectedConversation: "1",
-    newMessage: "",
-  },
   friends: {
     activeTab: "friends",
     searchQuery: "",
@@ -105,7 +96,6 @@ const initialState: UIState = {
       likes: true,
       comments: true,
       follows: true,
-      messages: true,
       push: true,
       email: true,
       sms: false,
@@ -218,17 +208,6 @@ const uiSlice = createSlice({
       state.notifications.filter = action.payload;
     },
 
-    // Messages component
-    setSelectedConversation: (state, action: PayloadAction<string>) => {
-      state.messages.selectedConversation = action.payload;
-    },
-    setNewMessage: (state, action: PayloadAction<string>) => {
-      state.messages.newMessage = action.payload;
-    },
-    clearNewMessage: (state) => {
-      state.messages.newMessage = "";
-    },
-
     // Friends component
     setFriendsActiveTab: (
       state,
@@ -323,9 +302,6 @@ export const {
   hideToast,
   // Component-specific actions
   setNotificationFilter,
-  setSelectedConversation,
-  setNewMessage,
-  clearNewMessage,
   setFriendsActiveTab,
   setFriendsSearchQuery,
   setVideoFilter,

@@ -1,133 +1,128 @@
-export interface Message {
-  id: string;
-  senderId: string;
-  content: string;
-  timestamp: string;
-  isRead: boolean;
-}
-
-export interface User {
-  id: string;
-  name: string;
-  username: string;
-  avatar: string;
-  isOnline: boolean;
-}
-
 export interface Conversation {
   id: string;
-  user: User;
+  name: string;
+  avatar: string;
   lastMessage: string;
-  lastMessageTime: string;
-  unreadCount: number;
-  messages: Message[];
+  time: string;
+  unread?: number;
+  online?: boolean;
+}
+
+export interface Message {
+  id: string;
+  text: string;
+  sender: "me" | "other";
+  time: string;
 }
 
 export const mockConversations: Conversation[] = [
   {
     id: "1",
-    user: {
-      id: "1",
-      name: "Sarah Wilson",
-      username: "sarahw",
-      avatar:
-        "https://ui-avatars.com/api/?name=Sarah+Wilson&background=3b82f6&color=fff&size=40",
-      isOnline: true,
-    },
-    lastMessage: "Hey! How are you doing?",
-    lastMessageTime: "2 min ago",
-    unreadCount: 2,
-    messages: [
-      {
-        id: "1",
-        senderId: "1",
-        content: "Hey! How are you doing?",
-        timestamp: "10:30 AM",
-        isRead: true,
-      },
-      {
-        id: "2",
-        senderId: "me",
-        content: "Hi Sarah! I'm doing great, thanks for asking. How about you?",
-        timestamp: "10:32 AM",
-        isRead: true,
-      },
-      {
-        id: "3",
-        senderId: "1",
-        content: "I'm good too! Working on some exciting projects lately.",
-        timestamp: "10:35 AM",
-        isRead: false,
-      },
-    ],
+    name: "Rahul Ahmed",
+    avatar: "https://i.pravatar.cc/150?img=12",
+    lastMessage: "Assignment submit korlam!",
+    time: "2m",
+    unread: 2,
+    online: true,
   },
   {
     id: "2",
-    user: {
-      id: "2",
-      name: "Alex Chen",
-      username: "alexc",
-      avatar:
-        "https://ui-avatars.com/api/?name=Alex+Chen&background=10b981&color=fff&size=40",
-      isOnline: false,
-    },
-    lastMessage: "Thanks for the help with the React project!",
-    lastMessageTime: "1 hour ago",
-    unreadCount: 0,
-    messages: [
-      {
-        id: "1",
-        senderId: "2",
-        content: "Thanks for the help with the React project!",
-        timestamp: "9:15 AM",
-        isRead: true,
-      },
-    ],
+    name: "Tanvir Khan",
+    avatar: "https://i.pravatar.cc/150?img=13",
+    lastMessage: "Class kobe hobe?",
+    time: "15m",
+    online: true,
   },
   {
     id: "3",
-    user: {
-      id: "3",
-      name: "Mike Johnson",
-      username: "mikej",
-      avatar:
-        "https://ui-avatars.com/api/?name=Mike+Johnson&background=f59e0b&color=fff&size=40",
-      isOnline: true,
-    },
-    lastMessage: "Are we still meeting tomorrow?",
-    lastMessageTime: "3 hours ago",
-    unreadCount: 1,
-    messages: [
-      {
-        id: "1",
-        senderId: "3",
-        content: "Are we still meeting tomorrow?",
-        timestamp: "Yesterday",
-        isRead: false,
-      },
-    ],
+    name: "Sabbir Hossain",
+    avatar: "https://i.pravatar.cc/150?img=33",
+    lastMessage: "Thanks for your help!",
+    time: "1h",
   },
   {
     id: "4",
-    user: {
-      id: "4",
-      name: "Emma Davis",
-      username: "emmad",
-      avatar:
-        "https://ui-avatars.com/api/?name=Emma+Davis&background=8b5cf6&color=fff&size=40",
-      isOnline: false,
-    },
-    lastMessage: "Great article! Really helpful.",
-    lastMessageTime: "1 day ago",
-    unreadCount: 0,
-    messages: [
-      {
-        id: "1",
-        senderId: "4",
-        content: "Great article! Really helpful.",
-        timestamp: "2 days ago",
-        isRead: true,
-      },
-    ],
+    name: "Nasir Uddin",
+    avatar: "https://i.pravatar.cc/150?img=17",
+    lastMessage: "Notes ta share korba?",
+    time: "3h",
+  },
+  {
+    id: "5",
+    name: "Farhan Islam",
+    avatar: "https://i.pravatar.cc/150?img=15",
+    lastMessage: "Okay, see you tomorrow",
+    time: "1d",
+  },
+  {
+    id: "6",
+    name: "Mehedi Hasan",
+    avatar: "https://i.pravatar.cc/150?img=8",
+    lastMessage: "Exam er preparation kemon cholse?",
+    time: "2d",
+    unread: 1,
+  },
+  {
+    id: "7",
+    name: "Arif Rahman",
+    avatar: "https://i.pravatar.cc/150?img=14",
+    lastMessage: "Group study korba?",
+    time: "3d",
+    online: true,
+  },
+  {
+    id: "8",
+    name: "Imran Khan",
+    avatar: "https://i.pravatar.cc/150?img=20",
+    lastMessage: "Lab report complete korso?",
+    time: "4d",
+  },
+  {
+    id: "9",
+    name: "Shakil Islam",
+    avatar: "https://i.pravatar.cc/150?img=18",
+    lastMessage: "Presentation slides ready?",
+    time: "5d",
+    unread: 3,
+  },
+  {
+    id: "10",
+    name: "Karim Uddin",
+    avatar: "https://i.pravatar.cc/150?img=22",
+    lastMessage: "Tiffin e dekha hobe",
+    time: "1w",
+  },
+];
+
+export const mockMessages: Message[] = [
+  {
+    id: "1",
+    text: "Hey! Assignment er deadline kobe?",
+    sender: "other",
+    time: "10:30 AM",
+  },
+  {
+    id: "2",
+    text: "Friday, 5 PM porjonto",
+    sender: "me",
+    time: "10:32 AM",
+  },
+  {
+    id: "3",
+    text: "Okay thanks! Tumi submit korso?",
+    sender: "other",
+    time: "10:33 AM",
+  },
+  {
+    id: "4",
+    text: "Hae, ajke submit korlam",
+    sender: "me",
+    time: "10:35 AM",
+  },
+  {
+    id: "5",
+    text: "Assignment submit korlam!",
+    sender: "other",
+    time: "10:45 AM",
   },
 ];
