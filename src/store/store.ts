@@ -8,6 +8,7 @@ import tuitionSlice from "./slices/tuitionSlice.js";
 import filesSlice from "./slices/filesSlice";
 import communityStudyArchiveSlice from "./slices/communityStudyArchiveSlice";
 import profileSlice from "./slices/profileSlice";
+import messagesSlice from "./slices/messagesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     files: filesSlice,
     communityStudyArchive: communityStudyArchiveSlice,
     profile: profileSlice,
+    messages: messagesSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
