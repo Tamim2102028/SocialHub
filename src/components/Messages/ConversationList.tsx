@@ -18,7 +18,7 @@ const ConversationList: React.FC = () => {
   );
 
   return (
-    <div className="flex w-80 flex-col border-r border-gray-200">
+    <div className="flex w-70 flex-col border-r border-gray-200">
       {/* Search */}
       <div className="flex h-15 items-center border-b border-gray-200 px-4">
         <div className="relative w-full">
@@ -63,7 +63,7 @@ const ConversationList: React.FC = () => {
                   {conv.lastMessage}
                 </p>
                 {conv.unread && (
-                  <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-xs text-white">
+                  <span className="ml-2 flex min-w-[20px] items-center justify-center rounded-full bg-blue-600 px-0.5 py-0.5 text-xs text-white">
                     {conv.unread}
                   </span>
                 )}
