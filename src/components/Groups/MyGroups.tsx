@@ -7,7 +7,6 @@ interface Group {
   members: number;
   isPrivate: boolean;
   coverImage: string;
-  lastActivity?: string;
   category?: string;
 }
 

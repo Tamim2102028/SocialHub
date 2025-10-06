@@ -4,7 +4,6 @@ export interface Group {
   members: number;
   isPrivate: boolean;
   coverImage: string;
-  lastActivity?: string;
   category?: string;
   description?: string;
   rules?: string[];
@@ -45,7 +44,6 @@ export const mockMyGroups: Group[] = [
     isPrivate: false,
     coverImage:
       "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=200&fit=crop",
-    lastActivity: "2 hours ago",
     category: "University",
     description:
       "A community for React developers to share knowledge, discuss best practices, and collaborate on projects. Whether you're a beginner or an expert, everyone is welcome!",
@@ -160,7 +158,6 @@ export const mockMyGroups: Group[] = [
     isPrivate: true,
     coverImage:
       "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=200&fit=crop",
-    lastActivity: "5 hours ago",
     category: "University",
     description:
       "An exclusive community for UI/UX designers to showcase work, get feedback, and discuss design trends. Private group for serious designers only.",
@@ -274,7 +271,6 @@ export const mockMyGroups: Group[] = [
     isPrivate: false,
     coverImage:
       "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=200&fit=crop",
-    lastActivity: "1 day ago",
     category: "HSC",
     description:
       "Connect with fellow entrepreneurs, share startup experiences, and learn from successful founders. Get advice on funding, scaling, and building great products.",

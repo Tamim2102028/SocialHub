@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { FaShoppingCart, FaFilter, FaPlus, FaSearch } from "react-icons/fa";
+import { FaShoppingCart, FaPlus, FaSearch } from "react-icons/fa";
 
 interface MarketplaceItem {
   id: number;
   title: string;
   price: number;
-  condition: string;
   seller: string;
   department: string;
   category: string;
@@ -33,7 +32,6 @@ const UniversityMarketplace: React.FC = () => {
       id: 1,
       title: "Data Structures and Algorithms",
       price: 350,
-      condition: "Good",
       seller: "Ahmed Khan",
       department: "CSE",
       category: "Books",
@@ -47,7 +45,6 @@ const UniversityMarketplace: React.FC = () => {
       id: 2,
       title: "Scientific Calculator (Casio fx-991ES)",
       price: 500,
-      condition: "Like New",
       seller: "Sadia Rahman",
       department: "EEE",
       category: "Electronics",
@@ -61,7 +58,6 @@ const UniversityMarketplace: React.FC = () => {
       id: 3,
       title: "Circuit Analysis Notes (EEE 220)",
       price: 100,
-      condition: "Excellent",
       seller: "Rahim Ali",
       department: "EEE",
       category: "Notes",
@@ -75,7 +71,6 @@ const UniversityMarketplace: React.FC = () => {
       id: 4,
       title: "Engineering Drawing Set",
       price: 250,
-      condition: "Good",
       seller: "Maria Khatun",
       department: "ME",
       category: "Stationery",
@@ -89,7 +84,6 @@ const UniversityMarketplace: React.FC = () => {
       id: 5,
       title: "Laptop Cooling Pad",
       price: 400,
-      condition: "Like New",
       seller: "Tanvir Hasan",
       department: "CSE",
       category: "Electronics",
@@ -103,7 +97,6 @@ const UniversityMarketplace: React.FC = () => {
       id: 6,
       title: "Thermodynamics Textbook",
       price: 400,
-      condition: "Good",
       seller: "Nusrat Jahan",
       department: "ME",
       category: "Books",
@@ -124,183 +117,155 @@ const UniversityMarketplace: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="mx-auto max-w-7xl px-4 py-6">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900">
-                Student Marketplace
-              </h1>
-              <p className="mt-2 text-lg text-gray-600">
-                Buy and sell items within the university community
-              </p>
-            </div>
+    <div className="mx-auto max-w-7xl space-y-5">
+      {/* Header */}
+      <div>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900">
+              Student Marketplace
+            </h1>
+            <p className="mt-2 text-lg text-gray-600">
+              Buy and sell items within the university community
+            </p>
+          </div>
+          <button
+            onClick={() => setShowAddForm(!showAddForm)}
+            className="flex items-center gap-2 rounded-lg bg-green-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-green-600"
+          >
+            <FaPlus className="h-4 w-4" />
+            Sell an Item
+          </button>
+        </div>
+      </div>
+
+      {/* Add Item Form */}
+      {showAddForm && (
+        <div className="mb-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h3 className="mb-4 text-xl font-bold text-gray-900">
+            Post Your Item
+          </h3>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <input
+              type="text"
+              placeholder="Item title"
+              className="rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+            <input
+              type="number"
+              placeholder="Price (৳)"
+              className="rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+            <select className="rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option>Select Category</option>
+              {categories
+                .filter((c) => c !== "All")
+                .map((cat) => (
+                  <option key={cat}>{cat}</option>
+                ))}
+            </select>
+          </div>
+          <textarea
+            placeholder="Item description..."
+            rows={3}
+            className="mt-4 w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
+          <div className="mt-4 flex justify-end gap-3">
             <button
-              onClick={() => setShowAddForm(!showAddForm)}
-              className="flex items-center gap-2 rounded-lg bg-green-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-green-600"
+              onClick={() => setShowAddForm(false)}
+              className="rounded-lg border border-gray-300 px-6 py-2 font-semibold text-gray-700 transition-colors hover:bg-gray-100"
             >
-              <FaPlus className="h-4 w-4" />
-              Sell an Item
+              Cancel
+            </button>
+            <button className="rounded-lg bg-blue-600 px-6 py-2 font-semibold text-white transition-colors hover:bg-blue-700">
+              Post Item
             </button>
           </div>
         </div>
+      )}
 
-        {/* Add Item Form */}
-        {showAddForm && (
-          <div className="mb-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-            <h3 className="mb-4 text-xl font-bold text-gray-900">
-              Post Your Item
-            </h3>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <input
-                type="text"
-                placeholder="Item title"
-                className="rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              />
-              <input
-                type="number"
-                placeholder="Price (৳)"
-                className="rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              />
-              <select className="rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                <option>Select Category</option>
-                {categories
-                  .filter((c) => c !== "All")
-                  .map((cat) => (
-                    <option key={cat}>{cat}</option>
-                  ))}
-              </select>
-              <select className="rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                <option>Select Condition</option>
-                <option>Like New</option>
-                <option>Good</option>
-                <option>Fair</option>
-              </select>
-            </div>
-            <textarea
-              placeholder="Item description..."
-              rows={3}
-              className="mt-4 w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-            <div className="mt-4 flex justify-end gap-3">
-              <button
-                onClick={() => setShowAddForm(false)}
-                className="rounded-lg border border-gray-300 px-6 py-2 font-semibold text-gray-700 transition-colors hover:bg-gray-100"
-              >
-                Cancel
-              </button>
-              <button className="rounded-lg bg-blue-600 px-6 py-2 font-semibold text-white transition-colors hover:bg-blue-700">
-                Post Item
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Search and Filters */}
-        <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          {/* Search */}
-          <div className="relative max-w-md flex-1">
-            <FaSearch className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search items..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 bg-white py-3 pr-4 pl-12 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-          </div>
-
-          {/* Category Filter */}
-          <div className="flex items-center gap-2 overflow-x-auto rounded-xl border border-gray-200 bg-white p-2 shadow-sm">
-            <FaFilter className="ml-2 h-4 w-4 text-gray-600" />
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`rounded-lg px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors ${
-                  selectedCategory === category
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+      {/* Search and Filters */}
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        {/* Search */}
+        <div className="relative max-w-md flex-1">
+          <FaSearch className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search items..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 bg-white py-3 pr-4 pl-12 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
         </div>
 
-        {/* Items Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredItems.map((item) => (
-            <div
-              key={item.id}
-              className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-lg"
+        {/* Category Filter */}
+        <div className="flex items-center gap-2 overflow-x-auto rounded-xl border border-gray-200 bg-white p-2 shadow-sm">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`rounded-lg px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors ${
+                selectedCategory === category
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
             >
-              {/* Item Image */}
-              <div className="relative h-48 overflow-hidden bg-gray-100">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="absolute top-3 right-3 rounded-lg bg-green-500 px-3 py-1 text-sm font-bold text-white">
-                  ৳{item.price}
-                </div>
-                <div className="absolute top-3 left-3 rounded-lg bg-white px-3 py-1 text-xs font-semibold text-gray-700">
-                  {item.condition}
-                </div>
-              </div>
-
-              {/* Item Details */}
-              <div className="p-5">
-                <div className="mb-2 flex items-start justify-between">
-                  <h3 className="line-clamp-2 flex-1 text-lg font-bold text-gray-900">
-                    {item.title}
-                  </h3>
-                </div>
-
-                <p className="mb-3 line-clamp-2 text-sm text-gray-600">
-                  {item.description}
-                </p>
-
-                <div className="mb-3 flex items-center gap-2 text-sm text-gray-500">
-                  <span className="font-medium text-gray-700">
-                    {item.seller}
-                  </span>
-                  <span>•</span>
-                  <span>{item.department}</span>
-                  <span>•</span>
-                  <span>{item.postedDate}</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <button className="flex-1 rounded-lg bg-blue-600 py-2 font-semibold text-white transition-colors hover:bg-blue-700">
-                    Contact Seller
-                  </button>
-                  <button className="rounded-lg border border-gray-300 px-4 py-2 text-gray-700 transition-colors hover:bg-gray-100">
-                    <FaShoppingCart />
-                  </button>
-                </div>
-              </div>
-            </div>
+              {category}
+            </button>
           ))}
         </div>
-
-        {/* No Results */}
-        {filteredItems.length === 0 && (
-          <div className="py-16 text-center">
-            <FaShoppingCart className="mx-auto mb-4 h-16 w-16 text-gray-400" />
-            <h3 className="mb-2 text-xl font-semibold text-gray-900">
-              No items found
-            </h3>
-            <p className="text-gray-600">
-              Try adjusting your search or filter criteria
-            </p>
-          </div>
-        )}
       </div>
+
+      {/* Items Grid */}
+      <div className="grid grid-cols-3 gap-3">
+        {filteredItems.map((item) => (
+          <div
+            key={item.id}
+            className="cursor-pointer overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+          >
+            {/* Item Image */}
+            <div className="relative h-40 bg-gray-100">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute top-2 right-2 rounded-md bg-green-500 px-2 py-1 text-sm font-bold text-white">
+                ৳{item.price}
+              </div>
+            </div>
+
+            {/* Item Details */}
+            <div className="p-3">
+              <h3 className="mb-1 line-clamp-1 text-base font-semibold text-gray-900">
+                {item.title}
+              </h3>
+
+              <p className="mb-2 text-xs text-gray-500">
+                {item.category}
+              </p>
+
+              <div className="flex items-center justify-between text-xs text-gray-600">
+                <span className="font-medium">{item.seller}</span>
+                <span>{item.postedDate}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* No Results */}
+      {filteredItems.length === 0 && (
+        <div className="py-16 text-center">
+          <FaShoppingCart className="mx-auto mb-4 h-16 w-16 text-gray-400" />
+          <h3 className="mb-2 text-xl font-semibold text-gray-900">
+            No items found
+          </h3>
+          <p className="text-gray-600">
+            Try adjusting your search or filter criteria
+          </p>
+        </div>
+      )}
     </div>
   );
 };

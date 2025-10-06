@@ -133,7 +133,6 @@ const CreateGroupPage: React.FC = () => {
         members: 1,
         isPrivate: formData.privacy === "private",
         coverImage: `https://ui-avatars.com/api/?name=${encodeURIComponent(formData.name)}&background=random&size=400`,
-        lastActivity: "just now",
         category: formData.category,
       };
 

@@ -46,7 +46,7 @@ const UniversityEvents: React.FC = () => {
       category: "Academic",
       attendees: 250,
       image:
-        "https://images.unsplash.com/photo-1567592159942-32d67fc2f02d?w=800&q=80",
+        "https://images.unsplash.com/photo-1470229538611-16ba8c7ffbd7?w=800&q=80",
       organizer: "Science Club",
       price: "Free",
     },
@@ -132,116 +132,112 @@ const UniversityEvents: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="mx-auto max-w-7xl px-4 py-6">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900">
-            University Events
-          </h1>
-          <p className="mt-2 text-lg text-gray-600">
-            Discover and participate in upcoming campus activities
-          </p>
-        </div>
+    <div className="space-y-5">
+      {/* Header */}
+      <div>
+        <h1 className="text-4xl font-bold text-gray-900">University Events</h1>
+        <p className="mt-1 text-lg text-gray-600">
+          Discover and participate in upcoming campus activities
+        </p>
+      </div>
 
-        {/* Category Filters */}
-        <div className="mb-6 flex items-center gap-4 overflow-x-auto rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-          <div className="flex items-center gap-2 text-gray-700">
-            <FaFilter className="h-4 w-4" />
-            <span className="font-semibold">Filter:</span>
-          </div>
-          <div className="flex gap-2">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`rounded-lg px-4 py-2 font-medium whitespace-nowrap transition-colors ${
-                  selectedCategory === category
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+      {/* Category Filters */}
+      <div className="flex items-center gap-4 overflow-x-auto rounded-xl border border-gray-200 bg-white p-2 shadow-sm">
+        <div className="flex items-center gap-2 text-gray-700">
+          <FaFilter className="h-4 w-4" />
+          <span className="font-semibold">Filter:</span>
         </div>
-
-        {/* Events Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredEvents.map((event) => (
-            <div
-              key={event.id}
-              className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-lg"
+        <div className="flex gap-2">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`rounded-lg px-4 py-2 font-medium whitespace-nowrap transition-colors ${
+                selectedCategory === category
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
             >
-              {/* Event Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="absolute top-3 right-3 rounded-lg bg-blue-600 px-3 py-1 text-sm font-semibold text-white">
-                  {event.category}
-                </div>
-              </div>
-
-              {/* Event Details */}
-              <div className="p-5">
-                <h3 className="mb-2 line-clamp-1 text-xl font-bold text-gray-900">
-                  {event.title}
-                </h3>
-                <p className="mb-4 line-clamp-2 text-sm text-gray-600">
-                  {event.description}
-                </p>
-
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <FaCalendar className="h-4 w-4 text-blue-600" />
-                    <span>{event.date}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <FaClock className="h-4 w-4 text-blue-600" />
-                    <span>{event.time}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <FaMapMarkerAlt className="h-4 w-4 text-blue-600" />
-                    <span>{event.location}</span>
-                  </div>
-                </div>
-
-                <div className="mt-4 flex items-center justify-between border-t border-gray-200 pt-4">
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <FaUsers className="h-4 w-4" />
-                    <span className="text-sm font-medium">
-                      {event.attendees} attending
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <FaTicketAlt className="h-4 w-4" />
-                    <span className="text-sm font-semibold">{event.price}</span>
-                  </div>
-                </div>
-
-                <button className="mt-4 w-full rounded-lg bg-blue-600 py-2 font-semibold text-white transition-colors hover:bg-blue-700">
-                  Register Now
-                </button>
-              </div>
-            </div>
+              {category}
+            </button>
           ))}
         </div>
-
-        {/* No Results */}
-        {filteredEvents.length === 0 && (
-          <div className="py-16 text-center">
-            <FaCalendar className="mx-auto mb-4 h-16 w-16 text-gray-400" />
-            <h3 className="mb-2 text-xl font-semibold text-gray-900">
-              No events found
-            </h3>
-            <p className="text-gray-600">Try selecting a different category</p>
-          </div>
-        )}
       </div>
+
+      {/* Events Grid */}
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+        {filteredEvents.map((event) => (
+          <div
+            key={event.id}
+            className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-lg"
+          >
+            {/* Event Image */}
+            <div className="relative h-48 overflow-hidden">
+              <img
+                src={event.image}
+                alt={event.title}
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+              />
+              <div className="absolute top-3 right-3 rounded-lg bg-blue-600 px-3 py-1 text-sm font-semibold text-white">
+                {event.category}
+              </div>
+            </div>
+
+            {/* Event Details */}
+            <div className="p-5">
+              <h3 className="mb-2 line-clamp-1 text-xl font-bold text-gray-900">
+                {event.title}
+              </h3>
+              <p className="mb-4 line-clamp-2 text-sm text-gray-600">
+                {event.description}
+              </p>
+
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center gap-2 text-gray-700">
+                  <FaCalendar className="h-4 w-4 text-blue-600" />
+                  <span>{event.date}</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <FaClock className="h-4 w-4 text-blue-600" />
+                  <span>{event.time}</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <FaMapMarkerAlt className="h-4 w-4 text-blue-600" />
+                  <span>{event.location}</span>
+                </div>
+              </div>
+
+              <div className="mt-4 flex items-center justify-between border-t border-gray-200 pt-4">
+                <div className="flex items-center gap-2 text-gray-700">
+                  <FaUsers className="h-4 w-4" />
+                  <span className="text-sm font-medium">
+                    {event.attendees} attending
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <FaTicketAlt className="h-4 w-4" />
+                  <span className="text-sm font-semibold">{event.price}</span>
+                </div>
+              </div>
+
+              <button className="mt-4 w-full rounded-lg bg-blue-600 py-2 font-semibold text-white transition-colors hover:bg-blue-700">
+                Register Now
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* No Results */}
+      {filteredEvents.length === 0 && (
+        <div className="py-16 text-center">
+          <FaCalendar className="mx-auto mb-4 h-16 w-16 text-gray-400" />
+          <h3 className="mb-2 text-xl font-semibold text-gray-900">
+            No events found
+          </h3>
+          <p className="text-gray-600">Try selecting a different category</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -4,7 +4,6 @@ import {
   FaExclamationCircle,
   FaInfoCircle,
   FaCheckCircle,
-  FaFilter,
   FaSearch,
 } from "react-icons/fa";
 
@@ -191,7 +190,6 @@ const UniversityNoticeBoard: React.FC = () => {
 
           {/* Type Filter */}
           <div className="flex items-center gap-2 overflow-x-auto rounded-xl border border-gray-200 bg-white p-2 shadow-sm">
-            <FaFilter className="ml-2 h-4 w-4 text-gray-600" />
             {types.map((type) => (
               <button
                 key={type}

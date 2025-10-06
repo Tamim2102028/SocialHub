@@ -8,7 +8,6 @@ interface Group {
   members: number;
   isPrivate: boolean;
   coverImage: string;
-  lastActivity?: string;
   category?: string;
 }
 
@@ -74,12 +73,6 @@ const GroupCard: React.FC<GroupCardProps> = ({
             {group.members.toLocaleString()} members
           </span>
         </div>
-
-        {group.lastActivity && (
-          <p className="mb-3 text-xs text-gray-500">
-            Last activity: {group.lastActivity}
-          </p>
-        )}
 
         {showJoinButton && (
           <button
