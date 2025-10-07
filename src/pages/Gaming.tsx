@@ -56,52 +56,54 @@ const Gaming: React.FC = () => {
 
   return (
     <>
-      {/* Header */}
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900">Gaming Hub</h1>
-        <p className="mt-2 text-lg text-gray-600">
-          Compete, climb the ranks, and earn achievements.
-        </p>
-      </div>
+      {/* Header with Tabs */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-4xl font-bold text-gray-900">Gaming Hub</h1>
+          <p className="mt-2 text-lg text-gray-600">
+            Compete, climb the ranks, and earn achievements.
+          </p>
+        </div>
 
-      {/* Tab Navigation */}
-      <div className="flex justify-center space-x-3">
-        <button
-          onClick={() => handleTabChange("play")}
-          className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
-            activeTab === "play"
-              ? "bg-blue-600 text-white"
-              : "border text-gray-500 hover:text-black"
-          }`}
-        >
-          Play
-        </button>
-        <button
-          onClick={() => handleTabChange("leaderboard")}
-          disabled={isGameActive}
-          className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
-            activeTab === "leaderboard" && !isGameActive
-              ? "bg-blue-600 text-white"
-              : isGameActive
-                ? "cursor-not-allowed text-gray-300"
+        {/* Tab Navigation */}
+        <div className="flex space-x-3">
+          <button
+            onClick={() => handleTabChange("play")}
+            className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
+              activeTab === "play"
+                ? "bg-blue-600 text-white"
                 : "border text-gray-500 hover:text-black"
-          }`}
-        >
-          Leaderboard
-        </button>
-        <button
-          onClick={() => handleTabChange("achievements")}
-          disabled={isGameActive}
-          className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
-            activeTab === "achievements" && !isGameActive
-              ? "bg-blue-600 text-white"
-              : isGameActive
-                ? "cursor-not-allowed text-gray-300"
-                : "border text-gray-500 hover:text-black"
-          }`}
-        >
-          Achievements
-        </button>
+            }`}
+          >
+            Play
+          </button>
+          <button
+            onClick={() => handleTabChange("leaderboard")}
+            disabled={isGameActive}
+            className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
+              activeTab === "leaderboard" && !isGameActive
+                ? "bg-blue-600 text-white"
+                : isGameActive
+                  ? "cursor-not-allowed text-gray-300"
+                  : "border text-gray-500 hover:text-black"
+            }`}
+          >
+            Leaderboard
+          </button>
+          <button
+            onClick={() => handleTabChange("achievements")}
+            disabled={isGameActive}
+            className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
+              activeTab === "achievements" && !isGameActive
+                ? "bg-blue-600 text-white"
+                : isGameActive
+                  ? "cursor-not-allowed text-gray-300"
+                  : "border text-gray-500 hover:text-black"
+            }`}
+          >
+            Achievements
+          </button>
+        </div>
       </div>
 
       {/* Content */}

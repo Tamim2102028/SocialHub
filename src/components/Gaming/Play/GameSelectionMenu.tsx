@@ -1,4 +1,5 @@
 import React from "react";
+import { FaCalculator, FaTh, FaTrophy } from "react-icons/fa";
 
 interface GameSelectionMenuProps {
   onGameSelect: (game: "math" | "sudoku" | "academic_arena") => void;
@@ -10,7 +11,7 @@ const GameSelectionMenu: React.FC<GameSelectionMenuProps> = ({
   const games = [
     {
       id: "math" as const,
-      icon: "🧮",
+      icon: <FaCalculator />,
       name: "Math Competition",
       description:
         "Challenge others in fast-paced math problems and climb the leaderboard.",
@@ -19,7 +20,7 @@ const GameSelectionMenu: React.FC<GameSelectionMenuProps> = ({
     },
     {
       id: "sudoku" as const,
-      icon: "🧩",
+      icon: <FaTh />,
       name: "Sudoku Solver",
       description:
         "Test your logical thinking with classic Sudoku puzzles of varying difficulty.",
@@ -28,7 +29,7 @@ const GameSelectionMenu: React.FC<GameSelectionMenuProps> = ({
     },
     {
       id: "academic_arena" as const,
-      icon: "🎓",
+      icon: <FaTrophy />,
       name: "Academic Arena",
       description:
         "University students create questions, college students solve them. Dual-role gameplay.",
@@ -53,49 +54,46 @@ const GameSelectionMenu: React.FC<GameSelectionMenuProps> = ({
           <div
             key={game.id}
             onClick={() => onGameSelect(game.id)}
-            className="group cursor-pointer rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-lg hover:scale-105"
+            className="flex cursor-pointer flex-col rounded-lg border border-gray-300 bg-white p-6 transition-all hover:border-gray-400 hover:shadow-md"
           >
             {/* Game Icon */}
             <div
-              className={`mb-4 flex h-16 w-16 items-center justify-center rounded-xl ${game.color} text-3xl text-white transition-colors group-hover:scale-110`}
+              className={`mb-4 flex h-14 w-14 items-center justify-center rounded-lg ${game.color} text-2xl text-white shadow-sm`}
             >
               {game.icon}
             </div>
 
-            {/* Game Info */}
-            <div>
-              <h3 className="mb-2 text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+            {/* Game Info - Flexible to take available space */}
+            <div className="mb-4 flex-1">
+              <h3 className="mb-2 text-lg font-semibold text-gray-900">
                 {game.name}
               </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <p className="text-sm leading-relaxed text-gray-600">
                 {game.description}
               </p>
             </div>
 
-            {/* Play Button */}
-            <div className="mt-6">
-              <div
-                className={`inline-flex items-center rounded-lg ${game.color} ${game.hoverColor} px-4 py-2 text-sm font-medium text-white transition-colors`}
-              >
-                <span className="mr-2">🎮</span>
-                Play Now
-              </div>
-            </div>
+            {/* Play Button - Always at bottom */}
+            <button
+              className={`w-full rounded-lg ${game.color} px-4 py-2 text-sm font-medium text-white transition-colors ${game.hoverColor}`}
+            >
+              Play Now
+            </button>
           </div>
         ))}
       </div>
 
       {/* Stats Section */}
       <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-lg bg-gray-50 p-4 text-center">
+        <div className="rounded-lg border border-gray-300 bg-white p-5 text-center">
           <div className="text-2xl font-bold text-blue-600">1,234</div>
           <div className="text-sm text-gray-600">Total Players</div>
         </div>
-        <div className="rounded-lg bg-gray-50 p-4 text-center">
+        <div className="rounded-lg border border-gray-300 bg-white p-5 text-center">
           <div className="text-2xl font-bold text-green-600">5,678</div>
           <div className="text-sm text-gray-600">Games Played</div>
         </div>
-        <div className="rounded-lg bg-gray-50 p-4 text-center">
+        <div className="rounded-lg border border-gray-300 bg-white p-5 text-center">
           <div className="text-2xl font-bold text-purple-600">89</div>
           <div className="text-sm text-gray-600">Online Now</div>
         </div>
