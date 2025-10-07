@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaHeart,
   FaShare,
   FaEllipsisH,
   FaRegHeart,
   FaRegComment,
-  FaRegThumbsDown,
 } from "react-icons/fa";
 import type { PostData } from "./dummyData/allUsersData";
 
@@ -15,16 +14,19 @@ interface ProfilePostsProps {
 }
 
 const ProfilePosts: React.FC<ProfilePostsProps> = ({ posts, isOwnProfile }) => {
+  const [commentBoxStates, setCommentBoxStates] = useState<
+    Record<string, boolean>
+  >({});
+
   const handleLike = (postId: string) => {
     console.log("Liking post:", postId);
   };
 
-  const handleDislike = (postId: string) => {
-    console.log("Disliking post:", postId);
-  };
-
-  const handleComment = (postId: string) => {
-    console.log("Commenting on post:", postId);
+  const toggleCommentBox = (postId: string) => {
+    setCommentBoxStates((prev) => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }));
   };
 
   const handleShare = (postId: string) => {
@@ -103,7 +105,7 @@ const ProfilePosts: React.FC<ProfilePostsProps> = ({ posts, isOwnProfile }) => {
 
             {/* Action Buttons */}
             <div className="border-t border-gray-100 px-4 py-3">
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-3 gap-2">
                 <button
                   onClick={() => handleLike(post.id)}
                   className={`flex items-center justify-center space-x-2 rounded-lg px-3 py-2 transition-colors ${
@@ -121,16 +123,12 @@ const ProfilePosts: React.FC<ProfilePostsProps> = ({ posts, isOwnProfile }) => {
                 </button>
 
                 <button
-                  onClick={() => handleDislike(post.id)}
-                  className="flex items-center justify-center space-x-2 rounded-lg px-3 py-2 text-gray-600 transition-colors hover:bg-gray-100"
-                >
-                  <FaRegThumbsDown size={18} />
-                  <span className="text-sm font-medium">Dislike</span>
-                </button>
-
-                <button
-                  onClick={() => handleComment(post.id)}
-                  className="flex items-center justify-center space-x-2 rounded-lg px-3 py-2 text-gray-600 transition-colors hover:bg-gray-100"
+                  onClick={() => toggleCommentBox(post.id)}
+                  className={`flex items-center justify-center space-x-2 rounded-lg px-3 py-2 transition-colors ${
+                    commentBoxStates[post.id]
+                      ? "bg-blue-50 text-blue-600"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 >
                   <FaRegComment size={18} />
                   <span className="text-sm font-medium">Comment</span>
@@ -146,21 +144,23 @@ const ProfilePosts: React.FC<ProfilePostsProps> = ({ posts, isOwnProfile }) => {
               </div>
             </div>
 
-            {/* Quick Comment Input */}
-            <div className="border-t border-gray-100 px-4 pb-4">
-              <div className="mt-3 flex items-center space-x-3">
-                <img
-                  src={post.author.avatar}
-                  alt="Your avatar"
-                  className="h-8 w-8 rounded-full bg-gray-300"
-                />
-                <input
-                  type="text"
-                  placeholder="Write a comment..."
-                  className="flex-1 rounded-full border border-gray-300 px-3 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                />
+            {/* Quick Comment Input - Show only when comment button is clicked */}
+            {commentBoxStates[post.id] && (
+              <div className="border-t border-gray-100 px-4 pb-4">
+                <div className="mt-3 flex items-center space-x-3">
+                  <img
+                    src={post.author.avatar}
+                    alt="Your avatar"
+                    className="h-8 w-8 rounded-full bg-gray-300"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Write a comment..."
+                    className="flex-1 rounded-full border border-gray-300 px-3 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         ))
       ) : (

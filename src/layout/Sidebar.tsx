@@ -13,7 +13,6 @@ import {
   FaSchool,
   FaEllipsisH,
 } from "react-icons/fa";
-import { IoExtensionPuzzleOutline } from "react-icons/io5";
 import { prefetchRoute } from "../routes/prefetch";
 
 const Sidebar: React.FC = () => {
@@ -92,27 +91,20 @@ const Sidebar: React.FC = () => {
   return (
     <div className="flex h-full flex-col">
       {/* Logo/Brand */}
-      <div className="flex items-center justify-between border-b border-gray-400 px-3 py-5">
-        <NavLink to="/">
-          <div className="flex items-center">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white">
-              B
-            </div>
-            <span className="ml-2.5 text-xl font-bold text-gray-900">
-              SocialHub
-            </span>
-          </div>
-        </NavLink>
-        <NavLink
-          to="/gaming"
-          className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 text-blue-600"
-        >
-          <IoExtensionPuzzleOutline className="h-5 w-5" />
-        </NavLink>
-      </div>
+      <NavLink
+        to="/"
+        className="justify-left flex items-center gap-3 border-b border-gray-400 px-5 py-3"
+      >
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white">
+          B
+        </div>
+        <span className="ml-2.5 text-xl font-bold text-gray-900">
+          SocialHub
+        </span>
+      </NavLink>
 
       {/* Navigation Menu */}
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-3">
         <nav className="space-y-1">
           {navigationItems.map((item, index) => (
             <NavLink
@@ -131,7 +123,7 @@ const Sidebar: React.FC = () => {
               </div>
               {item.badge && (
                 <span
-                  className={`rounded-full bg-red-500 px-2 py-1 text-xs text-white font-bold`}
+                  className={`rounded-full bg-red-500 px-2 py-1 text-xs font-bold text-white`}
                 >
                   {item.badge}
                 </span>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash, FaGoogle, FaFacebook } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAppDispatch } from "../../store/hooks";
 import { login } from "../../store/slices/authSlice";
 
@@ -118,11 +118,6 @@ const Login: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleSocialLogin = (provider: string) => {
-    console.log(`Login with ${provider}`);
-    // Implement social login logic
   };
 
   return (
@@ -249,38 +244,6 @@ const Login: React.FC = () => {
             )}
           </button>
         </form>
-
-        {/* Social Login */}
-        <div>
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-2 text-gray-500">
-                Or continue with
-              </span>
-            </div>
-          </div>
-
-          <div className="mt-6 grid grid-cols-2 gap-3">
-            <button
-              onClick={() => handleSocialLogin("google")}
-              className="inline-flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 shadow-sm transition-colors hover:bg-gray-50"
-            >
-              <FaGoogle className="h-5 w-5 text-red-500" />
-              <span className="ml-2">Google</span>
-            </button>
-
-            <button
-              onClick={() => handleSocialLogin("facebook")}
-              className="inline-flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 shadow-sm transition-colors hover:bg-gray-50"
-            >
-              <FaFacebook className="h-5 w-5 text-blue-600" />
-              <span className="ml-2">Facebook</span>
-            </button>
-          </div>
-        </div>
 
         {/* Register Link */}
         <div className="text-center">

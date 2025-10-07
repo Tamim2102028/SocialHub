@@ -1,10 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import {
-  toggleLikePost,
-  toggleBookmarkPost,
-} from "../store/slices/postsSlice";
+import { toggleLikePost, toggleBookmarkPost } from "../store/slices/postsSlice";
 import { togglePostMenu } from "../store/slices/uiSlice";
 import {
   FaHeart,
@@ -14,7 +11,6 @@ import {
   FaRegHeart,
   FaRegComment,
   FaRegBookmark,
-  FaRegThumbsDown,
 } from "react-icons/fa";
 
 interface Author {
@@ -44,18 +40,13 @@ interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [showCommentBox, setShowCommentBox] = useState(false);
   const showMenu = useAppSelector(
     (state) => state.ui.menus.postMenus[post.id] || false
   );
 
   const handleLike = () => {
     dispatch(toggleLikePost(post.id));
-  };
-
-  const handleDislike = () => {
-    // Add dislike functionality here
-    // For now, just a placeholder - you can add dislike to store later
-    console.log("Dislike post:", post.id);
   };
 
   const handleBookmark = () => {
@@ -202,7 +193,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
       {/* Action Buttons */}
       <div className="border-t border-gray-100 px-4 py-3">
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-3 gap-2">
           <button
             onClick={handleLike}
             className={`flex items-center justify-center space-x-2 rounded-lg px-3 py-2 transition-colors ${
@@ -216,14 +207,13 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           </button>
 
           <button
-            onClick={handleDislike}
-            className="flex items-center justify-center space-x-2 rounded-lg px-3 py-2 text-gray-600 transition-colors hover:bg-gray-100"
+            onClick={() => setShowCommentBox(!showCommentBox)}
+            className={`flex items-center justify-center space-x-2 rounded-lg px-3 py-2 transition-colors ${
+              showCommentBox
+                ? "bg-blue-50 text-blue-600"
+                : "text-gray-600 hover:bg-gray-100"
+            }`}
           >
-            <FaRegThumbsDown size={18} />
-            <span className="text-sm font-medium">Dislike</span>
-          </button>
-
-          <button className="flex items-center justify-center space-x-2 rounded-lg px-3 py-2 text-gray-600 transition-colors hover:bg-gray-100">
             <FaRegComment size={18} />
             <span className="text-sm font-medium">Comment</span>
           </button>
@@ -235,21 +225,23 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         </div>
       </div>
 
-      {/* Quick Comment Input */}
-      <div className="border-t border-gray-100 px-4 pb-4">
-        <div className="mt-3 flex items-center space-x-3">
-          <img
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face"
-            alt="Your avatar"
-            className="h-8 w-8 rounded-full bg-gray-300"
-          />
-          <input
-            type="text"
-            placeholder="Write a comment..."
-            className="flex-1 rounded-full border border-gray-300 px-3 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
+      {/* Quick Comment Input - Show only when comment button is clicked */}
+      {showCommentBox && (
+        <div className="border-t border-gray-100 px-4 pb-4">
+          <div className="mt-3 flex items-center space-x-3">
+            <img
+              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face"
+              alt="Your avatar"
+              className="h-8 w-8 rounded-full bg-gray-300"
+            />
+            <input
+              type="text"
+              placeholder="Write a comment..."
+              className="flex-1 rounded-full border border-gray-300 px-3 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
