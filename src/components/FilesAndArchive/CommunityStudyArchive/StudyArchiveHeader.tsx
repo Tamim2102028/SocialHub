@@ -40,7 +40,7 @@ const StudyArchiveHeader: React.FC<StudyArchiveHeaderProps> = ({
           <select
             value={selectedLevel}
             onChange={(e) => setSelectedLevel(e.target.value)}
-            className="appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2 pr-8 focus:border-transparent focus:ring-2 focus:ring-blue-500"
+            className="appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2 pr-8 focus:outline-none"
           >
             {levels.map((level) => (
               <option key={level} value={level}>
@@ -54,7 +54,7 @@ const StudyArchiveHeader: React.FC<StudyArchiveHeaderProps> = ({
           <select
             value={selectedTerm}
             onChange={(e) => setSelectedTerm(e.target.value)}
-            className="appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2 pr-8 focus:border-transparent focus:ring-2 focus:ring-blue-500"
+            className="appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2 pr-8 focus:outline-none"
           >
             {terms.map((term) => (
               <option key={term} value={term}>

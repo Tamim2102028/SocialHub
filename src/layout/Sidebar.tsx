@@ -121,7 +121,7 @@ const Sidebar: React.FC = () => {
               onMouseEnter={() => prefetchRoute(item.path)}
               className={`flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium transition-all duration-200 ${
                 item.active
-                  ? "bg-blue-600 text-white shadow-lg"
+                  ? "text-blue-600"
                   : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
               }`}
             >
@@ -131,11 +131,7 @@ const Sidebar: React.FC = () => {
               </div>
               {item.badge && (
                 <span
-                  className={`rounded-full px-2 py-1 text-xs font-bold ${
-                    item.active
-                      ? "bg-white text-blue-600"
-                      : "bg-red-500 text-white"
-                  }`}
+                  className={`rounded-full bg-red-500 px-2 py-1 text-xs text-white font-bold`}
                 >
                   {item.badge}
                 </span>
