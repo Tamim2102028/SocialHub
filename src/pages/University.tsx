@@ -48,10 +48,9 @@ const University: React.FC = () => {
           <Route path="marketplace" element={<UniversityMarketplace />} />
           <Route path="teacherscorner" element={<TeachersCorner />} />
           <Route path="more" element={<UniversityMore />} />
-
           {/* More section routes */}
+          <Route path="more/clubs" element={<Clubs />} />{" "}
           <Route path="more/career-services" element={<CareerServices />} />
-          <Route path="more/clubs" element={<Clubs />} />
           <Route path="more/course-materials" element={<CourseMaterials />} />
           <Route path="more/class-schedule" element={<ClassSchedule />} />
           <Route path="more/results" element={<Results />} />
@@ -68,7 +67,6 @@ const University: React.FC = () => {
           <Route path="more/health-services" element={<HealthServices />} />
           <Route path="more/bus-schedule" element={<BusSchedule />} />
           <Route path="more/it-support" element={<ITSupport />} />
-
           {/* Default route: show 404 not found */}
           <Route path="*" element={<NotFound />} />
         </Routes>

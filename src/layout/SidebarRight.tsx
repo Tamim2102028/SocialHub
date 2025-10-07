@@ -59,7 +59,7 @@ const SidebarRight: React.FC = () => {
   ];
 
   return (
-    <div className="h-full space-y-6 overflow-y-auto p-4">
+    <div className="h-full space-y-3 overflow-y-auto bg-blue-50 p-3">
       {/* Active Polls */}
       <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
         <div className="border-b border-gray-100 p-4">

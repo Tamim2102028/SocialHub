@@ -11,6 +11,7 @@ import {
   FaStore,
   FaChalkboardTeacher,
   FaSchool,
+  FaEllipsisH,
 } from "react-icons/fa";
 import { IoExtensionPuzzleOutline } from "react-icons/io5";
 import { prefetchRoute } from "../routes/prefetch";
@@ -73,6 +74,12 @@ const Sidebar: React.FC = () => {
       label: "Profile",
       path: "/profile",
       active: location.pathname === "/profile",
+    },
+    {
+      icon: FaEllipsisH,
+      label: "More",
+      path: "/more",
+      active: location.pathname === "/more",
     },
     {
       icon: FaCog,

@@ -180,7 +180,7 @@ const CRCorner: React.FC = () => {
 
       {/* Create Post Form - Full Width */}
       {showCreatePost && (
-        <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <FaBullhorn className="h-5 w-5 text-blue-600" />
@@ -264,42 +264,44 @@ const CRCorner: React.FC = () => {
       )}
 
       {/* CR Announcements - Full Width */}
-      <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-sm">
         <div className="mb-4 flex items-center gap-2">
           <FaBullhorn className="h-5 w-5 text-blue-600" />
           <h2 className="text-lg font-semibold text-gray-900">Announcements</h2>
         </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
           {announcements.map((announcement) => (
             <div
               key={announcement.id}
-              className="rounded-md border border-gray-200 bg-gray-50 p-4 transition-shadow hover:shadow-sm"
+              className="flex flex-col rounded-md border border-gray-200 bg-gray-50 p-3 transition-shadow hover:shadow-sm"
             >
-              <h4 className="mb-2 text-base font-semibold text-gray-900">
+              <h4 className="mb-2 line-clamp-2 text-base font-semibold text-gray-900">
                 {announcement.title}
               </h4>
-              <p className="mb-3 text-sm leading-relaxed text-gray-700">
+              <p className="mb-3 line-clamp-3 flex-1 text-sm leading-relaxed text-gray-700">
                 {announcement.content}
               </p>
 
               {/* File Attachment Display */}
               {announcement.hasFile && (
                 <div className="mb-3 flex items-center justify-between rounded bg-blue-50 px-3 py-2">
-                  <div className="flex items-center gap-2">
-                    <FaFile className="h-4 w-4 text-blue-600" />
-                    <span className="text-sm font-medium text-blue-700">
+                  <div className="flex min-w-0 flex-1 items-center gap-2">
+                    <FaFile className="h-4 w-4 flex-shrink-0 text-blue-600" />
+                    <span className="truncate text-sm font-medium text-blue-700">
                       {announcement.fileName}
                     </span>
                   </div>
-                  <button className="text-sm font-semibold text-blue-600 hover:text-blue-800">
+                  <button className="ml-2 flex-shrink-0 text-sm font-semibold text-blue-600 hover:text-blue-800">
                     Download
                   </button>
                 </div>
               )}
 
-              <div className="flex items-center justify-between text-sm text-gray-500">
-                <span className="font-medium">{announcement.postedBy}</span>
-                <span>{announcement.date}</span>
+              <div className="mt-auto flex items-center justify-between border-t border-gray-200 pt-3 text-sm text-gray-500">
+                <span className="truncate font-medium">
+                  {announcement.postedBy}
+                </span>
+                <span className="ml-2 flex-shrink-0">{announcement.date}</span>
               </div>
             </div>
           ))}
@@ -307,7 +309,7 @@ const CRCorner: React.FC = () => {
       </div>
 
       {/* Active Poll - Full Width */}
-      <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <div className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <FaPoll className="h-5 w-5 text-blue-600" />
