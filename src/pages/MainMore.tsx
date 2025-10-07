@@ -58,9 +58,9 @@ const More: React.FC = () => {
   ];
 
   return (
-    <div className="mx-auto min-h-screen max-w-7xl space-y-5">
+    <>
       {/* Header */}
-      <div className="mb-8">
+      <div>
         <h1 className="text-3xl font-bold text-gray-900">More</h1>
         <p className="mt-2 text-gray-600">
           Explore additional features and services
@@ -68,7 +68,7 @@ const More: React.FC = () => {
       </div>
 
       {/* Resources Grid */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {moreResources.map((resource) => (
           <NavLink
             key={resource.id}
@@ -87,7 +87,7 @@ const More: React.FC = () => {
           </NavLink>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
