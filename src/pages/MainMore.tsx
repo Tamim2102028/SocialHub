@@ -1,6 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FaHeartbeat, FaMapMarkedAlt, FaNewspaper, FaDollarSign } from "react-icons/fa";
+import {
+  FaHeartbeat,
+  FaMapMarkedAlt,
+  FaNewspaper,
+  FaDollarSign,
+} from "react-icons/fa";
 
 interface MoreResource {
   id: string;
@@ -53,7 +58,7 @@ const More: React.FC = () => {
   ];
 
   return (
-    <div className="mx-auto min-h-screen max-w-7xl space-y-6 p-6">
+    <div className="mx-auto min-h-screen max-w-7xl space-y-5">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">More</h1>

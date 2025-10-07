@@ -231,7 +231,7 @@ export const routes: RouteConfig[] = [
   // More section routes
   {
     path: "/more",
-    component: lazy(() => import("../pages/More")),
+    component: lazy(() => import("../pages/MainMore")),
     requireAuth: true,
     title: "More",
     category: "utility",
@@ -239,7 +239,7 @@ export const routes: RouteConfig[] = [
   },
   {
     path: "/more/blood-donation",
-    component: lazy(() => import("../pages/More/BloodDonation")),
+    component: lazy(() => import("../pages/MainMore/BloodDonation")),
     requireAuth: true,
     title: "Blood Donation",
     category: "utility",
