@@ -51,8 +51,8 @@ export const routes: RouteConfig[] = [
     meta: { description: "Your social hub dashboard" },
   },
   {
-    path: "/gaming",
-    component: lazy(() => import("../pages/Gaming")),
+    path: "/gaming/*",
+    component: lazy(() => import("../pages/Gaming/Gaming")),
     requireAuth: true,
     title: "Gaming",
     category: "entertainment",
@@ -60,7 +60,7 @@ export const routes: RouteConfig[] = [
   },
   {
     path: "/university",
-    component: lazy(() => import("../pages/University")),
+    component: lazy(() => import("../pages/University/University")),
     requireAuth: true,
     title: "University",
     category: "education",
@@ -69,7 +69,7 @@ export const routes: RouteConfig[] = [
   // Catch-all for university subpages
   {
     path: "/university/*",
-    component: lazy(() => import("../pages/University")),
+    component: lazy(() => import("../pages/University/University")),
     requireAuth: true,
     title: "University",
     category: "education",

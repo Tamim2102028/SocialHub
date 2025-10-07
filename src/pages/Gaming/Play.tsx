@@ -1,49 +1,51 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FaCalculator, FaTh, FaTrophy } from "react-icons/fa";
 
-interface GameSelectionMenuProps {
-  onGameSelect: (game: "math" | "sudoku" | "academic_arena") => void;
-}
+const Play: React.FC = () => {
+  const navigate = useNavigate();
 
-const GameSelectionMenu: React.FC<GameSelectionMenuProps> = ({
-  onGameSelect,
-}) => {
   const games = [
     {
-      id: "math" as const,
+      id: "math",
       icon: <FaCalculator />,
       name: "Math Competition",
       description:
         "Challenge others in fast-paced math problems and climb the leaderboard.",
       color: "bg-blue-500",
       hoverColor: "hover:bg-blue-600",
+      path: "/gaming/play/math-competition",
     },
     {
-      id: "sudoku" as const,
+      id: "sudoku",
       icon: <FaTh />,
       name: "Sudoku Solver",
       description:
         "Test your logical thinking with classic Sudoku puzzles of varying difficulty.",
       color: "bg-green-500",
       hoverColor: "hover:bg-green-600",
+      path: "/gaming/play/sudoku",
     },
     {
-      id: "academic_arena" as const,
+      id: "academic_arena",
       icon: <FaTrophy />,
       name: "Academic Arena",
       description:
         "University students create questions, college students solve them. Dual-role gameplay.",
       color: "bg-purple-500",
       hoverColor: "hover:bg-purple-600",
+      path: "/gaming/play/academic-arena",
     },
   ];
 
   return (
     <div className="p-8">
       {/* Header */}
-      <div className="mb-8 text-center">
-        <h2 className="text-3xl font-bold text-gray-900">Choose a Game</h2>
-        <p className="mt-2 text-gray-600">
+      <div className="mb-10 text-center">
+        <h2 className="mb-3 text-4xl font-bold text-gray-900">
+          Choose Your Game
+        </h2>
+        <p className="text-lg text-gray-600">
           Select your preferred game mode and start competing!
         </p>
       </div>
@@ -53,7 +55,7 @@ const GameSelectionMenu: React.FC<GameSelectionMenuProps> = ({
         {games.map((game) => (
           <div
             key={game.id}
-            onClick={() => onGameSelect(game.id)}
+            onClick={() => navigate(game.path)}
             className="flex cursor-pointer flex-col rounded-lg border border-gray-300 bg-white p-6 transition-all hover:border-gray-400 hover:shadow-md"
           >
             {/* Game Icon */}
@@ -84,7 +86,7 @@ const GameSelectionMenu: React.FC<GameSelectionMenuProps> = ({
       </div>
 
       {/* Stats Section */}
-      <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="rounded-lg border border-gray-300 bg-white p-5 text-center">
           <div className="text-2xl font-bold text-blue-600">1,234</div>
           <div className="text-sm text-gray-600">Total Players</div>
@@ -102,4 +104,4 @@ const GameSelectionMenu: React.FC<GameSelectionMenuProps> = ({
   );
 };
 
-export default GameSelectionMenu;
+export default Play;

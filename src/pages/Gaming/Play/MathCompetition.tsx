@@ -139,7 +139,7 @@ const MathCompetition: React.FC<MathCompetitionProps> = ({ onBackToMenu }) => {
             {/* Back Button - Top Left */}
             <button
               onClick={onBackToMenu}
-              className="mb-6 rounded-lg bg-gray-600 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 transition-colors"
+              className="mb-6 rounded-lg bg-gray-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700"
             >
               ← Back to Games
             </button>
@@ -211,13 +211,13 @@ const MathCompetition: React.FC<MathCompetitionProps> = ({ onBackToMenu }) => {
               <div className="space-y-4">
                 <button
                   onClick={startGame}
-                  className="w-full max-w-md rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700 transition-colors"
+                  className="w-full max-w-md rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700"
                 >
                   🎯 Find Random Opponent
                 </button>
                 <button
                   onClick={startGame}
-                  className="w-full max-w-md rounded-lg bg-green-600 px-6 py-3 font-medium text-white hover:bg-green-700 transition-colors"
+                  className="w-full max-w-md rounded-lg bg-green-600 px-6 py-3 font-medium text-white transition-colors hover:bg-green-700"
                 >
                   👥 Challenge a Friend
                 </button>
@@ -245,7 +245,7 @@ const MathCompetition: React.FC<MathCompetitionProps> = ({ onBackToMenu }) => {
         return (
           <div className="p-8">
             {/* Score Display */}
-            <div className="mb-6 flex justify-between items-center">
+            <div className="mb-6 flex items-center justify-between">
               <div className="text-center">
                 <div className="text-2xl font-bold text-blue-600">
                   {playerScore}
@@ -254,16 +254,16 @@ const MathCompetition: React.FC<MathCompetitionProps> = ({ onBackToMenu }) => {
               </div>
 
               {/* Progress Bar */}
-              <div className="flex-1 mx-8">
+              <div className="mx-8 flex-1">
                 <div className="mb-2 flex justify-between text-sm text-gray-600">
                   <span>
                     Question {questionIndex + 1}/{questions.length}
                   </span>
                   <span>Time: {timeLeft}s</span>
                 </div>
-                <div className="h-2 bg-gray-200 rounded-full">
+                <div className="h-2 rounded-full bg-gray-200">
                   <div
-                    className="h-2 bg-blue-600 rounded-full transition-all duration-1000"
+                    className="h-2 rounded-full bg-blue-600 transition-all duration-1000"
                     style={{
                       width: `${(timeLeft / (gameType === "time_attack" ? 30 : 60)) * 100}%`,
                     }}
@@ -287,12 +287,12 @@ const MathCompetition: React.FC<MathCompetitionProps> = ({ onBackToMenu }) => {
                 </h3>
 
                 {/* Answer Options */}
-                <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
+                <div className="mx-auto grid max-w-2xl grid-cols-2 gap-4">
                   {currentQuestion.options.map((option, index) => (
                     <button
                       key={index}
                       onClick={() => handleAnswer(index)}
-                      className="rounded-lg bg-white border-2 border-gray-200 p-4 text-lg font-medium hover:border-blue-500 hover:bg-blue-50 transition-colors"
+                      className="rounded-lg border-2 border-gray-200 bg-white p-4 text-lg font-medium transition-colors hover:border-blue-500 hover:bg-blue-50"
                     >
                       {option}
                     </button>
@@ -309,14 +309,14 @@ const MathCompetition: React.FC<MathCompetitionProps> = ({ onBackToMenu }) => {
             {/* Back Button - Top Left */}
             <button
               onClick={onBackToMenu}
-              className="mb-6 rounded-lg bg-gray-600 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 transition-colors"
+              className="mb-6 rounded-lg bg-gray-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700"
             >
               ← Back to Games
             </button>
 
             <div className="text-center">
               <div className="mb-6">
-                <div className="text-6xl mb-4">
+                <div className="mb-4 text-6xl">
                   {gameResult === "win"
                     ? "🏆"
                     : gameResult === "lose"
@@ -324,7 +324,7 @@ const MathCompetition: React.FC<MathCompetitionProps> = ({ onBackToMenu }) => {
                       : "🤝"}
                 </div>
                 <h2
-                  className={`text-3xl font-bold mb-2 ${
+                  className={`mb-2 text-3xl font-bold ${
                     gameResult === "win"
                       ? "text-green-600"
                       : gameResult === "lose"
@@ -346,7 +346,7 @@ const MathCompetition: React.FC<MathCompetitionProps> = ({ onBackToMenu }) => {
               <div className="space-y-4">
                 <button
                   onClick={resetGame}
-                  className="w-full max-w-md rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700 transition-colors"
+                  className="w-full max-w-md rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700"
                 >
                   🔄 Play Again
                 </button>

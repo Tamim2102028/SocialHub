@@ -1,117 +1,12 @@
 import React, { useState, useMemo } from "react";
+import { leaderboardPlayers } from "../../components/Gaming/dummyData/leaderboardData";
 
 type FilterType = "all" | "math" | "sudoku" | "arena";
 type TimeFilter = "daily" | "weekly" | "monthly" | "all-time";
 
-interface Player {
-  id: number;
-  name: string;
-  score: number;
-  game: "math" | "sudoku" | "arena";
-  level: number;
-  winRate: number;
-  achievements: number;
-  lastActive: string;
-  avatar: string;
-}
-
 const Leaderboard: React.FC = () => {
   const [gameFilter, setGameFilter] = useState<FilterType>("all");
   const [timeFilter, setTimeFilter] = useState<TimeFilter>("weekly");
-
-  const players: Player[] = useMemo(
-    () => [
-      {
-        id: 1,
-        name: "MathWizard",
-        score: 2450,
-        game: "math",
-        level: 15,
-        winRate: 92,
-        achievements: 12,
-        lastActive: "2 hours ago",
-        avatar: "🧙‍♂️",
-      },
-      {
-        id: 2,
-        name: "SudokuMaster",
-        score: 2380,
-        game: "sudoku",
-        level: 18,
-        winRate: 88,
-        achievements: 15,
-        lastActive: "1 hour ago",
-        avatar: "🏆",
-      },
-      {
-        id: 3,
-        name: "ArenaChamp",
-        score: 2290,
-        game: "arena",
-        level: 12,
-        winRate: 85,
-        achievements: 9,
-        lastActive: "3 hours ago",
-        avatar: "⚡",
-      },
-      {
-        id: 4,
-        name: "QuickSolver",
-        score: 2180,
-        game: "math",
-        level: 13,
-        winRate: 89,
-        achievements: 8,
-        lastActive: "30 min ago",
-        avatar: "🚀",
-      },
-      {
-        id: 5,
-        name: "PuzzleKing",
-        score: 2050,
-        game: "sudoku",
-        level: 16,
-        winRate: 91,
-        achievements: 11,
-        lastActive: "1 day ago",
-        avatar: "👑",
-      },
-      {
-        id: 6,
-        name: "BrainStorm",
-        score: 1980,
-        game: "arena",
-        level: 11,
-        winRate: 83,
-        achievements: 7,
-        lastActive: "4 hours ago",
-        avatar: "🧠",
-      },
-      {
-        id: 7,
-        name: "SpeedRunner",
-        score: 1890,
-        game: "math",
-        level: 10,
-        winRate: 87,
-        achievements: 6,
-        lastActive: "5 hours ago",
-        avatar: "💨",
-      },
-      {
-        id: 8,
-        name: "LogicLord",
-        score: 1820,
-        game: "sudoku",
-        level: 14,
-        winRate: 94,
-        achievements: 10,
-        lastActive: "2 days ago",
-        avatar: "🎯",
-      },
-    ],
-    []
-  );
 
   const gameFilterOptions = [
     { value: "all", label: "All Games", icon: "🎮" },
@@ -128,7 +23,7 @@ const Leaderboard: React.FC = () => {
   ];
 
   const filteredPlayers = useMemo(() => {
-    let filtered = players;
+    let filtered = leaderboardPlayers;
 
     if (gameFilter !== "all") {
       filtered = filtered.filter((player) => player.game === gameFilter);
@@ -136,7 +31,7 @@ const Leaderboard: React.FC = () => {
 
     // Sort by score descending
     return filtered.sort((a, b) => b.score - a.score);
-  }, [gameFilter, players]);
+  }, [gameFilter]);
 
   const getGameColor = (game: string) => {
     switch (game) {
@@ -152,16 +47,7 @@ const Leaderboard: React.FC = () => {
   };
 
   const getRankBadge = (rank: number) => {
-    switch (rank) {
-      // case 1:
-      //   return "🥇";
-      // case 2:
-      //   return "🥈";
-      // case 3:
-      //   return "🥉";
-      default:
-        return `#${rank}`;
-    }
+    return `#${rank}`;
   };
 
   return (
@@ -175,9 +61,9 @@ const Leaderboard: React.FC = () => {
       </div>
 
       {/* Filters */}
-      <div className=" grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3">
         {/* Game Filter */}
-        <div className="rounded-lg bg-gray-50 p-4 border">
+        <div className="rounded-lg border bg-gray-50 p-4">
           <h3 className="mb-3 text-base font-semibold text-gray-900">
             Filter by Game
           </h3>
@@ -202,7 +88,7 @@ const Leaderboard: React.FC = () => {
         </div>
 
         {/* Time Filter */}
-        <div className="rounded-lg bg-gray-50 p-4 border">
+        <div className="rounded-lg border bg-gray-50 p-4">
           <h3 className="mb-3 text-base font-semibold text-gray-900">
             Time Period
           </h3>
@@ -225,25 +111,25 @@ const Leaderboard: React.FC = () => {
       </div>
 
       {/* Top 3 Podium */}
-      <div className=" rounded-lg bg-gray-50 py-3 border">
+      <div className="rounded-lg border bg-gray-50 py-3">
         <h3 className="mb-4 text-center text-lg font-bold text-gray-900">
           Top Performers
         </h3>
-        <div className="flex justify-center items-end space-x-6">
+        <div className="flex items-end justify-center space-x-6">
           {filteredPlayers.slice(0, 3).map((player, index) => (
             <div key={player.id} className="text-center">
               <div
-                className={`mb-2 ${index === 0 ? "order-2 transform scale-105" : index === 1 ? "order-1" : "order-3"}`}
+                className={`mb-2 ${index === 0 ? "order-2 scale-105 transform" : index === 1 ? "order-1" : "order-3"}`}
               >
-                <div className="text-3xl mb-2">{player.avatar}</div>
-                <div className="font-bold text-gray-900 text-sm">
+                <div className="mb-2 text-3xl">{player.avatar}</div>
+                <div className="text-sm font-bold text-gray-900">
                   {player.name}
                 </div>
                 <div className="text-xs text-gray-600">
                   Level {player.level}
                 </div>
                 <div className="mt-1 text-xl">{getRankBadge(index + 1)}</div>
-                <div className="mt-1 font-semibold text-orange-600 text-sm">
+                <div className="mt-1 text-sm font-semibold text-orange-600">
                   {player.score.toLocaleString()}
                 </div>
               </div>
@@ -253,7 +139,7 @@ const Leaderboard: React.FC = () => {
       </div>
 
       {/* Full Rankings Table */}
-      <div className="rounded-lg bg-white border overflow-hidden">
+      <div className="overflow-hidden rounded-lg border bg-white">
         <div className="border-b border-gray-200 p-4">
           <div className="flex items-center justify-between">
             <h3 className="text-base font-semibold text-gray-900">
@@ -274,31 +160,31 @@ const Leaderboard: React.FC = () => {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
                   Rank
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
                   Player
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
                   Game
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
                   Score
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
                   Level
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
                   Win Rate
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 bg-white">
               {filteredPlayers.map((player, index) => (
                 <tr
                   key={player.id}
-                  className="hover:bg-gray-50 transition-colors"
+                  className="transition-colors hover:bg-gray-50"
                 >
                   <td className="px-4 py-3 whitespace-nowrap">
                     <div className="text-base font-bold text-gray-900">
@@ -307,7 +193,7 @@ const Leaderboard: React.FC = () => {
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="text-xl mr-3">{player.avatar}</div>
+                      <div className="mr-3 text-xl">{player.avatar}</div>
                       <div>
                         <div className="text-sm font-medium text-gray-900">
                           {player.name}
@@ -344,8 +230,8 @@ const Leaderboard: React.FC = () => {
 
         {filteredPlayers.length === 0 && (
           <div className="p-12 text-center">
-            <div className="text-4xl mb-4">🎮</div>
-            <div className="text-lg font-medium text-gray-900 mb-2">
+            <div className="mb-4 text-4xl">🎮</div>
+            <div className="mb-2 text-lg font-medium text-gray-900">
               No players found
             </div>
             <div className="text-gray-600">
@@ -356,17 +242,17 @@ const Leaderboard: React.FC = () => {
       </div>
 
       {/* Your Rank Card */}
-      <div className=" rounded-lg bg-gray-800 p-4 text-white">
+      <div className="rounded-lg bg-gray-800 p-4 text-white">
         <div className="flex items-center justify-between">
           <div>
             <div className="text-base font-semibold">Your Current Rank</div>
             <div className="text-2xl font-bold">#15</div>
-            <div className="text-orange-100 text-sm">
+            <div className="text-sm text-orange-100">
               Keep playing to climb higher!
             </div>
           </div>
           <div className="text-right">
-            <div className="text-orange-100 text-sm">Your Score</div>
+            <div className="text-sm text-orange-100">Your Score</div>
             <div className="text-xl font-bold">1,650</div>
             <div className="text-xs text-orange-100">+120 this week</div>
           </div>

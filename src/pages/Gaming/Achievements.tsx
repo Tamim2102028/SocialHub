@@ -1,148 +1,8 @@
 import React, { useMemo } from "react";
-
-interface Achievement {
-  id: number;
-  title: string;
-  description: string;
-  icon: string;
-  category: "math" | "sudoku" | "arena" | "general";
-  progress: number;
-  maxProgress: number;
-  isUnlocked: boolean;
-  unlockedDate?: string;
-  rarity: "common" | "rare" | "epic" | "legendary";
-  xpReward: number;
-}
+import { achievementsData } from "../../components/Gaming/dummyData/achievementsData";
 
 const Achievements: React.FC = () => {
-  const achievements: Achievement[] = useMemo(
-    () => [
-      {
-        id: 1,
-        title: "First Steps",
-        description: "Complete your first math competition",
-        icon: "🏁",
-        category: "math",
-        progress: 1,
-        maxProgress: 1,
-        isUnlocked: true,
-        unlockedDate: "2024-01-15",
-        rarity: "common",
-        xpReward: 50,
-      },
-      {
-        id: 2,
-        title: "Speed Demon",
-        description: "Answer 10 math questions in under 30 seconds",
-        icon: "⚡",
-        category: "math",
-        progress: 7,
-        maxProgress: 10,
-        isUnlocked: false,
-        rarity: "rare",
-        xpReward: 150,
-      },
-      {
-        id: 3,
-        title: "Sudoku Novice",
-        description: "Complete your first Sudoku puzzle",
-        icon: "🧩",
-        category: "sudoku",
-        progress: 1,
-        maxProgress: 1,
-        isUnlocked: true,
-        unlockedDate: "2024-01-20",
-        rarity: "common",
-        xpReward: 50,
-      },
-      {
-        id: 4,
-        title: "Master Solver",
-        description: "Complete 50 Sudoku puzzles",
-        icon: "🏆",
-        category: "sudoku",
-        progress: 23,
-        maxProgress: 50,
-        isUnlocked: false,
-        rarity: "epic",
-        xpReward: 300,
-      },
-      {
-        id: 5,
-        title: "Academic Warrior",
-        description: "Win 10 Academic Arena challenges",
-        icon: "⚔️",
-        category: "arena",
-        progress: 4,
-        maxProgress: 10,
-        isUnlocked: false,
-        rarity: "rare",
-        xpReward: 200,
-      },
-      {
-        id: 6,
-        title: "Perfect Score",
-        description: "Score 100% in any competition",
-        icon: "💯",
-        category: "general",
-        progress: 1,
-        maxProgress: 1,
-        isUnlocked: true,
-        unlockedDate: "2024-01-25",
-        rarity: "epic",
-        xpReward: 250,
-      },
-      {
-        id: 7,
-        title: "Dedication",
-        description: "Play games for 7 consecutive days",
-        icon: "🔥",
-        category: "general",
-        progress: 5,
-        maxProgress: 7,
-        isUnlocked: false,
-        rarity: "rare",
-        xpReward: 180,
-      },
-      {
-        id: 8,
-        title: "Gaming Legend",
-        description: "Reach level 20 in any game",
-        icon: "👑",
-        category: "general",
-        progress: 15,
-        maxProgress: 20,
-        isUnlocked: false,
-        rarity: "legendary",
-        xpReward: 500,
-      },
-      {
-        id: 9,
-        title: "Quick Thinker",
-        description: "Complete 5 Easy Sudokus in under 3 minutes each",
-        icon: "💨",
-        category: "sudoku",
-        progress: 2,
-        maxProgress: 5,
-        isUnlocked: false,
-        rarity: "rare",
-        xpReward: 120,
-      },
-      {
-        id: 10,
-        title: "Math Genius",
-        description: "Answer 100 math questions correctly",
-        icon: "🧠",
-        category: "math",
-        progress: 67,
-        maxProgress: 100,
-        isUnlocked: false,
-        rarity: "epic",
-        xpReward: 280,
-      },
-    ],
-    []
-  );
+  const [selectedCategory, setSelectedCategory] = React.useState<string>("all");
 
   const categoryFilters = [
     { value: "all", label: "All Categories", icon: "🎮" },
@@ -152,25 +12,23 @@ const Achievements: React.FC = () => {
     { value: "general", label: "General", icon: "⭐" },
   ];
 
-  const [selectedCategory, setSelectedCategory] = React.useState<string>("all");
-
   const filteredAchievements = useMemo(() => {
     if (selectedCategory === "all") {
-      return achievements;
+      return achievementsData;
     }
-    return achievements.filter(
+    return achievementsData.filter(
       (achievement) => achievement.category === selectedCategory
     );
-  }, [achievements, selectedCategory]);
+  }, [selectedCategory]);
 
   const stats = useMemo(() => {
-    const unlocked = achievements.filter((a) => a.isUnlocked).length;
-    const total = achievements.length;
-    const totalXP = achievements
+    const unlocked = achievementsData.filter((a) => a.isUnlocked).length;
+    const total = achievementsData.length;
+    const totalXP = achievementsData
       .filter((a) => a.isUnlocked)
       .reduce((sum, a) => sum + a.xpReward, 0);
     return { unlocked, total, totalXP };
-  }, [achievements]);
+  }, []);
 
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
@@ -208,7 +66,7 @@ const Achievements: React.FC = () => {
 
   return (
     <div className="p-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900">🏅 Achievements</h2>
@@ -218,8 +76,8 @@ const Achievements: React.FC = () => {
         </div>
 
         {/* Stats Overview */}
-        <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="rounded-lg bg-white p-6 shadow-sm text-center">
+        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="rounded-lg bg-white p-6 text-center shadow-sm">
             <div className="text-3xl font-bold text-green-600">
               {stats.unlocked}
             </div>
@@ -228,14 +86,14 @@ const Achievements: React.FC = () => {
               of {stats.total} total
             </div>
           </div>
-          <div className="rounded-lg bg-white p-6 shadow-sm text-center">
+          <div className="rounded-lg bg-white p-6 text-center shadow-sm">
             <div className="text-3xl font-bold text-blue-600">
               {Math.round((stats.unlocked / stats.total) * 100)}%
             </div>
             <div className="text-sm text-gray-600">Completion Rate</div>
             <div className="mt-1 text-xs text-gray-500">Keep going!</div>
           </div>
-          <div className="rounded-lg bg-white p-6 shadow-sm text-center">
+          <div className="rounded-lg bg-white p-6 text-center shadow-sm">
             <div className="text-3xl font-bold text-purple-600">
               {stats.totalXP}
             </div>
@@ -249,7 +107,7 @@ const Achievements: React.FC = () => {
           <h3 className="mb-4 text-lg font-semibold text-gray-900">
             Filter by Category
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
             {categoryFilters.map((filter) => (
               <button
                 key={filter.value}
@@ -270,7 +128,7 @@ const Achievements: React.FC = () => {
         </div>
 
         {/* Achievements Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredAchievements.map((achievement) => (
             <div
               key={achievement.id}
@@ -285,12 +143,12 @@ const Achievements: React.FC = () => {
                 <div className="text-4xl">{achievement.icon}</div>
                 <div className="text-right">
                   <div
-                    className={`text-xs font-medium uppercase tracking-wide ${getRarityTextColor(achievement.rarity)}`}
+                    className={`text-xs font-medium tracking-wide uppercase ${getRarityTextColor(achievement.rarity)}`}
                   >
                     {achievement.rarity}
                   </div>
                   {achievement.isUnlocked && (
-                    <div className="text-xs text-gray-500 mt-1">
+                    <div className="mt-1 text-xs text-gray-500">
                       {achievement.unlockedDate}
                     </div>
                   )}
@@ -300,7 +158,7 @@ const Achievements: React.FC = () => {
               {/* Achievement Content */}
               <div className="mb-4">
                 <h3
-                  className={`text-lg font-bold mb-2 ${achievement.isUnlocked ? "text-gray-900" : "text-gray-600"}`}
+                  className={`mb-2 text-lg font-bold ${achievement.isUnlocked ? "text-gray-900" : "text-gray-600"}`}
                 >
                   {achievement.title}
                 </h3>
@@ -320,7 +178,7 @@ const Achievements: React.FC = () => {
                       {achievement.progress}/{achievement.maxProgress}
                     </span>
                   </div>
-                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-2 overflow-hidden rounded-full bg-gray-200">
                     <div
                       className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300"
                       style={{
@@ -348,9 +206,9 @@ const Achievements: React.FC = () => {
         </div>
 
         {filteredAchievements.length === 0 && (
-          <div className="text-center py-12">
-            <div className="text-4xl mb-4">🎮</div>
-            <div className="text-lg font-medium text-gray-900 mb-2">
+          <div className="py-12 text-center">
+            <div className="mb-4 text-4xl">🎮</div>
+            <div className="mb-2 text-lg font-medium text-gray-900">
               No achievements found
             </div>
             <div className="text-gray-600">
@@ -362,30 +220,30 @@ const Achievements: React.FC = () => {
         {/* Motivation Section */}
         <div className="mt-12 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 p-8 text-white">
           <div className="text-center">
-            <h3 className="text-2xl font-bold mb-4">
+            <h3 className="mb-4 text-2xl font-bold">
               Keep Playing to Unlock More! 🚀
             </h3>
-            <p className="text-indigo-100 mb-4">
+            <p className="mb-4 text-indigo-100">
               You're {stats.total - stats.unlocked} achievements away from
               becoming a gaming legend!
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-              <div className="bg-white/10 rounded-lg p-4">
+            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="rounded-lg bg-white/10 p-4">
                 <div className="text-lg font-semibold">Next Goal</div>
                 <div className="text-sm text-indigo-100">
                   Complete 3 more achievements
                 </div>
               </div>
-              <div className="bg-white/10 rounded-lg p-4">
+              <div className="rounded-lg bg-white/10 p-4">
                 <div className="text-lg font-semibold">Potential XP</div>
                 <div className="text-sm text-indigo-100">
-                  {achievements
+                  {achievementsData
                     .filter((a) => !a.isUnlocked)
                     .reduce((sum, a) => sum + a.xpReward, 0)}{" "}
                   XP available
                 </div>
               </div>
-              <div className="bg-white/10 rounded-lg p-4">
+              <div className="rounded-lg bg-white/10 p-4">
                 <div className="text-lg font-semibold">Current Streak</div>
                 <div className="text-sm text-indigo-100">5 days playing 🔥</div>
               </div>
