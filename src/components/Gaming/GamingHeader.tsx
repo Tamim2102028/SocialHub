@@ -12,7 +12,7 @@ const GamingHeader: React.FC = () => {
   };
 
   return (
-    <div className="mb-6 flex items-center justify-between">
+    <div className="flex items-center justify-between">
       <div>
         <h1 className="text-4xl font-bold text-gray-900">Gaming Hub</h1>
         <p className="mt-2 text-lg text-gray-600">
