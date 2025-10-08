@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TuitionRequestForm from "./components/TuitionRequestForm";
+import TuitionRequestForm from "./TuitionRequestForm";
 
 interface TuitionRequest {
   id: string;

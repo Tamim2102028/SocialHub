@@ -1,8 +1,8 @@
-import type { SearchPerson } from "./dummyData/searchData";
+import type { SearchPerson } from "./data/searchData";
 import React from "react";
-import { mockSearchResults } from "./dummyData/searchData";
-import FriendCard from "../../utils/FriendCard";
-import type { Friend } from "../Friends/dummyData/friendsData";
+import { mockSearchResults } from "./data/searchData";
+import FriendCard from "../Friends/FriendCard";
+import type { Friend } from "../Friends/data/friendsData";
 
 interface PeopleResultsProps {
   searchQuery: string;

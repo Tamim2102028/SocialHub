@@ -7,7 +7,7 @@ import {
   FaCalendarAlt,
   FaCheckCircle,
 } from "react-icons/fa";
-import { type MarketplaceItem } from "./dummyData/marketplaceData";
+import { type MarketplaceItem } from "./data/marketplaceData";
 
 interface ProductCardProps {
   item: MarketplaceItem;

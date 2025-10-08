@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaBookmark } from "react-icons/fa";
-import { mockSavedItems } from "../components/Saved/dummyData/savedData";
+import { mockSavedItems } from "../components/Saved/data/savedData";
 import SavedCategories from "../components/Saved/SavedCategories";
 import SavedItemCard from "../components/Saved/SavedItemCard";
 

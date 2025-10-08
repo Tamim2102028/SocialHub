@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { coursesData, type Course } from "../../components/FilesAndArchive/CommunityStudyArchive/dummyData/courses";
-import { levelsData, termsData } from "../../components/FilesAndArchive/CommunityStudyArchive/dummyData/levels";
+import { coursesData, type Course } from "../../components/FilesAndArchive/CommunityStudyArchive/data/courses";
+import { levelsData, termsData } from "../../components/FilesAndArchive/CommunityStudyArchive/data/levels";
 
 export interface CommunityStudyArchiveState {
   selectedLevel: string;

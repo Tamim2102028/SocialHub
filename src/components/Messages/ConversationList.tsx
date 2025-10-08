@@ -13,7 +13,7 @@ import {
   setSelectedConversation,
   setSearchQuery,
 } from "../../store/slices/messagesSlice";
-import { mockConversations } from "./dummyData/messagesData";
+import { mockConversations } from "./data/messagesData";
 
 const ConversationList: React.FC = () => {
   const dispatch = useAppDispatch();

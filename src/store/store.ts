@@ -9,7 +9,7 @@ import filesSlice from "./slices/filesSlice";
 import communityStudyArchiveSlice from "./slices/communityStudyArchiveSlice";
 import profileSlice from "./slices/profileSlice";
 import messagesSlice from "./slices/messagesSlice";
-import bloodDonationSlice from "./slices/more/bloodDonationSlice";
+import bloodDonationSlice from "./slices/mainMore/bloodDonationSlice.js";
 import tournamentSlice from "./slices/tournamentSlice";
 
 export const store = configureStore({

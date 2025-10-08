@@ -1,6 +1,6 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-import { type MarketplaceCategory } from "./dummyData/marketplaceData";
+import { type MarketplaceCategory } from "./data/marketplaceData";
 
 interface FilterBarProps {
   categories: MarketplaceCategory[];

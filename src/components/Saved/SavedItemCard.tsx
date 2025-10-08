@@ -1,6 +1,6 @@
 import React from "react";
 import { FaImage, FaVideo, FaLink } from "react-icons/fa";
-import type { SavedItem } from "./dummyData/savedData";
+import type { SavedItem } from "./data/savedData";
 
 interface SavedItemCardProps {
   item: SavedItem;

@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import {
   mockNotifications,
   type Notification,
-} from "../../components/Home/dummyData/feedData";
+} from "../../components/Home/data/feedData";
 
 interface NotificationsState {
   notifications: Notification[];

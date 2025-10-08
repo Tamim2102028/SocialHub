@@ -15,8 +15,8 @@ import {
   FaComment,
   FaShare,
 } from "react-icons/fa";
-import { allMockGroups } from "./dummyData/groupsData";
-import type { Group } from "./dummyData/groupsData";
+import { allMockGroups } from "./data/groupsData";
+import type { Group } from "./data/groupsData";
 
 const GroupDetail: React.FC = () => {
   const { groupId } = useParams<{ groupId: string }>();

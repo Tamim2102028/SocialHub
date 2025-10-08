@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { mockPosts, type Post } from "../../components/Home/dummyData/feedData";
+import { mockPosts, type Post } from "../../components/Home/data/feedData";
 
 interface PostsState {
   posts: Post[];

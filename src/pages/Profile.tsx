@@ -12,7 +12,7 @@ import {
   getUserById,
   getPostsByUserId,
   getPublicFoldersByUserId,
-} from "../components/Profile/dummyData/allUsersData";
+} from "../components/Profile/data/allUsersData";
 import ProfilePosts from "../components/Profile/ProfilePosts";
 import PublicFiles from "../components/Profile/PublicFiles";
 import { useAppSelector } from "../store/hooks";

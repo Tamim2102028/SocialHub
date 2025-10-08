@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import { mockFriendRequests } from "./dummyData/friendsData";
-import FriendCard from "../../utils/FriendCard";
+import { mockFriendRequests } from "./data/friendsData";
+import FriendCard from "./FriendCard";
 
 const FriendRequests: React.FC = () => {
   const searchQuery = useAppSelector((state) => state.ui.friends.searchQuery);

@@ -4,8 +4,8 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
   setSelectedBloodGroup,
   setSelectedUniversity,
-} from "../../../store/slices/more/bloodDonationSlice";
-import { bloodGroups } from "../dummyData/bloodDonationData";
+} from "../../../store/slices/mainMore/bloodDonationSlice";
+import { bloodGroups } from "../data/bloodDonationData";
 
 const universities = ["All", "BUET", "DU", "KUET", "RUET", "CUET", "HSC"];
 

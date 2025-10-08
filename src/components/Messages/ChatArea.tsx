@@ -5,7 +5,7 @@ import {
   setMessageText,
   clearMessageText,
 } from "../../store/slices/messagesSlice";
-import { mockConversations, mockMessages } from "./dummyData/messagesData";
+import { mockConversations, mockMessages } from "./data/messagesData";
 
 const ChatArea: React.FC = () => {
   const dispatch = useAppDispatch();

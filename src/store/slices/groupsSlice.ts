@@ -3,7 +3,7 @@ import {
   mockMyGroups,
   mockSuggestedGroups,
   type Group,
-} from "../../components/Groups/dummyData/groupsData";
+} from "../../components/Groups/data/groupsData";
 
 interface GroupsState {
   myGroups: Group[];

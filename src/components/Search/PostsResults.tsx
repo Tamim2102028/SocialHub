@@ -1,5 +1,5 @@
 import React from "react";
-import { mockSearchResults } from "./dummyData/searchData";
+import { mockSearchResults } from "./data/searchData";
 
 interface PostsResultsProps {
   searchQuery: string;

@@ -29,7 +29,7 @@ import {
   selectCurrentPath,
   selectBreadcrumbPath,
 } from "../../store/slices/filesSlice";
-import type { FileItem } from "./PersonalFiles/dummyData/personalFilesData";
+import type { FileItem } from "./PersonalFiles/data/personalFilesData";
 
 const PersonalFiles: React.FC = () => {
   // Redux state and actions

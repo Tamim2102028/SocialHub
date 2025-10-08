@@ -1,7 +1,7 @@
 import React from "react";
 import { FaExclamationCircle, FaUser, FaUsers } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { setActiveTab } from "../../../store/slices/more/bloodDonationSlice";
+import { setActiveTab } from "../../../store/slices/mainMore/bloodDonationSlice";
 
 const BloodDonationTabs: React.FC = () => {
   const dispatch = useAppDispatch();

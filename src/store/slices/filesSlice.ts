@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { folderContents } from "../../components/FilesAndArchive/PersonalFiles/dummyData/personalFilesData";
+import { folderContents } from "../../components/FilesAndArchive/PersonalFiles/data/personalFilesData";
 import type {
   FileItem,
   BreadcrumbItem,
-} from "../../components/FilesAndArchive/PersonalFiles/dummyData/personalFilesData";
+} from "../../components/FilesAndArchive/PersonalFiles/data/personalFilesData";
 
 // State interface
 interface FilesState {

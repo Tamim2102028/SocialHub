@@ -4,7 +4,7 @@ import {
   mockBloodRequests,
   type BloodDonor,
   type BloodRequest,
-} from "../../../components/More/dummyData/bloodDonationData";
+} from "../../../components/More/data/bloodDonationData";
 
 interface BloodDonationState {
   activeTab: "requests" | "donors" | "donorList";

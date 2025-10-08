@@ -1,6 +1,6 @@
 import React from "react";
 import { FaFolder, FaDownload, FaEye, FaCalendarAlt } from "react-icons/fa";
-import type { PublicFileItem } from "./dummyData/allUsersData";
+import type { PublicFileItem } from "./data/allUsersData";
 
 interface PublicFilesProps {
   publicFolders: PublicFileItem[];

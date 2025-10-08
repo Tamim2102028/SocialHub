@@ -12,7 +12,7 @@ import {
 import {
   mockSuggestedConnections,
   mockUpcomingEvents,
-} from "./dummyData/rightSidebarData";
+} from "./data/rightSidebarData";
 import DailyXPClaimMini from "../components/Gaming/shared/DailyXPClaimMini";
 
 const SidebarRight: React.FC = () => {

@@ -6,7 +6,7 @@ import {
   mockVideos,
   videoCategories,
   type Video,
-} from "../components/Videos/dummyData/videosData";
+} from "../components/Videos/data/videosData";
 
 const Videos: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");

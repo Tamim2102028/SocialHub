@@ -3,7 +3,7 @@ import {
   mockMarketplaceItems,
   mockMarketplaceCategories,
   type MarketplaceItem,
-} from "../components/StudentStore/dummyData/marketplaceData";
+} from "../components/StudentStore/data/marketplaceData";
 import ProductCard from "../components/StudentStore/ProductCard";
 import FilterBar from "../components/StudentStore/FilterBar";
 import ProductModal from "../components/StudentStore/ProductModal";

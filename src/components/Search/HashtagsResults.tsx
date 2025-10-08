@@ -1,6 +1,6 @@
 import React from "react";
 import { FaHashtag } from "react-icons/fa";
-import { mockSearchResults } from "./dummyData/searchData";
+import { mockSearchResults } from "./data/searchData";
 
 interface HashtagsResultsProps {
   searchQuery: string;

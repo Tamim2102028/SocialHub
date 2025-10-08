@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import {
   mockTuitionServices,
   type TuitionService,
-} from "../../components/Tuition/dummyData/tuitionData";
+} from "../../components/Tuition/data/tuitionData";
 
 // TuitionPost interface for requests
 export interface TuitionPost {

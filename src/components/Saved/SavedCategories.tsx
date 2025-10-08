@@ -1,5 +1,5 @@
 import React from "react";
-import { mockSavedCategories } from "./dummyData/savedData";
+import { mockSavedCategories } from "./data/savedData";
 
 interface SavedCategoriesProps {
   activeCategory?: string;

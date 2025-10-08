@@ -6,7 +6,7 @@ import {
   FaRegHeart,
   FaRegComment,
 } from "react-icons/fa";
-import type { PostData } from "./dummyData/allUsersData";
+import type { PostData } from "./data/allUsersData";
 
 interface ProfilePostsProps {
   posts: PostData[];

@@ -15,7 +15,7 @@ import {
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
-import { type MarketplaceItem } from "./dummyData/marketplaceData";
+import { type MarketplaceItem } from "./data/marketplaceData";
 
 interface ProductModalProps {
   item: MarketplaceItem | null;
