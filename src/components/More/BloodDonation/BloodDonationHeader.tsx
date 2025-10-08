@@ -5,7 +5,7 @@ import { bloodGroupStats } from "../dummyData/bloodDonationData";
 
 const BloodDonationHeader: React.FC = () => {
   return (
-    <div className="space-y-3 rounded-xl border border-gray-200 bg-gradient-to-r from-red-50 to-pink-50 p-3 shadow-sm">
+    <div className="space-y-3 rounded-xl border border-gray-200 bg-red-50 p-3 shadow-sm">
       <div className="flex items-center justify-between">
         <div>
           <div className="mb-2 flex items-center gap-3">

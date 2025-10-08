@@ -33,6 +33,16 @@ const GamingHeader: React.FC = () => {
           Play
         </button>
         <button
+          onClick={() => navigate("/gaming/tournament")}
+          className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
+            isActive("/gaming/tournament")
+              ? "bg-blue-600 text-white"
+              : "border border-gray-300 text-gray-500 hover:text-black"
+          }`}
+        >
+          Tournament
+        </button>
+        <button
           onClick={() => navigate("/gaming/leaderboard")}
           className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
             isActive("/gaming/leaderboard")

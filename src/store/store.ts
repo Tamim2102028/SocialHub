@@ -10,6 +10,7 @@ import communityStudyArchiveSlice from "./slices/communityStudyArchiveSlice";
 import profileSlice from "./slices/profileSlice";
 import messagesSlice from "./slices/messagesSlice";
 import bloodDonationSlice from "./slices/more/bloodDonationSlice";
+import tournamentSlice from "./slices/tournamentSlice";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     profile: profileSlice,
     messages: messagesSlice,
     bloodDonation: bloodDonationSlice,
+    tournament: tournamentSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -4,6 +4,7 @@ import GamingHeader from "../../components/Gaming/GamingHeader.tsx";
 import Play from "./Play";
 import Leaderboard from "./Leaderboard";
 import Achievements from "./Achievements";
+import Tournament from "./Tournament";
 import MathCompetition from "./Play/MathCompetition.tsx";
 import Sudoku from "./Play/Sudoku.tsx";
 import AcademicArena from "./Play/AcademicArena.tsx";
@@ -21,7 +22,7 @@ const Gaming: React.FC = () => {
       <GamingHeader />
       <div>
         <Routes>
-          <Route index element={<Play />} />
+          <Route index element={<Tournament />} />
           <Route path="play" element={<Play />} />
           <Route
             path="play/math-competition"
@@ -35,6 +36,7 @@ const Gaming: React.FC = () => {
             path="play/academic-arena"
             element={<AcademicArena onBackToMenu={handleBackToMenu} />}
           />
+          <Route path="tournament" element={<Tournament />} />
           <Route path="leaderboard" element={<Leaderboard />} />
           <Route path="achievements" element={<Achievements />} />
 
