@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAppSelector } from "../store/hooks";
-import PostCard from "../components/Home/PostCard";
+import HomePostCard from "../components/Home/HomePostCard";
 import CreatePost from "../components/Home/CreatePost";
 import LoadingSkeleton from "../components/Home/LoadingSkeleton";
 import DailyXPClaim from "../components/Gaming/Dashboard/DailyXPClaim";
@@ -44,7 +44,7 @@ const Home: React.FC = () => {
       {/* Posts List */}
       <div className="space-y-5">
         {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
+          <HomePostCard key={post.id} post={post} />
         ))}
       </div>
 

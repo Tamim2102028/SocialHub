@@ -13,7 +13,7 @@ import {
   FaSmile,
 } from "react-icons/fa";
 import { allMockGroups } from "./data/groupsData";
-import PostCard from "../Home/PostCard";
+import GroupPostCard from "./GroupPostCard";
 
 const GroupDetail: React.FC = () => {
   const { groupId } = useParams<{ groupId: string }>();
@@ -181,24 +181,10 @@ const GroupDetail: React.FC = () => {
         <div className="space-y-3">
           {group.recentPosts && group.recentPosts.length > 0 ? (
             group.recentPosts.map((post) => (
-              <PostCard
-                key={post.id}
-                post={{
-                  id: String(post.id),
-                  author: {
-                    ...post.author,
-                    id: String(post.author.id),
-                    username: `${post.author.name.toLowerCase().replace(/\s+/g, "")}`,
-                  },
-                  content: post.content,
-                  images: post.images || [],
-                  likes: post.likes,
-                  comments: post.comments,
-                  shares: 0,
-                  createdAt: post.createdAt,
-                  isLiked: post.isLiked || false,
-                  isBookmarked: false,
-                }}
+              <GroupPostCard 
+                key={post.id} 
+                post={post} 
+                isGroupMember={isJoined}
               />
             ))
           ) : (

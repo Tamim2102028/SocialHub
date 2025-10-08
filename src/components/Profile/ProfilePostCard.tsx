@@ -1,76 +1,55 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {
-  toggleLikePost,
-  toggleBookmarkPost,
-} from "../../store/slices/postsSlice";
-import { togglePostMenu } from "../../store/slices/uiSlice";
 import {
   FaHeart,
   FaShare,
-  FaBookmark,
   FaEllipsisH,
   FaRegHeart,
   FaRegComment,
+  FaBookmark,
   FaRegBookmark,
 } from "react-icons/fa";
 
 interface Author {
-  id: string;
-  username: string;
   name: string;
+  username: string;
   avatar: string;
 }
 
-interface Post {
+interface ProfilePost {
   id: string;
-  author: Author;
   content: string;
-  images: string[];
+  author: Author;
+  timestamp: string;
   likes: number;
   comments: number;
   shares: number;
-  createdAt: string;
   isLiked: boolean;
-  isBookmarked: boolean;
+  image?: string;
 }
 
-interface PostCardProps {
-  post: Post;
+interface ProfilePostCardProps {
+  post: ProfilePost;
+  isOwnProfile: boolean;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post }) => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+const ProfilePostCard: React.FC<ProfilePostCardProps> = ({
+  post,
+  isOwnProfile,
+}) => {
   const [showCommentBox, setShowCommentBox] = useState(false);
-  const showMenu = useAppSelector(
-    (state) => state.ui.menus.postMenus[post.id] || false
-  );
+  const [isLiked, setIsLiked] = useState(post.isLiked);
+  const [likesCount, setLikesCount] = useState(post.likes);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   const handleLike = () => {
-    dispatch(toggleLikePost(post.id));
+    setIsLiked(!isLiked);
+    setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
   };
 
   const handleBookmark = () => {
-    dispatch(toggleBookmarkPost(post.id));
-  };
-
-  const handleProfileClick = () => {
-    navigate(`/profile/${post.author.id}`);
-  };
-
-  const formatTime = (timestamp: string) => {
-    const now = new Date();
-    const postTime = new Date(timestamp);
-    const diffInHours = Math.floor(
-      (now.getTime() - postTime.getTime()) / (1000 * 60 * 60)
-    );
-
-    if (diffInHours < 1) return "Just now";
-    if (diffInHours < 24) return `${diffInHours}h ago`;
-    if (diffInHours < 48) return "Yesterday";
-    return postTime.toLocaleDateString();
+    setIsBookmarked(!isBookmarked);
+    setShowMenu(false);
   };
 
   return (
@@ -81,32 +60,19 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           <img
             src={post.author.avatar}
             alt={post.author.name}
-            className="h-10 w-10 cursor-pointer rounded-full bg-gray-300 transition-all hover:ring-2 hover:ring-blue-300"
-            onClick={handleProfileClick}
+            className="h-10 w-10 rounded-full bg-gray-300"
           />
           <div>
-            <h3
-              className="cursor-pointer font-semibold text-gray-900 transition-colors hover:text-blue-600 hover:underline"
-              onClick={handleProfileClick}
-            >
-              {post.author.name}
-            </h3>
+            <h3 className="font-semibold text-gray-900">{post.author.name}</h3>
             <p className="text-sm text-gray-500">
-              @
-              <span
-                className="cursor-pointer transition-colors hover:text-blue-600 hover:underline"
-                onClick={handleProfileClick}
-              >
-                {post.author.username}
-              </span>{" "}
-              • {formatTime(post.createdAt)}
+              @{post.author.username} • {post.timestamp}
             </p>
           </div>
         </div>
 
         <div className="relative">
           <button
-            onClick={() => dispatch(togglePostMenu(post.id))}
+            onClick={() => setShowMenu(!showMenu)}
             className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
           >
             <FaEllipsisH size={16} />
@@ -119,7 +85,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                   onClick={handleBookmark}
                   className="flex w-full items-center px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                 >
-                  {post.isBookmarked ? (
+                  {isBookmarked ? (
                     <>
                       <FaBookmark className="mr-3 text-blue-600" size={14} />
                       Remove bookmark
@@ -131,15 +97,28 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                     </>
                   )}
                 </button>
-                <button className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
-                  Follow @{post.author.username}
-                </button>
-                <button className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
-                  Hide this post
-                </button>
-                <button className="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100">
-                  Report post
-                </button>
+                {isOwnProfile ? (
+                  <>
+                    <button className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
+                      Edit post
+                    </button>
+                    <button className="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100">
+                      Delete post
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
+                      Follow @{post.author.username}
+                    </button>
+                    <button className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
+                      Hide this post
+                    </button>
+                    <button className="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100">
+                      Report post
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           )}
@@ -151,35 +130,14 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <p className="whitespace-pre-wrap text-gray-900">{post.content}</p>
       </div>
 
-      {/* Post Images */}
-      {post.images.length > 0 && (
+      {/* Post Image */}
+      {post.image && (
         <div className="px-4 pb-3">
-          {post.images.length === 1 ? (
-            <img
-              src={post.images[0]}
-              alt="Post content"
-              className="h-auto max-h-96 w-full rounded-lg object-cover"
-            />
-          ) : (
-            <div className="grid grid-cols-2 gap-2">
-              {post.images.slice(0, 4).map((image, index) => (
-                <div key={index} className="relative">
-                  <img
-                    src={image}
-                    alt={`Post content ${index + 1}`}
-                    className="h-48 w-full rounded-lg object-cover"
-                  />
-                  {index === 3 && post.images.length > 4 && (
-                    <div className="bg-opacity-50 absolute inset-0 flex items-center justify-center rounded-lg bg-black">
-                      <span className="text-lg font-semibold text-white">
-                        +{post.images.length - 4}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+          <img
+            src={post.image}
+            alt="Post content"
+            className="h-auto max-h-96 w-full rounded-lg object-cover"
+          />
         </div>
       )}
 
@@ -187,7 +145,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       <div className="border-t border-gray-100 px-4 py-2">
         <div className="flex items-center justify-between text-sm text-gray-500">
           <div className="flex items-center space-x-4">
-            <span>{post.likes} likes</span>
+            <span>{likesCount} likes</span>
             <span>{post.comments} comments</span>
             <span>{post.shares} shares</span>
           </div>
@@ -200,12 +158,12 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           <button
             onClick={handleLike}
             className={`flex items-center justify-center space-x-2 rounded-lg px-3 py-2 transition-colors ${
-              post.isLiked
+              isLiked
                 ? "bg-red-50 text-red-600 hover:bg-red-100"
                 : "text-gray-600 hover:bg-gray-100"
             }`}
           >
-            {post.isLiked ? <FaHeart size={18} /> : <FaRegHeart size={18} />}
+            {isLiked ? <FaHeart size={18} /> : <FaRegHeart size={18} />}
             <span className="text-sm font-medium">Like</span>
           </button>
 
@@ -228,12 +186,12 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         </div>
       </div>
 
-      {/* Quick Comment Input - Show only when comment button is clicked */}
+      {/* Quick Comment Input */}
       {showCommentBox && (
         <div className="border-t border-gray-100 px-4 pb-4">
           <div className="mt-3 flex items-center space-x-3">
             <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face"
+              src={post.author.avatar}
               alt="Your avatar"
               className="h-8 w-8 rounded-full bg-gray-300"
             />
@@ -249,4 +207,4 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   );
 };
 
-export default PostCard;
+export default ProfilePostCard;
