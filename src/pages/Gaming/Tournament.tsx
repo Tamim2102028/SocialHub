@@ -12,7 +12,7 @@ const Tournament: React.FC = () => {
     useAppSelector((state) => state.tournament);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Daily XP Claim Section - Always visible at top */}
       <DailyXPClaim />
 
