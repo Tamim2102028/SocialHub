@@ -11,65 +11,42 @@ const GamingHeader: React.FC = () => {
     );
   };
 
+  const tabs = [
+    { path: "/gaming/dashboard", label: "Dashboard" },
+    { path: "/gaming/tournament", label: "Tournament" },
+    { path: "/gaming/play", label: "Play" },
+    { path: "/gaming/leaderboard", label: "Leaderboard" },
+    { path: "/gaming/achievements", label: "Achievements" },
+  ];
+
   return (
-    <div className="flex items-center space-x-3">
+    <div className="flex items-center justify-between space-x-3">
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Gaming Hub</h1>
       </div>
 
       {/* Tab Navigation */}
       <div className="flex space-x-3">
-        <button
-          onClick={() => navigate("/gaming/dashboard")}
-          className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
-            isActive("/gaming/dashboard") ||
-            (isActive("/gaming") && location.pathname === "/gaming")
-              ? "bg-blue-600 text-white"
-              : "border border-gray-300 text-gray-500 hover:text-black"
-          }`}
-        >
-          Dashboard
-        </button>
-        <button
-          onClick={() => navigate("/gaming/tournament")}
-          className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
-            isActive("/gaming/tournament")
-              ? "bg-blue-600 text-white"
-              : "border border-gray-300 text-gray-500 hover:text-black"
-          }`}
-        >
-          Tournament
-        </button>
-        <button
-          onClick={() => navigate("/gaming/play")}
-          className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
-            isActive("/gaming/play")
-              ? "bg-blue-600 text-white"
-              : "border border-gray-300 text-gray-500 hover:text-black"
-          }`}
-        >
-          Play
-        </button>
-        <button
-          onClick={() => navigate("/gaming/leaderboard")}
-          className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
-            isActive("/gaming/leaderboard")
-              ? "bg-blue-600 text-white"
-              : "border border-gray-300 text-gray-500 hover:text-black"
-          }`}
-        >
-          Leaderboard
-        </button>
-        <button
-          onClick={() => navigate("/gaming/achievements")}
-          className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
-            isActive("/gaming/achievements")
-              ? "bg-blue-600 text-white"
-              : "border border-gray-300 text-gray-500 hover:text-black"
-          }`}
-        >
-          Achievements
-        </button>
+        {tabs.map((tab) => {
+          const active =
+            isActive(tab.path) ||
+            (tab.path === "/gaming/dashboard" &&
+              isActive("/gaming") &&
+              location.pathname === "/gaming");
+          return (
+            <button
+              key={tab.path}
+              onClick={() => navigate(tab.path)}
+              className={`cursor-pointer rounded-md px-5 py-2.5 text-sm font-medium transition-colors ${
+                active
+                  ? "bg-blue-600 text-white"
+                  : "border border-gray-300 text-gray-500 hover:text-black"
+              }`}
+            >
+              {tab.label}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

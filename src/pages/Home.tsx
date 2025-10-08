@@ -3,7 +3,7 @@ import { useAppSelector } from "../store/hooks";
 import PostCard from "../utils/PostCard";
 import CreatePost from "../components/Home/CreatePost";
 import LoadingSkeleton from "../components/Home/LoadingSkeleton";
-import DailyXPClaim from "../components/Gaming/Tournament/DailyXPClaim";
+import DailyXPClaim from "../components/Gaming/Dashboard/DailyXPClaim";
 
 const Home: React.FC = () => {
   const { posts, loading } = useAppSelector((state) => state.posts);

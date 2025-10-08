@@ -13,7 +13,7 @@ import {
   mockSuggestedConnections,
   mockUpcomingEvents,
 } from "./dummyData/rightSidebarData";
-import DailyXPClaimMini from "../components/Gaming/Tournament/DailyXPClaimMini";
+import DailyXPClaimMini from "../components/Gaming/shared/DailyXPClaimMini";
 
 const SidebarRight: React.FC = () => {
   const navigate = useNavigate();

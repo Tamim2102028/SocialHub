@@ -1,10 +1,10 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
 import { FaTrophy, FaCoins, FaChartLine } from "react-icons/fa";
-import DailyXPClaim from "../../components/Gaming/Tournament/DailyXPClaim";
-import RegisterTournament from "../../components/Gaming/Tournament/RegisterTournament";
-import TournamentStatus from "../../components/Gaming/Tournament/TournamentStatus";
-import PrizeSelection from "../../components/Gaming/Tournament/PrizeSelection";
+import DailyXPClaim from "../../components/Gaming/Dashboard/DailyXPClaim";
+import RegisterTournament from "../../components/Gaming/Dashboard/RegisterTournament";
+import TournamentStatus from "../../components/Gaming/Dashboard/TournamentStatus";
+import PrizeSelection from "../../components/Gaming/Dashboard/PrizeSelection";
 import { TOURNAMENT_CONSTANTS } from "../../components/Gaming/data/tournamentData";
 
 const Dashboard: React.FC = () => {
