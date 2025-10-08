@@ -57,9 +57,14 @@ const DailyXPClaim: React.FC = () => {
   }, []);
 
   const handleClaim = () => {
-    dispatch(claimDailyXP());
+    // Show animation first
     setShowAnimation(true);
-    setTimeout(() => setShowAnimation(false), 2000);
+
+    // Wait for animation to finish (2 seconds), then dispatch claim
+    setTimeout(() => {
+      dispatch(claimDailyXP());
+      setShowAnimation(false);
+    }, 2000);
   };
 
   return (

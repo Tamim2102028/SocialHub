@@ -105,12 +105,12 @@ export interface Tournament {
   id: string;
   status: "registration" | "active" | "ended";
   startDate: string;
-  currentRound: "university" | "inter-university" | "qf" | "sf" | "final";
-  phase: "university-level" | "inter-university-final"; // Added phase tracking
+  currentRound: "round-96" | "round-24" | "round-3" | "finals";
+  currentDay?: number; // Track current day (1-7)
   registeredPlayers: Player[];
   bracket: Match[];
   prizePool: Prize[];
-  universityId?: string; // For university-specific tournaments
+  universityId?: string;
 }
 
 // ==================== PRIZE POOL ====================
@@ -289,8 +289,8 @@ export const pastTournaments: Tournament[] = [
     id: "tournament-000",
     status: "ended",
     startDate: "2025-10-05",
-    currentRound: "final",
-    phase: "inter-university-final",
+    currentRound: "finals",
+    currentDay: 7,
     registeredPlayers: samplePlayers.slice(0, 48),
     bracket: [],
     prizePool: defaultPrizePool,
@@ -299,8 +299,8 @@ export const pastTournaments: Tournament[] = [
     id: "tournament-999",
     status: "ended",
     startDate: "2025-09-28",
-    currentRound: "final",
-    phase: "inter-university-final",
+    currentRound: "finals",
+    currentDay: 7,
     registeredPlayers: samplePlayers.slice(0, 32),
     bracket: [],
     prizePool: defaultPrizePool,
@@ -311,43 +311,63 @@ export const pastTournaments: Tournament[] = [
 
 export const TOURNAMENT_CONSTANTS = {
   ENTRY_FEE: 50, // XP
-  MAX_PLAYERS: 64,
-  MAX_PLAYERS_PER_UNIVERSITY: 64, // Each university can have up to 64 players
-  INTER_UNIVERSITY_QUALIFIERS: 10, // Top 10 from each university qualify for inter-university
+
+  // Qualification Numbers (Simple Structure)
+  ROUND_96: 96, // Top 96 after Day 1-3
+  ROUND_24: 24, // Top 24 after Day 4-5
+  ROUND_3: 3, // Top 3 after Day 6 (per university)
+
+  // XP System
   DAILY_XP_REWARD: 10,
   NEW_USER_BONUS: 250,
+
+  // Match Timing
   ACTIVE_HOURS: {
-    START: 14, // 2 PM
-    END: 2, // 2 AM (next day)
+    START: 12, // 12 PM (Noon)
+    END: 0, // 12 AM (Midnight)
   },
+
+  // Weekly Tournament Schedule (7 Days)
   ROUNDS: [
-    { id: "university", name: "University Round", day: "Saturday-Monday" },
-    { id: "inter-university", name: "Inter-University Round", day: "Tuesday" },
-    { id: "qf", name: "Quarter Finals", day: "Wednesday" },
-    { id: "sf", name: "Semi Finals", day: "Thursday" },
-    { id: "final", name: "Grand Finals", day: "Friday" },
-  ],
-  TOURNAMENT_PHASES: [
     {
-      phase: "university-level",
-      description: "Each university has their own tournament. Top 10 advance.",
-      duration: "3 days",
+      id: "round-96",
+      name: "Round of 96",
+      days: "Day 1-3 (Sat-Mon)",
+      description: "University-level competition. Top 96 advance.",
     },
     {
-      phase: "inter-university-final",
-      description:
-        "Top 10 players from each university compete for the ultimate prize.",
-      duration: "3 days",
+      id: "round-24",
+      name: "Round of 24",
+      days: "Day 4-5 (Tue-Wed)",
+      description: "96 players compete. Top 24 advance.",
+    },
+    {
+      id: "round-3",
+      name: "Round of 3",
+      days: "Day 6 (Thu)",
+      description: "24 players compete. Top 3 from each university advance.",
+    },
+    {
+      id: "finals",
+      name: "Grand Finals",
+      days: "Day 7 (Fri)",
+      description: "3 players from each university compete for ultimate glory!",
     },
   ],
+
   TOURNAMENT_RULES: [
-    "Match time: 2 PM - 2 AM daily",
-    "Phase 1: University-level tournament (Top 10 qualify)",
-    "Phase 2: Inter-university final (All top 10s compete)",
-    "Must be online during your match time",
-    "5 minutes response time or auto-forfeit",
-    "Best of 1 game per match",
-    "Higher score wins, tie = sudden death",
+    "🗓️ Single Week Tournament (Saturday to Friday)",
+    "⏰ Match time: 12 PM - 12 AM daily",
+    "",
+    "📍 Day 1-3: University matches → Top 96 qualify",
+    "📍 Day 4-5: Round of 96 → Top 24 qualify",
+    "📍 Day 6: Round of 24 → Top 3 per university qualify",
+    "📍 Day 7: Grand Finals (3 players × All universities)",
+    "",
+    "⚡ Must be online during your match time",
+    "⏱️ 5 minutes response time or auto-forfeit",
+    "🎮 Best of 1 game per match",
+    "🏆 Higher score wins, tie = sudden death round",
   ],
 };
 
@@ -372,40 +392,95 @@ export const formatTournamentDate = (dateStr: string): string => {
   });
 };
 
+// Get current active round based on tournament start date and current date
+export const getCurrentRound = (
+  startDate: string
+): "round-96" | "round-24" | "round-3" | "finals" | null => {
+  // Parse dates at midnight to avoid time zone issues
+  const start = new Date(startDate);
+  start.setHours(0, 0, 0, 0);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Calculate days since tournament start
+  const daysSinceStart = Math.floor(
+    (today.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  if (daysSinceStart < 0) {
+    // Tournament hasn't started yet
+    return null;
+  } else if (daysSinceStart >= 0 && daysSinceStart <= 2) {
+    // Day 1-3: Saturday, Sunday, Monday
+    return "round-96";
+  } else if (daysSinceStart >= 3 && daysSinceStart <= 4) {
+    // Day 4-5: Tuesday, Wednesday
+    return "round-24";
+  } else if (daysSinceStart === 5) {
+    // Day 6: Thursday
+    return "round-3";
+  } else if (daysSinceStart === 6) {
+    // Day 7: Friday
+    return "finals";
+  } else {
+    // Tournament ended
+    return null;
+  }
+};
+
 export const getTournamentSchedule = (startDate: string) => {
   const start = new Date(startDate);
   const schedule: Array<{
     round: string;
     name: string;
     date: string;
-    day: string;
+    days: string;
+    description: string;
   }> = [];
 
-  TOURNAMENT_CONSTANTS.ROUNDS.forEach((round, index) => {
+  TOURNAMENT_CONSTANTS.ROUNDS.forEach((round) => {
     const matchDate = new Date(start);
-    if (round.id === "sf") {
-      // Semi Finals span 2 days
-      matchDate.setDate(start.getDate() + index);
+
+    if (round.id === "round-96") {
+      // Day 1-3: Round of 96
+      matchDate.setDate(start.getDate());
       schedule.push({
         round: round.id,
         name: round.name,
         date: matchDate.toISOString().split("T")[0],
-        day: "Tuesday",
+        days: round.days,
+        description: round.description,
       });
-      matchDate.setDate(start.getDate() + index + 1);
+    } else if (round.id === "round-24") {
+      // Day 4-5: Round of 24
+      matchDate.setDate(start.getDate() + 3);
       schedule.push({
         round: round.id,
         name: round.name,
         date: matchDate.toISOString().split("T")[0],
-        day: "Wednesday",
+        days: round.days,
+        description: round.description,
       });
-    } else {
-      matchDate.setDate(start.getDate() + index);
+    } else if (round.id === "round-3") {
+      // Day 6: Round of 3
+      matchDate.setDate(start.getDate() + 5);
       schedule.push({
         round: round.id,
         name: round.name,
         date: matchDate.toISOString().split("T")[0],
-        day: round.day,
+        days: round.days,
+        description: round.description,
+      });
+    } else if (round.id === "finals") {
+      // Day 7: Grand Finals
+      matchDate.setDate(start.getDate() + 6);
+      schedule.push({
+        round: round.id,
+        name: round.name,
+        date: matchDate.toISOString().split("T")[0],
+        days: round.days,
+        description: round.description,
       });
     }
   });

@@ -10,6 +10,7 @@ const DailyXPClaimMini: React.FC = () => {
   const { userXP, lastClaimDate } = useAppSelector((state) => state.tournament);
 
   const [canClaim, setCanClaim] = useState(false);
+  const [showAnimation, setShowAnimation] = useState(false);
 
   // Check if user can claim today
   useEffect(() => {
@@ -30,7 +31,14 @@ const DailyXPClaimMini: React.FC = () => {
   }, [lastClaimDate]);
 
   const handleClaim = () => {
-    dispatch(claimDailyXP());
+    // Show animation first
+    setShowAnimation(true);
+
+    // Wait for animation to finish (2 seconds), then dispatch claim
+    setTimeout(() => {
+      dispatch(claimDailyXP());
+      setShowAnimation(false);
+    }, 2000);
   };
 
   // Don't show if already claimed
@@ -39,7 +47,16 @@ const DailyXPClaimMini: React.FC = () => {
   }
 
   return (
-      <div className="rounded-lg border border-blue-200 bg-gradient-to-br from-blue-50 to-white p-4">
+    <div className="relative overflow-hidden rounded-lg border border-blue-200 bg-gradient-to-br from-blue-50 to-white p-4">
+      {/* Animation Overlay */}
+      {showAnimation && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-green-500/10 backdrop-blur-sm">
+          <div className="animate-bounce text-4xl font-bold text-green-600">
+            +10 XP!
+          </div>
+        </div>
+      )}
+
       <div className="space-y-3">
         {/* Header */}
         <div className="flex items-center gap-2">

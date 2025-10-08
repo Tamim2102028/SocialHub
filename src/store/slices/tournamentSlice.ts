@@ -4,7 +4,6 @@ import {
   type Prize,
   type Tournament,
   defaultPrizePool,
-  getNextSaturday,
   TOURNAMENT_CONSTANTS,
 } from "../../components/Gaming/data/tournamentData.ts";
 
@@ -36,12 +35,12 @@ const initialState: TournamentState = {
   currentTournament: {
     id: "tournament-001",
     status: "registration",
-    startDate: getNextSaturday(), // Auto-calculate next Saturday
-    currentRound: "university",
-    phase: "university-level",
+    startDate: "2025-10-04", // Fixed date for testing (Saturday)
+    currentRound: "round-96",
+    currentDay: 0, // Will start at day 1 when tournament begins
     registeredPlayers: [],
     bracket: [],
-    prizePool: defaultPrizePool, // Import from tournamentData
+    prizePool: defaultPrizePool,
   },
 
   userRegistered: false,
