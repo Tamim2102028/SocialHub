@@ -1,9 +1,10 @@
 import { lazy, type ComponentType, type LazyExoticComponent } from "react";
+import Home from "../pages/Home";
 
 // Enhanced Route configuration - Industry standard approach
 interface RouteConfig {
   path: string;
-  component: LazyExoticComponent<ComponentType>;
+  component: LazyExoticComponent<ComponentType> | ComponentType;
   requireAuth?: boolean;
   title?: string;
   preload?: boolean;
@@ -43,7 +44,7 @@ export const routes: RouteConfig[] = [
   // Core app routes
   {
     path: "/",
-    component: lazy(() => import("../pages/Home")),
+    component: Home, // Eager loaded for instant navigation
     requireAuth: true,
     title: "Home",
     preload: true,
