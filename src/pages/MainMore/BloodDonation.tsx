@@ -1,10 +1,10 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import BloodDonationHeader from "../../components/More/BloodDonation/BloodDonationHeader";
-import BloodDonationTabs from "../../components/More/BloodDonation/BloodDonationTabs";
-import BloodRequestsTab from "../../components/More/BloodDonation/BloodRequestsTab";
-import FindDonorsTab from "../../components/More/BloodDonation/FindDonorsTab";
-import DonorListTab from "../../components/More/BloodDonation/DonorListTab";
+import BloodDonationHeader from "../../components/MainMore/BloodDonation/BloodDonationHeader";
+import BloodDonationTabs from "../../components/MainMore/BloodDonation/BloodDonationTabs";
+import BloodRequestsTab from "../../components/MainMore/BloodDonation/BloodRequestsTab";
+import FindDonorsTab from "../../components/MainMore/BloodDonation/FindDonorsTab";
+import DonorListTab from "../../components/MainMore/BloodDonation/DonorListTab";
 
 const BloodDonation: React.FC = () => {
   const { activeTab } = useAppSelector((state) => state.bloodDonation);
