@@ -48,7 +48,7 @@ const GroupDetail: React.FC = () => {
     <>
       {/* Group Cover & Header */}
       <div className="border-b border-gray-300 bg-white">
-        {/* Cover Photo */}
+        {/* Cover Photo with back button */}
         <div className="relative h-80 w-full">
           <img
             src={group.coverImage}
@@ -59,7 +59,7 @@ const GroupDetail: React.FC = () => {
           {/* Back Button - Overlay on Cover */}
           <button
             onClick={() => navigate(-1)}
-            className="absolute top-3 left-3 flex items-center gap-1 rounded-lg bg-blue-50 px-3 py-2 text-black"
+            className="absolute top-3 left-3 flex cursor-pointer items-center gap-1 rounded-lg bg-blue-50 px-3 py-2 text-black"
           >
             <IoArrowBackOutline className="text-xl" />
             <span className="font-semibold">Back</span>
