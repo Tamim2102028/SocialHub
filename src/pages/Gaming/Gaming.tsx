@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import GamingHeader from "../../components/Gaming/GamingHeader.tsx";
+import GamingHeader from "../../components/Gaming/shared/GamingHeader.tsx";
+import Dashboard from "./Dashboard";
 import Play from "./Play";
 import Leaderboard from "./Leaderboard";
 import Achievements from "./Achievements";
@@ -22,7 +23,8 @@ const Gaming: React.FC = () => {
       <GamingHeader />
       <div>
         <Routes>
-          <Route index element={<Tournament />} />
+          <Route index element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="play" element={<Play />} />
           <Route
             path="play/math-competition"

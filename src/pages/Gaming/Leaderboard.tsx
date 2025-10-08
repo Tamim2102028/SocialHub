@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { leaderboardPlayers } from "../../components/Gaming/dummyData/leaderboardData";
+import { leaderboardPlayers } from "../../components/Gaming/data/leaderboardData";
 
 type FilterType = "all" | "math" | "sudoku" | "arena";
 type TimeFilter = "daily" | "weekly" | "monthly" | "all-time";

@@ -1,18 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useAppSelector } from "../store/hooks";
 import PostCard from "../utils/PostCard";
 import CreatePost from "../components/Home/CreatePost";
 import LoadingSkeleton from "../components/Home/LoadingSkeleton";
+import DailyXPClaim from "../components/Gaming/Tournament/DailyXPClaim";
 
 const Home: React.FC = () => {
   const { posts, loading } = useAppSelector((state) => state.posts);
+  const { lastClaimDate } = useAppSelector((state) => state.tournament);
+  const [canClaim, setCanClaim] = useState(false);
+
+  // Check if user can claim today
+  useEffect(() => {
+    const today = new Date().toDateString();
+    const lastClaim = lastClaimDate
+      ? new Date(lastClaimDate).toDateString()
+      : null;
+
+    // Can claim if never claimed OR last claim was not today
+    setCanClaim(!lastClaim || lastClaim !== today);
+  }, [lastClaimDate]);
 
   if (loading) {
     return (
       <>
-        {/* Create Post Section */}
-        <CreatePost />
-
         {/* Loading skeleton */}
         <LoadingSkeleton />
       </>
@@ -21,6 +32,9 @@ const Home: React.FC = () => {
 
   return (
     <>
+      {/* Daily XP Claim - Only show if can claim today */}
+      {canClaim && <DailyXPClaim />}
+
       {/* Create Post Section */}
       <CreatePost />
 

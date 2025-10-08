@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { FaGift, FaClock } from "react-icons/fa";
+import { FaGift, FaClock, FaTrophy } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { claimDailyXP } from "../../../store/slices/tournamentSlice.ts";
 
 const DailyXPClaim: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { userXP, lastClaimDate } = useAppSelector((state) => state.tournament);
 
   const [canClaim, setCanClaim] = useState(false);
@@ -139,6 +141,17 @@ const DailyXPClaim: React.FC = () => {
           </p>
         </div>
       )}
+
+      {/* View Tournament Button */}
+      <div className="mt-4">
+        <button
+          onClick={() => navigate("/gaming/tournament")}
+          className="flex w-full items-center justify-center gap-2 rounded-lg border border-blue-300 bg-white py-2 font-medium text-blue-600 transition-all hover:border-blue-400 hover:bg-blue-50 active:scale-95"
+        >
+          <FaTrophy />
+          View Tournament
+        </button>
+      </div>
     </div>
   );
 };

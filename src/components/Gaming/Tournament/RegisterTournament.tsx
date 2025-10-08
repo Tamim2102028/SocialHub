@@ -11,7 +11,7 @@ import {
   registerForTournament,
   setUserUniversity,
 } from "../../../store/slices/tournamentSlice.ts";
-import { universities } from "../dummyData/tournamentData";
+import { universities } from "../data/tournamentData";
 
 interface RegisterTournamentProps {
   entryFee: number;

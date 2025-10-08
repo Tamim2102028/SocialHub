@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { achievementsData } from "../../components/Gaming/dummyData/achievementsData";
+import { achievementsData } from "../../components/Gaming/data/achievementsData";
 
 const Achievements: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = React.useState<string>("all");

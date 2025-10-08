@@ -6,7 +6,7 @@ import {
   defaultPrizePool,
   getNextSaturday,
   TOURNAMENT_CONSTANTS,
-} from "../../components/Gaming/dummyData/tournamentData.ts";
+} from "../../components/Gaming/data/tournamentData.ts";
 
 interface TournamentState {
   // User XP System

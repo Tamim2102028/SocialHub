@@ -1,64 +1,26 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import { universities } from "../../components/Gaming/dummyData/tournamentData";
-import DailyXPClaim from "../../components/Gaming/Tournament/DailyXPClaim.tsx";
-import TournamentStatus from "../../components/Gaming/Tournament/TournamentStatus.tsx";
-import RegisterTournament from "../../components/Gaming/Tournament/RegisterTournament.tsx";
 import TournamentBracket from "../../components/Gaming/Tournament/TournamentBracket.tsx";
-import PrizeSelection from "../../components/Gaming/Tournament/PrizeSelection.tsx";
 import TournamentHistory from "../../components/Gaming/Tournament/TournamentHistory.tsx";
 
 const Tournament: React.FC = () => {
-  const {
-    currentTournament,
-    userXP,
-    userRegistered,
-    isWinner,
-    userUniversityId,
-  } = useAppSelector((state) => state.tournament);
-
-  // Get user's university name
-  const userUniversity = universities.find(
-    (uni) => uni.id === userUniversityId
-  );
+  const { currentTournament } = useAppSelector((state) => state.tournament);
 
   return (
     <div className="space-y-5">
-      {/* Daily XP Claim Section - Always visible at top */}
-      <DailyXPClaim />
+      {/* Page Header */}
+      <div className="rounded-lg border border-blue-200 bg-gradient-to-r from-blue-50 to-blue-100 p-6">
+        <h1 className="text-3xl font-bold text-gray-900">Tournament Arena</h1>
+        <p className="mt-2 text-gray-600">
+          View match brackets, schedules, and tournament history
+        </p>
+      </div>
 
-      {/* Tournament Status Banner */}
-      <TournamentStatus
-        status={currentTournament.status}
+      {/* Tournament Bracket - Always show */}
+      <TournamentBracket
+        bracket={currentTournament.bracket}
         currentRound={currentTournament.currentRound}
-        phase={currentTournament.phase}
-        startDate={currentTournament.startDate}
-        userUniversityName={userUniversity?.shortName}
       />
-
-      {/* Registration Phase */}
-      {currentTournament.status === "registration" && !userRegistered && (
-        <RegisterTournament
-          entryFee={50}
-          userXP={userXP}
-          registeredCount={currentTournament.registeredPlayers.length}
-          maxPlayers={64}
-        />
-      )}
-
-      {/* Active Tournament - Show Bracket */}
-      {(currentTournament.status === "active" ||
-        currentTournament.status === "ended") && (
-        <TournamentBracket
-          bracket={currentTournament.bracket}
-          currentRound={currentTournament.currentRound}
-        />
-      )}
-
-      {/* Winner Prize Selection */}
-      {isWinner && currentTournament.status === "ended" && (
-        <PrizeSelection prizePool={currentTournament.prizePool} />
-      )}
 
       {/* Tournament History */}
       <TournamentHistory />

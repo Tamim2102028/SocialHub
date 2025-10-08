@@ -12,25 +12,23 @@ const GamingHeader: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center space-x-3">
       <div>
-        <h1 className="text-4xl font-bold text-gray-900">Gaming Hub</h1>
-        <p className="mt-2 text-lg text-gray-600">
-          Compete, climb the ranks, and earn achievements.
-        </p>
+        <h1 className="text-3xl font-bold text-gray-900">Gaming Hub</h1>
       </div>
 
       {/* Tab Navigation */}
       <div className="flex space-x-3">
         <button
-          onClick={() => navigate("/gaming/play")}
+          onClick={() => navigate("/gaming/dashboard")}
           className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
-            isActive("/gaming/play")
+            isActive("/gaming/dashboard") ||
+            (isActive("/gaming") && location.pathname === "/gaming")
               ? "bg-blue-600 text-white"
               : "border border-gray-300 text-gray-500 hover:text-black"
           }`}
         >
-          Play
+          Dashboard
         </button>
         <button
           onClick={() => navigate("/gaming/tournament")}
@@ -41,6 +39,16 @@ const GamingHeader: React.FC = () => {
           }`}
         >
           Tournament
+        </button>
+        <button
+          onClick={() => navigate("/gaming/play")}
+          className={`cursor-pointer rounded-md px-6 py-3 text-sm font-medium transition-colors ${
+            isActive("/gaming/play")
+              ? "bg-blue-600 text-white"
+              : "border border-gray-300 text-gray-500 hover:text-black"
+          }`}
+        >
+          Play
         </button>
         <button
           onClick={() => navigate("/gaming/leaderboard")}
