@@ -1,11 +1,82 @@
 // Tournament Dummy Data
 
+// ==================== UNIVERSITY DATA ====================
+
+export interface University {
+  id: string;
+  name: string;
+  shortName: string;
+  category: "engineering" | "general" | "medical" | "other";
+  logo?: string;
+}
+
+export const universities: University[] = [
+  // Engineering Universities
+  {
+    id: "buet",
+    name: "Bangladesh University of Engineering and Technology",
+    shortName: "BUET",
+    category: "engineering",
+  },
+  {
+    id: "cuet",
+    name: "Chittagong University of Engineering & Technology",
+    shortName: "CUET",
+    category: "engineering",
+  },
+  {
+    id: "ruet",
+    name: "Rajshahi University of Engineering & Technology",
+    shortName: "RUET",
+    category: "engineering",
+  },
+  {
+    id: "kuet",
+    name: "Khulna University of Engineering & Technology",
+    shortName: "KUET",
+    category: "engineering",
+  },
+  {
+    id: "duet",
+    name: "Dhaka University of Engineering & Technology",
+    shortName: "DUET",
+    category: "engineering",
+  },
+
+  // General Universities
+  {
+    id: "du",
+    name: "University of Dhaka",
+    shortName: "DU",
+    category: "general",
+  },
+  {
+    id: "cu",
+    name: "University of Chittagong",
+    shortName: "CU",
+    category: "general",
+  },
+  {
+    id: "ru",
+    name: "University of Rajshahi",
+    shortName: "RU",
+    category: "general",
+  },
+  {
+    id: "ju",
+    name: "Jahangirnagar University",
+    shortName: "JU",
+    category: "general",
+  },
+];
+
 export interface Player {
   id: string;
   name: string;
   avatar: string;
   xp: number;
   rank: number;
+  universityId?: string; // Added university tracking
 }
 
 export interface Match {
@@ -34,10 +105,12 @@ export interface Tournament {
   id: string;
   status: "registration" | "active" | "ended";
   startDate: string;
-  currentRound: "round1" | "round2" | "qf" | "sf" | "final";
+  currentRound: "university" | "inter-university" | "qf" | "sf" | "final";
+  phase: "university-level" | "inter-university-final"; // Added phase tracking
   registeredPlayers: Player[];
   bracket: Match[];
   prizePool: Prize[];
+  universityId?: string; // For university-specific tournaments
 }
 
 // ==================== PRIZE POOL ====================
@@ -217,6 +290,7 @@ export const pastTournaments: Tournament[] = [
     status: "ended",
     startDate: "2025-10-05",
     currentRound: "final",
+    phase: "inter-university-final",
     registeredPlayers: samplePlayers.slice(0, 48),
     bracket: [],
     prizePool: defaultPrizePool,
@@ -226,6 +300,7 @@ export const pastTournaments: Tournament[] = [
     status: "ended",
     startDate: "2025-09-28",
     currentRound: "final",
+    phase: "inter-university-final",
     registeredPlayers: samplePlayers.slice(0, 32),
     bracket: [],
     prizePool: defaultPrizePool,
@@ -237,6 +312,8 @@ export const pastTournaments: Tournament[] = [
 export const TOURNAMENT_CONSTANTS = {
   ENTRY_FEE: 50, // XP
   MAX_PLAYERS: 64,
+  MAX_PLAYERS_PER_UNIVERSITY: 64, // Each university can have up to 64 players
+  INTER_UNIVERSITY_QUALIFIERS: 10, // Top 10 from each university qualify for inter-university
   DAILY_XP_REWARD: 10,
   NEW_USER_BONUS: 250,
   ACTIVE_HOURS: {
@@ -244,14 +321,29 @@ export const TOURNAMENT_CONSTANTS = {
     END: 2, // 2 AM (next day)
   },
   ROUNDS: [
-    { id: "round1", name: "Round 1", day: "Saturday" },
-    { id: "round2", name: "Round 2", day: "Sunday" },
-    { id: "qf", name: "Quarter Finals", day: "Monday" },
-    { id: "sf", name: "Semi Finals", day: "Tuesday-Wednesday" },
-    { id: "final", name: "Finals", day: "Thursday" },
+    { id: "university", name: "University Round", day: "Saturday-Monday" },
+    { id: "inter-university", name: "Inter-University Round", day: "Tuesday" },
+    { id: "qf", name: "Quarter Finals", day: "Wednesday" },
+    { id: "sf", name: "Semi Finals", day: "Thursday" },
+    { id: "final", name: "Grand Finals", day: "Friday" },
+  ],
+  TOURNAMENT_PHASES: [
+    {
+      phase: "university-level",
+      description: "Each university has their own tournament. Top 10 advance.",
+      duration: "3 days",
+    },
+    {
+      phase: "inter-university-final",
+      description:
+        "Top 10 players from each university compete for the ultimate prize.",
+      duration: "3 days",
+    },
   ],
   TOURNAMENT_RULES: [
     "Match time: 2 PM - 2 AM daily",
+    "Phase 1: University-level tournament (Top 10 qualify)",
+    "Phase 2: Inter-university final (All top 10s compete)",
     "Must be online during your match time",
     "5 minutes response time or auto-forfeit",
     "Best of 1 game per match",

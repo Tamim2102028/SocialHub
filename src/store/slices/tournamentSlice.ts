@@ -13,6 +13,7 @@ interface TournamentState {
   userXP: number;
   lastClaimDate: string | null;
   isNewUser: boolean;
+  userUniversityId: string | null; // Track user's university
 
   // Current Tournament
   currentTournament: Tournament;
@@ -30,12 +31,14 @@ const initialState: TournamentState = {
   userXP: TOURNAMENT_CONSTANTS.NEW_USER_BONUS,
   lastClaimDate: null,
   isNewUser: true,
+  userUniversityId: null, // Set when user registers
 
   currentTournament: {
     id: "tournament-001",
     status: "registration",
     startDate: getNextSaturday(), // Auto-calculate next Saturday
-    currentRound: "round1",
+    currentRound: "university",
+    phase: "university-level",
     registeredPlayers: [],
     bracket: [],
     prizePool: defaultPrizePool, // Import from tournamentData
@@ -71,12 +74,13 @@ const tournamentSlice = createSlice({
       }
     },
 
-    // Tournament Registration
+    // Tournament Registration - Auto-use user's university from profile
     registerForTournament: (state) => {
       const entryFee = TOURNAMENT_CONSTANTS.ENTRY_FEE;
       if (state.userXP >= entryFee && !state.userRegistered) {
         state.userXP -= entryFee;
         state.userRegistered = true;
+        // userUniversityId will be set from user's profile in component
         // In real app, would add user to registeredPlayers array
       }
     },
@@ -89,7 +93,13 @@ const tournamentSlice = createSlice({
       ) {
         state.userXP += TOURNAMENT_CONSTANTS.ENTRY_FEE; // Refund entry fee
         state.userRegistered = false;
+        state.userUniversityId = null;
       }
+    },
+
+    // Set user's university from profile
+    setUserUniversity: (state, action: PayloadAction<string>) => {
+      state.userUniversityId = action.payload;
     },
 
     // Update tournament status
@@ -143,6 +153,7 @@ export const {
   claimDailyXP,
   registerForTournament,
   unregisterFromTournament,
+  setUserUniversity,
   updateTournamentStatus,
   selectPrize,
   setWinner,

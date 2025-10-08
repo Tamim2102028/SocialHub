@@ -10,6 +10,8 @@ interface User {
   location?: string;
   website?: string;
   coverPhoto?: string;
+  university?: string; // University name
+  universityId?: string; // University ID for tournament matching
   followers: number;
   following: number;
   postsCount: number;

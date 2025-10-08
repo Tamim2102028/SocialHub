@@ -99,6 +99,8 @@ const Login: React.FC = () => {
               avatar:
                 "https://ui-avatars.com/api/?name=Tamim+Ikbal&background=3b82f6&color=fff&size=150",
               bio: "Welcome to SocialHub!",
+              university: "Bangladesh University of Engineering and Technology",
+              universityId: "buet", // BUET ID for tournament
               followers: 0,
               following: 0,
               postsCount: 0,

@@ -3,38 +3,45 @@ import { FaTrophy, FaClock, FaUsers } from "react-icons/fa";
 
 interface TournamentStatusProps {
   status: "registration" | "active" | "ended";
-  currentRound: "round1" | "round2" | "qf" | "sf" | "final";
+  currentRound: "university" | "inter-university" | "qf" | "sf" | "final";
+  phase: "university-level" | "inter-university-final";
   startDate: string;
+  userUniversityName?: string;
 }
 
 const TournamentStatus: React.FC<TournamentStatusProps> = ({
   status,
   currentRound,
+  phase,
   startDate,
+  userUniversityName,
 }) => {
   const getStatusText = () => {
-    switch (status) {
-      case "registration":
-        return "Registration Open";
-      case "active":
-        return `Live Tournament - ${getRoundName()}`;
-      case "ended":
-        return "Tournament Ended";
+    if (status === "registration") {
+      return "Registration Open";
     }
+    if (status === "active") {
+      if (phase === "university-level") {
+        return `University Round - ${getRoundName()}`;
+      } else {
+        return `Inter-University Final - ${getRoundName()}`;
+      }
+    }
+    return "Tournament Ended";
   };
 
   const getRoundName = () => {
     switch (currentRound) {
-      case "round1":
-        return "Round 1";
-      case "round2":
-        return "Round 2";
+      case "university":
+        return "University Round";
+      case "inter-university":
+        return "Inter-University";
       case "qf":
         return "Quarter Finals";
       case "sf":
         return "Semi Finals";
       case "final":
-        return "Finals";
+        return "Grand Finals";
     }
   };
 
@@ -55,7 +62,11 @@ const TournamentStatus: React.FC<TournamentStatusProps> = ({
           <FaTrophy className="text-4xl" />
           <div>
             <h2 className="text-2xl font-semibold">{getStatusText()}</h2>
-            <p className="mt-1 text-sm opacity-90">Weekly Gaming Tournament</p>
+            <p className="mt-1 text-sm opacity-90">
+              {phase === "university-level" && userUniversityName
+                ? `${userUniversityName} Tournament`
+                : "Inter-University Championship"}
+            </p>
           </div>
         </div>
 
@@ -93,30 +104,50 @@ const TournamentStatus: React.FC<TournamentStatusProps> = ({
 
       {/* Tournament Schedule */}
       {status === "registration" && (
-        <div className="mt-5 grid grid-cols-6 gap-2 rounded border border-white/100 bg-white/50 p-3">
-          <div className="text-center">
-            <p className="text-xs opacity-90">Sat</p>
-            <p className="text-sm font-semibold">Round 1</p>
+        <div className="mt-5 space-y-3">
+          {/* Phase Information */}
+          <div className="rounded border border-white/100 bg-white/50 p-3">
+            <h3 className="mb-2 font-semibold">📅 Tournament Structure</h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-start gap-2">
+                <span className="font-semibold text-blue-600">Phase 1:</span>
+                <span>
+                  University Round (Sat-Mon) - Top 10 players from each
+                  university advance
+                </span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="font-semibold text-green-600">Phase 2:</span>
+                <span>
+                  Inter-University Final (Tue-Fri) - All university champions
+                  compete
+                </span>
+              </div>
+            </div>
           </div>
-          <div className="text-center">
-            <p className="text-xs opacity-90">Sun</p>
-            <p className="text-sm font-semibold">Round 2</p>
-          </div>
-          <div className="text-center">
-            <p className="text-xs opacity-90">Mon</p>
-            <p className="text-sm font-semibold">QF</p>
-          </div>
-          <div className="text-center">
-            <p className="text-xs opacity-90">Tue</p>
-            <p className="text-sm font-semibold">SF 1</p>
-          </div>
-          <div className="text-center">
-            <p className="text-xs opacity-90">Wed</p>
-            <p className="text-sm font-semibold">SF 2</p>
-          </div>
-          <div className="text-center">
-            <p className="text-xs opacity-90">Thu</p>
-            <p className="text-sm font-semibold">Finals</p>
+
+          {/* Match Schedule */}
+          <div className="grid grid-cols-5 gap-2 rounded border border-white/100 bg-white/50 p-3">
+            <div className="text-center">
+              <p className="text-xs opacity-90">Sat-Mon</p>
+              <p className="text-sm font-semibold">University</p>
+            </div>
+            <div className="text-center">
+              <p className="text-xs opacity-90">Tue</p>
+              <p className="text-sm font-semibold">Inter-Uni</p>
+            </div>
+            <div className="text-center">
+              <p className="text-xs opacity-90">Wed</p>
+              <p className="text-sm font-semibold">QF</p>
+            </div>
+            <div className="text-center">
+              <p className="text-xs opacity-90">Thu</p>
+              <p className="text-sm font-semibold">SF</p>
+            </div>
+            <div className="text-center">
+              <p className="text-xs opacity-90">Fri</p>
+              <p className="text-sm font-semibold">Finals</p>
+            </div>
           </div>
         </div>
       )}

@@ -1,5 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
+import { universities } from "../../components/Gaming/dummyData/tournamentData";
 import DailyXPClaim from "../../components/Gaming/Tournament/DailyXPClaim.tsx";
 import TournamentStatus from "../../components/Gaming/Tournament/TournamentStatus.tsx";
 import RegisterTournament from "../../components/Gaming/Tournament/RegisterTournament.tsx";
@@ -8,8 +9,18 @@ import PrizeSelection from "../../components/Gaming/Tournament/PrizeSelection.ts
 import TournamentHistory from "../../components/Gaming/Tournament/TournamentHistory.tsx";
 
 const Tournament: React.FC = () => {
-  const { currentTournament, userXP, userRegistered, isWinner } =
-    useAppSelector((state) => state.tournament);
+  const {
+    currentTournament,
+    userXP,
+    userRegistered,
+    isWinner,
+    userUniversityId,
+  } = useAppSelector((state) => state.tournament);
+
+  // Get user's university name
+  const userUniversity = universities.find(
+    (uni) => uni.id === userUniversityId
+  );
 
   return (
     <div className="space-y-5">
@@ -20,7 +31,9 @@ const Tournament: React.FC = () => {
       <TournamentStatus
         status={currentTournament.status}
         currentRound={currentTournament.currentRound}
+        phase={currentTournament.phase}
         startDate={currentTournament.startDate}
+        userUniversityName={userUniversity?.shortName}
       />
 
       {/* Registration Phase */}

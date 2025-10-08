@@ -1,7 +1,17 @@
-import React from "react";
-import { FaTrophy, FaUsers, FaCoins, FaCheckCircle } from "react-icons/fa";
-import { useAppDispatch } from "../../../store/hooks";
-import { registerForTournament } from "../../../store/slices/tournamentSlice.ts";
+import React, { useEffect } from "react";
+import {
+  FaTrophy,
+  FaUsers,
+  FaCoins,
+  FaCheckCircle,
+  FaUniversity,
+} from "react-icons/fa";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import {
+  registerForTournament,
+  setUserUniversity,
+} from "../../../store/slices/tournamentSlice.ts";
+import { universities } from "../dummyData/tournamentData";
 
 interface RegisterTournamentProps {
   entryFee: number;
@@ -17,12 +27,29 @@ const RegisterTournament: React.FC<RegisterTournamentProps> = ({
   maxPlayers,
 }) => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.user);
+  const userUniversityId = useAppSelector(
+    (state) => state.tournament.userUniversityId
+  );
+
+  // Set user's university from their profile on component mount
+  useEffect(() => {
+    if (user?.universityId && !userUniversityId) {
+      dispatch(setUserUniversity(user.universityId));
+    }
+  }, [user, userUniversityId, dispatch]);
 
   const canRegister = userXP >= entryFee;
   const isFull = registeredCount >= maxPlayers;
+  const hasUniversity = !!user?.universityId;
+
+  // Get user's university details
+  const userUniversity = universities.find(
+    (uni) => uni.id === user?.universityId
+  );
 
   const handleRegister = () => {
-    if (canRegister && !isFull) {
+    if (canRegister && !isFull && hasUniversity) {
       dispatch(registerForTournament());
     }
   };
@@ -62,6 +89,59 @@ const RegisterTournament: React.FC<RegisterTournamentProps> = ({
       </div>
 
       {/* Prize Pool Preview */}
+      <div className="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
+        <h4 className="mb-3 text-center font-semibold text-blue-800">
+          🏆 Tournament Structure
+        </h4>
+        <div className="space-y-2 text-sm text-blue-700">
+          <p className="font-medium">Phase 1: University Round (3 days)</p>
+          <p className="ml-4 text-xs">
+            • Compete within your university
+            <br />• Top 10 players advance to next phase
+          </p>
+          <p className="mt-2 font-medium">
+            Phase 2: Inter-University Final (3 days)
+          </p>
+          <p className="ml-4 text-xs">
+            • All university champions compete
+            <br />• Grand prize for ultimate winner
+          </p>
+        </div>
+      </div>
+
+      {/* User's University Display */}
+      {hasUniversity && userUniversity ? (
+        <div className="mb-6 rounded-lg border-2 border-green-200 bg-green-50 p-4">
+          <div className="flex items-center gap-3">
+            <FaUniversity className="text-2xl text-green-600" />
+            <div className="flex-1">
+              <p className="text-xs text-green-600">You'll compete for</p>
+              <p className="font-bold text-green-800">
+                {userUniversity.shortName}
+              </p>
+              <p className="text-xs text-green-700">{userUniversity.name}</p>
+            </div>
+            <div className="rounded-full bg-green-600 px-3 py-1 text-xs font-bold text-white">
+              ✓ Verified
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="mb-6 rounded-lg border-2 border-red-200 bg-red-50 p-4">
+          <div className="flex items-center gap-3">
+            <FaUniversity className="text-2xl text-red-600" />
+            <div className="flex-1">
+              <p className="font-bold text-red-800">University Not Set</p>
+              <p className="text-xs text-red-700">
+                Please update your profile with university information to
+                register
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Prize Pool Preview */}
       <div className="mb-6 rounded-lg bg-white p-4 shadow">
         <h4 className="mb-3 text-center font-bold text-gray-800">
           🎁 Prize Pool 🎁
@@ -92,7 +172,18 @@ const RegisterTournament: React.FC<RegisterTournamentProps> = ({
 
       {/* Registration Button */}
       <div className="space-y-3">
-        {!canRegister && (
+        {!hasUniversity && (
+          <div className="rounded-lg border border-orange-200 bg-orange-50 p-3 text-center">
+            <p className="text-sm font-medium text-orange-700">
+              ⚠️ University information required to register
+            </p>
+            <p className="mt-1 text-xs text-orange-600">
+              Update your profile with your university details
+            </p>
+          </div>
+        )}
+
+        {!canRegister && hasUniversity && (
           <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-center">
             <p className="text-sm font-medium text-red-700">
               ❌ Insufficient XP! You need {entryFee - userXP} more XP to
@@ -114,20 +205,22 @@ const RegisterTournament: React.FC<RegisterTournamentProps> = ({
 
         <button
           onClick={handleRegister}
-          disabled={!canRegister || isFull}
+          disabled={!canRegister || isFull || !hasUniversity}
           className={`w-full rounded-lg py-3 font-semibold text-white shadow transition-all ${
-            canRegister && !isFull
+            canRegister && !isFull && hasUniversity
               ? "bg-blue-600 hover:bg-blue-700 active:scale-95"
               : "cursor-not-allowed bg-gray-400"
           }`}
         >
-          {canRegister && !isFull ? (
+          {canRegister && !isFull && hasUniversity ? (
             <span className="flex items-center justify-center gap-2">
               <FaCheckCircle />
               Register Now ({entryFee} XP)
             </span>
           ) : isFull ? (
             "Tournament Full"
+          ) : !hasUniversity ? (
+            "University Required"
           ) : (
             "Insufficient XP"
           )}
@@ -145,6 +238,8 @@ const RegisterTournament: React.FC<RegisterTournamentProps> = ({
         <h4 className="mb-2 font-bold text-blue-800">📋 Tournament Rules</h4>
         <ul className="space-y-1 text-xs text-blue-700">
           <li>• Match time: 2 PM - 2 AM daily</li>
+          <li>• Phase 1: University-level matches (Top 10 advance)</li>
+          <li>• Phase 2: Inter-university championship</li>
           <li>• Must be online during your match time</li>
           <li>• 5 minutes response time or auto-forfeit</li>
           <li>• Best of 1 game per match</li>
