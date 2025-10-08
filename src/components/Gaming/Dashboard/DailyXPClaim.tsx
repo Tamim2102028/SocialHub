@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { FaGift, FaClock, FaTrophy } from "react-icons/fa";
+import {
+  FaGift,
+  FaClock,
+  FaTrophy,
+  FaExclamationTriangle,
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { claimDailyXP } from "../../../store/slices/tournamentSlice.ts";
@@ -58,7 +63,7 @@ const DailyXPClaim: React.FC = () => {
   };
 
   return (
-    <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow">
+    <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white p-5 shadow">
       {/* Animation Overlay */}
       {showAnimation && (
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-green-500/10 backdrop-blur-sm">
@@ -68,7 +73,7 @@ const DailyXPClaim: React.FC = () => {
         </div>
       )}
 
-      <div className="flex items-center justify-between gap-6">
+      <div className="flex items-center justify-between gap-5">
         {/* Left Side - Claim Info */}
         <div className="flex-1">
           <div className="mb-3 flex items-center gap-2">
@@ -133,20 +138,24 @@ const DailyXPClaim: React.FC = () => {
         </div>
       </div>
 
-      {/* Warning Banner */}
-      {canClaim && (
-        <div className="mt-4 rounded border border-orange-200 bg-orange-50 px-4 py-2 text-center">
-          <p className="text-xs text-orange-700">
-            ⚠️ Claim expires at midnight. Don't miss your daily reward!
-          </p>
-        </div>
-      )}
+      {/* Warning Banner & View Tournament Button */}
+      <div className="mt-3 grid grid-cols-2 gap-3">
+        {/* Warning Banner */}
+        {canClaim && (
+          <div className="flex items-center justify-center gap-2 rounded border border-orange-200 bg-orange-50 px-4 py-2">
+            <FaExclamationTriangle className="text-orange-600" />
+            <p className="text-xs text-orange-700">
+              Claim expires at midnight. Don't miss your daily reward!
+            </p>
+          </div>
+        )}
 
-      {/* View Tournament Button */}
-      <div className="mt-4">
+        {/* View Tournament Button */}
         <button
           onClick={() => navigate("/gaming/tournament")}
-          className="flex w-full items-center justify-center gap-2 rounded-lg border border-blue-300 bg-white py-2 font-medium text-blue-600 transition-all hover:border-blue-400 hover:bg-blue-50 active:scale-95"
+          className={`flex items-center justify-center gap-2 rounded-lg border border-blue-300 bg-white py-2 font-medium text-blue-600 transition-all hover:border-blue-400 hover:bg-blue-50 active:scale-95 ${
+            canClaim ? "" : "col-span-2"
+          }`}
         >
           <FaTrophy />
           View Tournament

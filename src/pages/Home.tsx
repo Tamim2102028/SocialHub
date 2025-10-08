@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAppSelector } from "../store/hooks";
-import PostCard from "../utils/PostCard";
+import PostCard from "../components/Home/PostCard";
 import CreatePost from "../components/Home/CreatePost";
 import LoadingSkeleton from "../components/Home/LoadingSkeleton";
 import DailyXPClaim from "../components/Gaming/Dashboard/DailyXPClaim";

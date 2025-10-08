@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { toggleLikePost, toggleBookmarkPost } from "../store/slices/postsSlice";
-import { togglePostMenu } from "../store/slices/uiSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import {
+  toggleLikePost,
+  toggleBookmarkPost,
+} from "../../store/slices/postsSlice";
+import { togglePostMenu } from "../../store/slices/uiSlice";
 import {
   FaHeart,
   FaShare,
