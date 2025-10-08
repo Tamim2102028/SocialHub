@@ -39,10 +39,10 @@ const Play: React.FC = () => {
   ];
 
   return (
-    <div className="p-8">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="mb-10 text-center">
-        <h2 className="mb-3 text-4xl font-bold text-gray-900">
+      <div className="text-center">
+        <h2 className="mb-1 text-4xl font-bold text-gray-900">
           Choose Your Game
         </h2>
         <p className="text-lg text-gray-600">
@@ -51,12 +51,12 @@ const Play: React.FC = () => {
       </div>
 
       {/* Games Grid */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
         {games.map((game) => (
           <div
             key={game.id}
             onClick={() => navigate(game.path)}
-            className="flex cursor-pointer flex-col rounded-lg border border-gray-300 bg-white p-6 transition-all hover:border-gray-400 hover:shadow-md"
+            className="flex cursor-pointer flex-col rounded-lg border border-gray-300 bg-white p-5 transition-all hover:border-gray-400 hover:shadow-md"
           >
             {/* Game Icon */}
             <div
@@ -86,7 +86,7 @@ const Play: React.FC = () => {
       </div>
 
       {/* Stats Section */}
-      <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3">
         <div className="rounded-lg border border-gray-300 bg-white p-5 text-center">
           <div className="text-2xl font-bold text-blue-600">1,234</div>
           <div className="text-sm text-gray-600">Total Players</div>

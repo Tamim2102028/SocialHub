@@ -65,188 +65,186 @@ const Achievements: React.FC = () => {
   };
 
   return (
-    <div className="p-8">
-      <div className="mx-auto max-w-6xl">
-        {/* Header */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">🏅 Achievements</h2>
-          <p className="mt-2 text-gray-600">
-            Track your progress and unlock rewards
-          </p>
-        </div>
+    <div className="space-y-5">
+      {/* Header */}
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-gray-900">🏅 Achievements</h2>
+        <p className="mt-1 text-gray-600">
+          Track your progress and unlock rewards
+        </p>
+      </div>
 
-        {/* Stats Overview */}
-        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="rounded-lg bg-white p-6 text-center shadow-sm">
-            <div className="text-3xl font-bold text-green-600">
-              {stats.unlocked}
-            </div>
-            <div className="text-sm text-gray-600">Achievements Unlocked</div>
-            <div className="mt-1 text-xs text-gray-500">
-              of {stats.total} total
-            </div>
+      {/* Stats Overview */}
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <div className="rounded-lg bg-white p-6 text-center shadow-sm">
+          <div className="text-3xl font-bold text-green-600">
+            {stats.unlocked}
           </div>
-          <div className="rounded-lg bg-white p-6 text-center shadow-sm">
-            <div className="text-3xl font-bold text-blue-600">
-              {Math.round((stats.unlocked / stats.total) * 100)}%
-            </div>
-            <div className="text-sm text-gray-600">Completion Rate</div>
-            <div className="mt-1 text-xs text-gray-500">Keep going!</div>
-          </div>
-          <div className="rounded-lg bg-white p-6 text-center shadow-sm">
-            <div className="text-3xl font-bold text-purple-600">
-              {stats.totalXP}
-            </div>
-            <div className="text-sm text-gray-600">XP Earned</div>
-            <div className="mt-1 text-xs text-gray-500">from achievements</div>
+          <div className="text-sm text-gray-600">Achievements Unlocked</div>
+          <div className="mt-1 text-xs text-gray-500">
+            of {stats.total} total
           </div>
         </div>
-
-        {/* Category Filter */}
-        <div className="mb-8 rounded-lg bg-white p-6 shadow-sm">
-          <h3 className="mb-4 text-lg font-semibold text-gray-900">
-            Filter by Category
-          </h3>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
-            {categoryFilters.map((filter) => (
-              <button
-                key={filter.value}
-                onClick={() => setSelectedCategory(filter.value)}
-                className={`rounded-lg border-2 p-3 text-sm font-medium transition-colors ${
-                  selectedCategory === filter.value
-                    ? "border-indigo-500 bg-indigo-50 text-indigo-700"
-                    : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"
-                }`}
-              >
-                <div className="text-center">
-                  <div className="mb-1 text-lg">{filter.icon}</div>
-                  <div>{filter.label}</div>
-                </div>
-              </button>
-            ))}
+        <div className="rounded-lg bg-white p-6 text-center shadow-sm">
+          <div className="text-3xl font-bold text-blue-600">
+            {Math.round((stats.unlocked / stats.total) * 100)}%
           </div>
+          <div className="text-sm text-gray-600">Completion Rate</div>
+          <div className="mt-1 text-xs text-gray-500">Keep going!</div>
         </div>
+        <div className="rounded-lg bg-white p-6 text-center shadow-sm">
+          <div className="text-3xl font-bold text-purple-600">
+            {stats.totalXP}
+          </div>
+          <div className="text-sm text-gray-600">XP Earned</div>
+          <div className="mt-1 text-xs text-gray-500">from achievements</div>
+        </div>
+      </div>
 
-        {/* Achievements Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredAchievements.map((achievement) => (
-            <div
-              key={achievement.id}
-              className={`rounded-lg border-2 p-6 shadow-sm transition-all duration-200 ${
-                achievement.isUnlocked
-                  ? `${getRarityColor(achievement.rarity)} hover:shadow-md`
-                  : "border-gray-200 bg-gray-50 opacity-75"
+      {/* Category Filter */}
+      <div className="rounded-lg bg-white p-3 shadow-sm">
+        <h3 className="mb-4 text-lg font-semibold text-gray-900">
+          Filter by Category
+        </h3>
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
+          {categoryFilters.map((filter) => (
+            <button
+              key={filter.value}
+              onClick={() => setSelectedCategory(filter.value)}
+              className={`rounded-lg border-2 p-3 text-sm font-medium transition-colors ${
+                selectedCategory === filter.value
+                  ? "border-indigo-500 bg-indigo-50 text-indigo-700"
+                  : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"
               }`}
             >
-              {/* Achievement Header */}
-              <div className="mb-4 flex items-start justify-between">
-                <div className="text-4xl">{achievement.icon}</div>
-                <div className="text-right">
-                  <div
-                    className={`text-xs font-medium tracking-wide uppercase ${getRarityTextColor(achievement.rarity)}`}
-                  >
-                    {achievement.rarity}
-                  </div>
-                  {achievement.isUnlocked && (
-                    <div className="mt-1 text-xs text-gray-500">
-                      {achievement.unlockedDate}
-                    </div>
-                  )}
-                </div>
+              <div className="text-center">
+                <div className="mb-1 text-lg">{filter.icon}</div>
+                <div>{filter.label}</div>
               </div>
-
-              {/* Achievement Content */}
-              <div className="mb-4">
-                <h3
-                  className={`mb-2 text-lg font-bold ${achievement.isUnlocked ? "text-gray-900" : "text-gray-600"}`}
-                >
-                  {achievement.title}
-                </h3>
-                <p
-                  className={`text-sm ${achievement.isUnlocked ? "text-gray-700" : "text-gray-500"}`}
-                >
-                  {achievement.description}
-                </p>
-              </div>
-
-              {/* Progress Bar */}
-              {!achievement.isUnlocked && (
-                <div className="mb-4">
-                  <div className="mb-2 flex justify-between text-sm">
-                    <span className="text-gray-600">Progress</span>
-                    <span className="text-gray-600">
-                      {achievement.progress}/{achievement.maxProgress}
-                    </span>
-                  </div>
-                  <div className="h-2 overflow-hidden rounded-full bg-gray-200">
-                    <div
-                      className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300"
-                      style={{
-                        width: `${getProgressPercentage(achievement.progress, achievement.maxProgress)}%`,
-                      }}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* XP Reward */}
-              <div className="flex items-center justify-between">
-                <div
-                  className={`text-sm ${achievement.isUnlocked ? "text-green-600" : "text-gray-600"}`}
-                >
-                  {achievement.isUnlocked ? "✅ Unlocked" : "🔒 Locked"}
-                </div>
-                <div className="flex items-center text-sm text-yellow-600">
-                  <span className="mr-1">⭐</span>
-                  <span>{achievement.xpReward} XP</span>
-                </div>
-              </div>
-            </div>
+            </button>
           ))}
         </div>
+      </div>
 
-        {filteredAchievements.length === 0 && (
-          <div className="py-12 text-center">
-            <div className="mb-4 text-4xl">🎮</div>
-            <div className="mb-2 text-lg font-medium text-gray-900">
-              No achievements found
+      {/* Achievements Grid */}
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+        {filteredAchievements.map((achievement) => (
+          <div
+            key={achievement.id}
+            className={`rounded-lg border-2 p-6 shadow-sm transition-all duration-200 ${
+              achievement.isUnlocked
+                ? `${getRarityColor(achievement.rarity)} hover:shadow-md`
+                : "border-gray-200 bg-gray-50 opacity-75"
+            }`}
+          >
+            {/* Achievement Header */}
+            <div className="mb-4 flex items-start justify-between">
+              <div className="text-4xl">{achievement.icon}</div>
+              <div className="text-right">
+                <div
+                  className={`text-xs font-medium tracking-wide uppercase ${getRarityTextColor(achievement.rarity)}`}
+                >
+                  {achievement.rarity}
+                </div>
+                {achievement.isUnlocked && (
+                  <div className="mt-1 text-xs text-gray-500">
+                    {achievement.unlockedDate}
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="text-gray-600">
-              Try selecting a different category.
+
+            {/* Achievement Content */}
+            <div className="mb-4">
+              <h3
+                className={`mb-2 text-lg font-bold ${achievement.isUnlocked ? "text-gray-900" : "text-gray-600"}`}
+              >
+                {achievement.title}
+              </h3>
+              <p
+                className={`text-sm ${achievement.isUnlocked ? "text-gray-700" : "text-gray-500"}`}
+              >
+                {achievement.description}
+              </p>
+            </div>
+
+            {/* Progress Bar */}
+            {!achievement.isUnlocked && (
+              <div className="mb-4">
+                <div className="mb-2 flex justify-between text-sm">
+                  <span className="text-gray-600">Progress</span>
+                  <span className="text-gray-600">
+                    {achievement.progress}/{achievement.maxProgress}
+                  </span>
+                </div>
+                <div className="h-2 overflow-hidden rounded-full bg-gray-200">
+                  <div
+                    className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300"
+                    style={{
+                      width: `${getProgressPercentage(achievement.progress, achievement.maxProgress)}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* XP Reward */}
+            <div className="flex items-center justify-between">
+              <div
+                className={`text-sm ${achievement.isUnlocked ? "text-green-600" : "text-gray-600"}`}
+              >
+                {achievement.isUnlocked ? "✅ Unlocked" : "🔒 Locked"}
+              </div>
+              <div className="flex items-center text-sm text-yellow-600">
+                <span className="mr-1">⭐</span>
+                <span>{achievement.xpReward} XP</span>
+              </div>
             </div>
           </div>
-        )}
+        ))}
+      </div>
 
-        {/* Motivation Section */}
-        <div className="mt-12 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 p-8 text-white">
-          <div className="text-center">
-            <h3 className="mb-4 text-2xl font-bold">
-              Keep Playing to Unlock More! 🚀
-            </h3>
-            <p className="mb-4 text-indigo-100">
-              You're {stats.total - stats.unlocked} achievements away from
-              becoming a gaming legend!
-            </p>
-            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-              <div className="rounded-lg bg-white/10 p-4">
-                <div className="text-lg font-semibold">Next Goal</div>
-                <div className="text-sm text-indigo-100">
-                  Complete 3 more achievements
-                </div>
+      {filteredAchievements.length === 0 && (
+        <div className="py-12 text-center">
+          <div className="mb-4 text-4xl">🎮</div>
+          <div className="mb-2 text-lg font-medium text-gray-900">
+            No achievements found
+          </div>
+          <div className="text-gray-600">
+            Try selecting a different category.
+          </div>
+        </div>
+      )}
+
+      {/* Motivation Section */}
+      <div className="rounded-lg bg-gray-600 p-5 text-white">
+        <div className="text-center">
+          <h3 className="mb-4 text-2xl font-bold">
+            Keep Playing to Unlock More! 🚀
+          </h3>
+          <p className="mb-4 text-indigo-100">
+            You're {stats.total - stats.unlocked} achievements away from
+            becoming a gaming legend!
+          </p>
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg bg-white/10 p-4">
+              <div className="text-lg font-semibold">Next Goal</div>
+              <div className="text-sm text-indigo-100">
+                Complete 3 more achievements
               </div>
-              <div className="rounded-lg bg-white/10 p-4">
-                <div className="text-lg font-semibold">Potential XP</div>
-                <div className="text-sm text-indigo-100">
-                  {achievementsData
-                    .filter((a) => !a.isUnlocked)
-                    .reduce((sum, a) => sum + a.xpReward, 0)}{" "}
-                  XP available
-                </div>
+            </div>
+            <div className="rounded-lg bg-white/10 p-4">
+              <div className="text-lg font-semibold">Potential XP</div>
+              <div className="text-sm text-indigo-100">
+                {achievementsData
+                  .filter((a) => !a.isUnlocked)
+                  .reduce((sum, a) => sum + a.xpReward, 0)}{" "}
+                XP available
               </div>
-              <div className="rounded-lg bg-white/10 p-4">
-                <div className="text-lg font-semibold">Current Streak</div>
-                <div className="text-sm text-indigo-100">5 days playing 🔥</div>
-              </div>
+            </div>
+            <div className="rounded-lg bg-white/10 p-4">
+              <div className="text-lg font-semibold">Current Streak</div>
+              <div className="text-sm text-indigo-100">5 days playing 🔥</div>
             </div>
           </div>
         </div>

@@ -51,9 +51,9 @@ const Leaderboard: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="space-y-5">
       {/* Header */}
-      <div>
+      <div className="text-center">
         <h2 className="text-2xl font-bold text-gray-900">🏆 Leaderboard</h2>
         <p className="mt-1 text-gray-600">
           Compete with players and climb the rankings
@@ -258,7 +258,7 @@ const Leaderboard: React.FC = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
