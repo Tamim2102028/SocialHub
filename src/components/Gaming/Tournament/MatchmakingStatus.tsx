@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { FaSearch, FaClock, FaCheckCircle } from "react-icons/fa";
 
 interface MatchmakingStatusProps {
@@ -18,26 +17,14 @@ const MatchmakingStatus: React.FC<MatchmakingStatusProps> = ({
   opponent,
   matchTime,
 }) => {
-  const [searchDuration, setSearchDuration] = useState(0);
-
-  useEffect(() => {
-    if (isSearching && !matchFound) {
-      const interval = setInterval(() => {
-        setSearchDuration((prev) => prev + 1);
-      }, 1000);
-
-      return () => clearInterval(interval);
-    }
-  }, [isSearching, matchFound]);
-
   if (!isSearching && !matchFound) return null;
 
   return (
-    <div className="rounded-lg border border-blue-300 bg-gradient-to-br from-blue-50 to-purple-50 p-6 shadow-md">
+    <div className="rounded-lg border border-blue-300 bg-gradient-to-br from-blue-50 to-purple-50 p-3 shadow-md">
       {isSearching && !matchFound ? (
         // Searching State
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center">
+          <div className="m-3 mx-auto flex h-15 w-15 items-center justify-center">
             <FaSearch className="animate-pulse text-5xl text-blue-600" />
           </div>
           <h3 className="text-xl font-bold text-gray-900">
@@ -47,17 +34,8 @@ const MatchmakingStatus: React.FC<MatchmakingStatusProps> = ({
             Searching for a worthy challenger for your math battle
           </p>
 
-          {/* Search Timer */}
-          <div className="mt-4 flex items-center justify-center gap-2 text-gray-700">
-            <FaClock className="text-blue-500" />
-            <span className="font-mono text-lg">
-              {Math.floor(searchDuration / 60)}:
-              {(searchDuration % 60).toString().padStart(2, "0")}
-            </span>
-          </div>
-
           {/* Searching Animation */}
-          <div className="mt-6 flex items-center justify-center gap-2">
+          <div className="mt-5 flex items-center justify-center gap-2">
             <div className="h-3 w-3 animate-bounce rounded-full bg-blue-500"></div>
             <div
               className="h-3 w-3 animate-bounce rounded-full bg-purple-500"
