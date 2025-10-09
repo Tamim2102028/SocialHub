@@ -13,7 +13,15 @@ import {
   setSelectedConversation,
   setSearchQuery,
 } from "../../store/slices/messagesSlice";
-import { mockConversations } from "./data/messagesData";
+import {
+  mockConversations,
+  directMessages,
+  groupChats,
+  universityGroups,
+  globalChats,
+} from "./data/messagesData";
+
+type FilterType = "all" | "direct" | "group" | "university" | "global";
 
 const ConversationList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -21,41 +29,87 @@ const ConversationList: React.FC = () => {
     (state) => state.messages
   );
   const [showMenu, setShowMenu] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<FilterType>("all");
 
-  const filteredConversations = mockConversations.filter((conv) =>
-    conv.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Filter conversations based on active filter and search
+  const getFilteredConversations = () => {
+    let conversations = mockConversations;
+
+    // Filter by type
+    if (activeFilter === "direct") {
+      conversations = directMessages;
+    } else if (activeFilter === "group") {
+      conversations = groupChats;
+    } else if (activeFilter === "university") {
+      conversations = universityGroups;
+    } else if (activeFilter === "global") {
+      conversations = globalChats;
+    }
+
+    // Filter by search query
+    if (searchQuery) {
+      conversations = conversations.filter((conv) =>
+        conv.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Sort by time (most recent first)
+    return conversations.slice().sort((a, b) => {
+      const timeToMinutes = (time: string): number => {
+        if (time.includes("m")) return parseInt(time);
+        if (time.includes("h")) return parseInt(time) * 60;
+        if (time.includes("d")) return parseInt(time) * 1440;
+        if (time.includes("w")) return parseInt(time) * 10080;
+        return 0;
+      };
+      return timeToMinutes(a.time) - timeToMinutes(b.time);
+    });
+  };
+
+  const filteredConversations = getFilteredConversations();
 
   const chatTypes = [
     {
-      id: "direct",
+      id: "all" as FilterType,
+      label: "All Messages",
+      icon: FaBars,
+      color: "text-gray-600",
+      bgColor: "bg-gray-100",
+    },
+    {
+      id: "direct" as FilterType,
       label: "Direct Messages",
       icon: FaUser,
       color: "text-blue-600",
       bgColor: "bg-blue-100",
     },
     {
-      id: "group",
-      label: "Group Chats",
-      icon: FaUsers,
-      color: "text-green-600",
-      bgColor: "bg-green-100",
-    },
-    {
-      id: "university",
+      id: "university" as FilterType,
       label: "University Groups",
       icon: FaUniversity,
       color: "text-purple-600",
       bgColor: "bg-purple-100",
     },
     {
-      id: "global",
+      id: "group" as FilterType,
+      label: "Group Chats",
+      icon: FaUsers,
+      color: "text-green-600",
+      bgColor: "bg-green-100",
+    },
+    {
+      id: "global" as FilterType,
       label: "Global Chat",
       icon: FaGlobe,
       color: "text-orange-600",
       bgColor: "bg-orange-100",
     },
   ];
+
+  const handleChatTypeClick = (typeId: FilterType) => {
+    setActiveFilter(typeId);
+    setShowMenu(false);
+  };
 
   return (
     <div className="flex w-70 flex-col border-r border-gray-200">
@@ -93,7 +147,7 @@ const ConversationList: React.FC = () => {
               return (
                 <button
                   key={type.id}
-                  onClick={() => setShowMenu(false)}
+                  onClick={() => handleChatTypeClick(type.id)}
                   className="flex w-full items-center gap-4 rounded-lg border border-gray-200 bg-white p-3 text-left transition-all hover:border-blue-300 hover:shadow-md"
                 >
                   <div className={`rounded-lg ${type.bgColor} p-3`}>
