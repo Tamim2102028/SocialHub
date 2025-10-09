@@ -24,7 +24,7 @@ const MatchmakingStatus: React.FC<MatchmakingStatusProps> = ({
       {isSearching && !matchFound ? (
         // Searching State
         <div className="text-center">
-          <div className="m-3 mx-auto flex h-15 w-15 items-center justify-center">
+          <div className="mx-auto mb-3 flex h-15 w-15 items-center justify-center">
             <FaSearch className="animate-pulse text-5xl text-blue-600" />
           </div>
           <h3 className="text-xl font-bold text-gray-900">
