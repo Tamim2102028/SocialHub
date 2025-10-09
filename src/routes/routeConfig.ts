@@ -163,6 +163,14 @@ export const routes: RouteConfig[] = [
     meta: { description: "Chat and messaging" },
   },
   {
+    path: "/study-helper",
+    component: lazy(() => import("../pages/StudyHelperAI")),
+    requireAuth: true,
+    title: "Study Helper AI",
+    category: "education",
+    meta: { description: "AI-powered study assistant" },
+  },
+  {
     path: "/saved",
     component: lazy(() => import("../pages/Saved")),
     requireAuth: true,

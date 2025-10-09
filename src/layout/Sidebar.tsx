@@ -12,6 +12,7 @@ import {
   FaChalkboardTeacher,
   FaSchool,
   FaEllipsisH,
+  FaRobot,
 } from "react-icons/fa";
 import { prefetchRoute } from "../routes/prefetch";
 
@@ -37,6 +38,12 @@ const Sidebar: React.FC = () => {
       label: "Files & Archive",
       path: "/files",
       active: location.pathname === "/files",
+    },
+    {
+      icon: FaRobot,
+      label: "Study Helper AI",
+      path: "/study-helper",
+      active: location.pathname === "/study-helper",
     },
     {
       icon: FaSchool,

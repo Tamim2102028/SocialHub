@@ -11,6 +11,7 @@ const App: React.FC = () => {
 
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
   const isMessagesPage = location.pathname === "/messages";
+  const isStudyHelperPage = location.pathname === "/study-helper";
 
   // For non-authenticated users or auth pages, don't show right sidebar
   const showRightSidebar = isAuthenticated || !isAuthPage;
@@ -32,7 +33,7 @@ const App: React.FC = () => {
 
       {/* Main Content - Middle Column */}
       <div className="h-full overflow-y-auto">
-        <div className={isMessagesPage ? "mx-5" : "mx-20"}>
+        <div className={isMessagesPage || isStudyHelperPage ? "mx-3" : "mx-20"}>
           <MainContent />
         </div>
       </div>
