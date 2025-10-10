@@ -597,6 +597,419 @@ export const mockSuggestedGroups: Group[] = [
       },
     ],
   },
+  {
+    id: 7,
+    name: "Job Opportunities Bangladesh",
+    members: 2340,
+    isPrivate: false,
+    coverImage:
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=200&fit=crop",
+    category: "Job & Career",
+    description:
+      "Community for sharing job circulars, internship opportunities, and career openings across Bangladesh. Help each other find great opportunities!",
+    rules: [
+      "Verify job authenticity before posting",
+      "Include application deadlines and links",
+      "No spam or repeated postings",
+      "Help fellow members with questions",
+      "Report fake job posts immediately",
+    ],
+    tags: ["Jobs", "Career", "Opportunities", "Bangladesh", "Hiring"],
+    createdBy: "Farhan Ahmed",
+    createdAt: "2023-01-15",
+    posts: 1840,
+    admin: {
+      id: 7,
+      name: "Farhan Ahmed",
+      avatar:
+        "https://ui-avatars.com/api/?name=Farhan+Ahmed&background=2ecc71&color=fff",
+    },
+    recentPosts: [
+      {
+        id: 26,
+        content:
+          "🔥 URGENT: Grameenphone hiring Software Engineers (3-5 years exp). Salary: 80k-120k BDT. Deadline: Oct 5. Apply here: https://careers.grameenphone.com/jobs/se-2024\n\nRequirements:\n- Java/Python/C#\n- Microservices experience\n- Good communication skills\n\nGood luck everyone! 🚀",
+        author: {
+          id: 7,
+          name: "Farhan Ahmed",
+          avatar:
+            "https://ui-avatars.com/api/?name=Farhan+Ahmed&background=2ecc71&color=fff",
+          role: "admin",
+        },
+        createdAt: "2025-09-22T10:20:00Z",
+        likes: 234,
+        comments: 67,
+        isLiked: true,
+        isPinned: true,
+      },
+      {
+        id: 27,
+        content:
+          "Brac Bank is looking for MIS Officers. Just saw this on their website. 2+ years experience needed. Last date Sept 30. Anyone applying? Let me know if you need any info!",
+        author: {
+          id: 145,
+          name: "Nadia Rahman",
+          avatar:
+            "https://ui-avatars.com/api/?name=Nadia+Rahman&background=e67e22&color=fff",
+          role: "member",
+        },
+        createdAt: "2025-09-21T16:45:00Z",
+        likes: 156,
+        comments: 43,
+        isLiked: false,
+      },
+      {
+        id: 28,
+        content:
+          "Has anyone heard back from Robi after applying for the Data Analyst position? I applied 2 weeks ago, no response yet. What's the usual timeline? 🤔",
+        author: {
+          id: 198,
+          name: "Tanvir Hossain",
+          avatar:
+            "https://ui-avatars.com/api/?name=Tanvir+Hossain&background=3498db&color=fff",
+          role: "member",
+        },
+        createdAt: "2025-09-21T14:30:00Z",
+        likes: 89,
+        comments: 52,
+        isLiked: true,
+      },
+    ],
+  },
+  {
+    id: 8,
+    name: "Internship Hub Bangladesh",
+    members: 1650,
+    isPrivate: false,
+    coverImage:
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=200&fit=crop",
+    category: "Job & Career",
+    description:
+      "A dedicated space for students and fresh graduates to find internship opportunities, share experiences, and get advice on starting their careers.",
+    rules: [
+      "Share verified internship postings only",
+      "Include stipend information if available",
+      "Respect others' experiences and questions",
+      "No promotional spam",
+      "Help juniors with application tips",
+    ],
+    tags: [
+      "Internship",
+      "Students",
+      "Fresh Graduates",
+      "Career Start",
+      "Training",
+    ],
+    createdBy: "Sadia Khan",
+    createdAt: "2023-03-22",
+    posts: 987,
+    admin: {
+      id: 8,
+      name: "Sadia Khan",
+      avatar:
+        "https://ui-avatars.com/api/?name=Sadia+Khan&background=9b59b6&color=fff",
+    },
+    recentPosts: [
+      {
+        id: 29,
+        content:
+          "📢 BRAC internship program for CSE/EEE students! 3-month paid internship (15k BDT/month). Apply by Oct 10. Great learning opportunity for juniors!\n\nDM me if you need help with the application process. I did this internship last year and it was amazing! ✨",
+        author: {
+          id: 8,
+          name: "Sadia Khan",
+          avatar:
+            "https://ui-avatars.com/api/?name=Sadia+Khan&background=9b59b6&color=fff",
+          role: "admin",
+        },
+        createdAt: "2025-09-22T09:15:00Z",
+        likes: 312,
+        comments: 98,
+        isLiked: true,
+        isPinned: true,
+      },
+      {
+        id: 30,
+        content:
+          "Just completed my Marketing internship at Unilever! 6 months of amazing learning. AMA about the application process, interview questions, or working experience. Happy to help! 😊",
+        author: {
+          id: 167,
+          name: "Rifat Chowdhury",
+          avatar:
+            "https://ui-avatars.com/api/?name=Rifat+Chowdhury&background=e74c3c&color=fff",
+          role: "member",
+        },
+        createdAt: "2025-09-21T18:20:00Z",
+        likes: 189,
+        comments: 76,
+        isLiked: true,
+      },
+      {
+        id: 31,
+        content:
+          "Need advice: Should I take a 6-month unpaid internship at a big company or 3-month paid (10k) at a startup? Both are in digital marketing. What matters more for CV?",
+        author: {
+          id: 234,
+          name: "Mehedi Hassan",
+          avatar:
+            "https://ui-avatars.com/api/?name=Mehedi+Hassan&background=16a085&color=fff",
+          role: "member",
+        },
+        createdAt: "2025-09-21T11:40:00Z",
+        likes: 67,
+        comments: 124,
+        isLiked: false,
+      },
+    ],
+  },
+  {
+    id: 9,
+    name: "Freelance & Remote Work BD",
+    members: 1890,
+    isPrivate: false,
+    coverImage:
+      "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=400&h=200&fit=crop",
+    category: "Job & Career",
+    description:
+      "Connect with fellow freelancers, find remote work opportunities, share tips, and grow your freelancing career. Discuss platforms like Upwork, Fiverr, and Freelancer.com.",
+    rules: [
+      "Share legitimate opportunities only",
+      "No direct client solicitation",
+      "Help others with pricing and proposals",
+      "Share your success stories",
+      "Respect confidentiality agreements",
+    ],
+    tags: ["Freelance", "Remote Work", "Upwork", "Fiverr", "Digital Nomad"],
+    createdBy: "Mahmud Alam",
+    createdAt: "2023-02-08",
+    posts: 1456,
+    admin: {
+      id: 9,
+      name: "Mahmud Alam",
+      avatar:
+        "https://ui-avatars.com/api/?name=Mahmud+Alam&background=f39c12&color=fff",
+    },
+    recentPosts: [
+      {
+        id: 32,
+        content:
+          "🎉 Hit $5k/month on Upwork! Started 2 years ago with $0. Key lessons:\n\n1. Niche down (I focus only on React + Node)\n2. Under-promise, over-deliver\n3. Build long-term client relationships\n4. Invest in JSS (Job Success Score)\n\nAMA if you're starting out!",
+        author: {
+          id: 9,
+          name: "Mahmud Alam",
+          avatar:
+            "https://ui-avatars.com/api/?name=Mahmud+Alam&background=f39c12&color=fff",
+          role: "admin",
+        },
+        createdAt: "2025-09-22T08:30:00Z",
+        likes: 445,
+        comments: 167,
+        isLiked: true,
+        isPinned: true,
+      },
+      {
+        id: 33,
+        content:
+          "Beware of this Fiverr scam: Client asks you to work outside Fiverr 'to avoid fees'. I almost fell for it. Always keep communication on platform! Lost a potential order but saved my account.",
+        author: {
+          id: 189,
+          name: "Tasnim Akter",
+          avatar:
+            "https://ui-avatars.com/api/?name=Tasnim+Akter&background=e67e22&color=fff",
+          role: "moderator",
+        },
+        createdAt: "2025-09-21T20:10:00Z",
+        likes: 267,
+        comments: 89,
+        isLiked: true,
+      },
+      {
+        id: 34,
+        content:
+          "Remote job alert: US company hiring full-stack devs (React/Python). $3k-5k/month, fully remote. No degree required, just strong portfolio. DM for company name and application link!",
+        author: {
+          id: 156,
+          name: "Rakib Ahmed",
+          avatar:
+            "https://ui-avatars.com/api/?name=Rakib+Ahmed&background=27ae60&color=fff",
+          role: "member",
+        },
+        createdAt: "2025-09-21T15:25:00Z",
+        likes: 378,
+        comments: 134,
+        isLiked: true,
+      },
+    ],
+  },
+  {
+    id: 10,
+    name: "Career Guidance & CV Help",
+    members: 2120,
+    isPrivate: false,
+    coverImage:
+      "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&h=200&fit=crop",
+    category: "Job & Career",
+    description:
+      "Get help with resume building, cover letters, interview preparation, and career planning. Experienced professionals share advice and review CVs for free!",
+    rules: [
+      "Be respectful when giving feedback",
+      "Share CVs using image/pdf links",
+      "No job postings (use other groups)",
+      "Keep career advice professional",
+      "Protect personal information",
+    ],
+    tags: [
+      "Resume",
+      "CV",
+      "Interview",
+      "Career Advice",
+      "Professional Development",
+    ],
+    createdBy: "Asif Rahman",
+    createdAt: "2023-04-12",
+    posts: 1678,
+    admin: {
+      id: 10,
+      name: "Asif Rahman",
+      avatar:
+        "https://ui-avatars.com/api/?name=Asif+Rahman&background=3498db&color=fff",
+    },
+    recentPosts: [
+      {
+        id: 35,
+        content:
+          "🆘 CV Review Thread! Drop your CV link in comments (Google Drive/Imgur) and I'll review them tonight. Mention your target role. First 20 only!\n\n8+ years in HR, reviewed 1000+ CVs. Let's get you interview-ready! 💼",
+        author: {
+          id: 10,
+          name: "Asif Rahman",
+          avatar:
+            "https://ui-avatars.com/api/?name=Asif+Rahman&background=3498db&color=fff",
+          role: "admin",
+        },
+        createdAt: "2025-09-22T07:45:00Z",
+        likes: 523,
+        comments: 156,
+        isLiked: true,
+        isPinned: true,
+      },
+      {
+        id: 36,
+        content:
+          "Interview tip: When they ask 'Why should we hire you?', don't just list skills. Tell a story about solving a similar problem. Landed 3 offers using this approach!\n\nExample: Instead of 'I'm good at React', say 'At my last project, I optimized React app load time from 4s to 1.2s...'",
+        author: {
+          id: 178,
+          name: "Nabila Hossain",
+          avatar:
+            "https://ui-avatars.com/api/?name=Nabila+Hossain&background=e74c3c&color=fff",
+          role: "moderator",
+        },
+        createdAt: "2025-09-21T19:30:00Z",
+        likes: 412,
+        comments: 98,
+        isLiked: true,
+      },
+      {
+        id: 37,
+        content:
+          "Bomb interview question: 'Where do you see yourself in 5 years?' How do you answer without sounding too ambitious or too complacent? Help! Interview tomorrow 😰",
+        author: {
+          id: 223,
+          name: "Fahim Islam",
+          avatar:
+            "https://ui-avatars.com/api/?name=Fahim+Islam&background=9b59b6&color=fff",
+          role: "member",
+        },
+        createdAt: "2025-09-21T13:15:00Z",
+        likes: 145,
+        comments: 87,
+        isLiked: false,
+      },
+    ],
+  },
+  {
+    id: 11,
+    name: "IT Jobs Bangladesh",
+    members: 1780,
+    isPrivate: false,
+    coverImage:
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=200&fit=crop",
+    category: "Job & Career",
+    description:
+      "Specialized group for IT professionals. Share job openings for developers, designers, QA engineers, DevOps, and all tech roles across Bangladesh.",
+    rules: [
+      "Tech jobs only (dev, design, QA, etc.)",
+      "Mention tech stack clearly",
+      "Include salary range if possible",
+      "No irrelevant posts",
+      "Help with tech interview prep",
+    ],
+    tags: [
+      "IT Jobs",
+      "Software Developer",
+      "Web Developer",
+      "Tech Career",
+      "Programming",
+    ],
+    createdBy: "Shakib Hasan",
+    createdAt: "2023-05-20",
+    posts: 2103,
+    admin: {
+      id: 11,
+      name: "Shakib Hasan",
+      avatar:
+        "https://ui-avatars.com/api/?name=Shakib+Hasan&background=1abc9c&color=fff",
+    },
+    recentPosts: [
+      {
+        id: 38,
+        content:
+          "🚀 Brain Station 23 mass hiring! 50+ positions:\n\n- Jr Dev (React/Angular): 35k-50k\n- Mid-level (Full Stack): 70k-100k\n- Sr Dev (Microservices): 120k-180k\n- DevOps Engineer: 90k-140k\n\nApply: https://brainstation-23.com/careers\n\nRef code: BSD2024 (use this!)",
+        author: {
+          id: 11,
+          name: "Shakib Hasan",
+          avatar:
+            "https://ui-avatars.com/api/?name=Shakib+Hasan&background=1abc9c&color=fff",
+          role: "admin",
+        },
+        createdAt: "2025-09-22T11:00:00Z",
+        likes: 687,
+        comments: 203,
+        isLiked: true,
+        isPinned: true,
+      },
+      {
+        id: 39,
+        content:
+          "Pathao Tech interview experience:\n\nRound 1: DSA (medium level)\nRound 2: System design (ride-sharing scalability)\nRound 3: Behavioral\n\nOverall positive experience. Got offer: 95k for 3 YOE. Worth applying if you're into challenging problems!",
+        author: {
+          id: 192,
+          name: "Tamim Shahriar",
+          avatar:
+            "https://ui-avatars.com/api/?name=Tamim+Shahriar&background=34495e&color=fff",
+          role: "member",
+        },
+        createdAt: "2025-09-21T17:50:00Z",
+        likes: 289,
+        comments: 112,
+        isLiked: true,
+      },
+      {
+        id: 40,
+        content:
+          "Red flag alert: Company X (not naming publicly, DM for details) asked for 6-month bond with 3 lakh penalty. 45k salary, 10 hour/day. Fresh grads beware! Know your worth! ⚠️",
+        author: {
+          id: 211,
+          name: "Samira Ahmed",
+          avatar:
+            "https://ui-avatars.com/api/?name=Samira+Ahmed&background=e67e22&color=fff",
+          role: "moderator",
+        },
+        createdAt: "2025-09-21T12:20:00Z",
+        likes: 456,
+        comments: 167,
+        isLiked: true,
+      },
+    ],
+  },
 ];
 
 // Combined groups data for easy access
