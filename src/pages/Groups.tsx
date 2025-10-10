@@ -2,13 +2,13 @@ import React from "react";
 import GroupsHeader from "../components/Groups/GroupsHeader";
 import MyGroups from "../components/Groups/MyGroups";
 import SuggestedGroups from "../components/Groups/SuggestedGroups";
+import CareerGroups from "../components/Groups/CareerGroups";
 import { useAppSelector } from "../store/hooks";
 
 const Groups: React.FC = () => {
   // Get groups data from Redux store
-  const { myGroups, suggestedGroups, loading, error } = useAppSelector(
-    (state) => state.groups
-  );
+  const { myGroups, suggestedGroups, careerGroups, loading, error } =
+    useAppSelector((state) => state.groups);
 
   if (loading) {
     return (
@@ -30,6 +30,7 @@ const Groups: React.FC = () => {
     <>
       <GroupsHeader />
       <MyGroups groups={myGroups} />
+      <CareerGroups groups={careerGroups} />
       <SuggestedGroups groups={suggestedGroups} />
     </>
   );

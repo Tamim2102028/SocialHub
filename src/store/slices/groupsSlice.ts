@@ -2,12 +2,14 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import {
   mockMyGroups,
   mockSuggestedGroups,
+  mockCareerGroups,
   type Group,
 } from "../../components/Groups/data/groupsData";
 
 interface GroupsState {
   myGroups: Group[];
   suggestedGroups: Group[];
+  careerGroups: Group[];
   loading: boolean;
   error: string | null;
   joinedGroups: number[]; // Array of group IDs user has joined
@@ -16,6 +18,7 @@ interface GroupsState {
 const initialState: GroupsState = {
   myGroups: mockMyGroups,
   suggestedGroups: mockSuggestedGroups,
+  careerGroups: mockCareerGroups,
   loading: false,
   error: null,
   joinedGroups: mockMyGroups.map((group) => group.id), // Initially joined groups
@@ -35,10 +38,12 @@ const groupsSlice = createSlice({
       action: PayloadAction<{
         myGroups: Group[];
         suggestedGroups: Group[];
+        careerGroups: Group[];
       }>
     ) => {
       state.myGroups = action.payload.myGroups;
       state.suggestedGroups = action.payload.suggestedGroups;
+      state.careerGroups = action.payload.careerGroups;
       state.loading = false;
       state.error = null;
     },
@@ -56,13 +61,23 @@ const groupsSlice = createSlice({
         state.joinedGroups.push(groupId);
       }
 
-      // Move from suggested to my groups
-      const groupIndex = state.suggestedGroups.findIndex(
-        (g) => g.id === groupId
-      );
+      // Check suggested groups
+      let groupIndex = state.suggestedGroups.findIndex((g) => g.id === groupId);
       if (groupIndex !== -1) {
         const group = state.suggestedGroups[groupIndex];
         state.suggestedGroups.splice(groupIndex, 1);
+        state.myGroups.push({
+          ...group,
+          members: group.members + 1,
+        });
+        return;
+      }
+
+      // Check career groups
+      groupIndex = state.careerGroups.findIndex((g) => g.id === groupId);
+      if (groupIndex !== -1) {
+        const group = state.careerGroups[groupIndex];
+        state.careerGroups.splice(groupIndex, 1);
         state.myGroups.push({
           ...group,
           members: group.members + 1,
@@ -77,15 +92,24 @@ const groupsSlice = createSlice({
       // Remove from joined groups
       state.joinedGroups = state.joinedGroups.filter((id) => id !== groupId);
 
-      // Move from my groups to suggested
+      // Find and move from my groups back to appropriate category
       const groupIndex = state.myGroups.findIndex((g) => g.id === groupId);
       if (groupIndex !== -1) {
         const group = state.myGroups[groupIndex];
         state.myGroups.splice(groupIndex, 1);
-        state.suggestedGroups.push({
-          ...group,
-          members: Math.max(0, group.members - 1),
-        });
+
+        // Check if it's a career group
+        if (group.category === "Job & Career") {
+          state.careerGroups.push({
+            ...group,
+            members: Math.max(0, group.members - 1),
+          });
+        } else {
+          state.suggestedGroups.push({
+            ...group,
+            members: Math.max(0, group.members - 1),
+          });
+        }
       }
     },
 

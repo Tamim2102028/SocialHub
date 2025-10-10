@@ -597,6 +597,10 @@ export const mockSuggestedGroups: Group[] = [
       },
     ],
   },
+];
+
+// Career & Job Groups - Separate section for professional opportunities
+export const mockCareerGroups: Group[] = [
   {
     id: 7,
     name: "Job Opportunities Bangladesh",
@@ -1013,4 +1017,8 @@ export const mockSuggestedGroups: Group[] = [
 ];
 
 // Combined groups data for easy access
-export const allMockGroups: Group[] = [...mockMyGroups, ...mockSuggestedGroups];
+export const allMockGroups: Group[] = [
+  ...mockMyGroups,
+  ...mockSuggestedGroups,
+  ...mockCareerGroups,
+];
