@@ -171,6 +171,14 @@ export const routes: RouteConfig[] = [
     meta: { description: "AI-powered study assistant" },
   },
   {
+    path: "/career-hub",
+    component: lazy(() => import("../pages/CareerHub")),
+    requireAuth: true,
+    title: "Career Hub",
+    category: "career",
+    meta: { description: "Find jobs and internship opportunities" },
+  },
+  {
     path: "/saved",
     component: lazy(() => import("../pages/Saved")),
     requireAuth: true,
