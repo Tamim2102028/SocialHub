@@ -105,10 +105,10 @@ export interface Tournament {
   id: string;
   status: "registration" | "active" | "ended";
   startDate: string;
-  currentRound: "round-96" | "round-24" | "round-3" | "finals";
+  currentRound: "round-a" | "round-b" | "round-c" | "final";
   currentDay?: number; // Track current day (1-7)
   registeredPlayers: Player[];
-  bracket: Match[];
+  matches: Match[];
   prizePool: Prize[];
   universityId?: string;
 }
@@ -289,20 +289,20 @@ export const pastTournaments: Tournament[] = [
     id: "tournament-000",
     status: "ended",
     startDate: "2025-10-05",
-    currentRound: "finals",
+    currentRound: "final",
     currentDay: 7,
     registeredPlayers: samplePlayers.slice(0, 48),
-    bracket: [],
+    matches: [],
     prizePool: defaultPrizePool,
   },
   {
     id: "tournament-999",
     status: "ended",
     startDate: "2025-09-28",
-    currentRound: "finals",
+    currentRound: "final",
     currentDay: 7,
     registeredPlayers: samplePlayers.slice(0, 32),
-    bracket: [],
+    matches: [],
     prizePool: defaultPrizePool,
   },
 ];
@@ -310,14 +310,7 @@ export const pastTournaments: Tournament[] = [
 // ==================== TOURNAMENT CONSTANTS ====================
 
 export const TOURNAMENT_CONSTANTS = {
-  ENTRY_FEE: 50, // XP
-
-  // Qualification Numbers (Simple Structure)
-  ROUND_96: 96, // Top 96 after Day 1-3
-  ROUND_24: 24, // Top 24 after Day 4-5
-  ROUND_3: 3, // Top 3 after Day 6 (per university)
-
-  // XP System
+  ENTRY_FEE: 50,
   DAILY_XP_REWARD: 10,
   NEW_USER_BONUS: 250,
 
@@ -330,25 +323,25 @@ export const TOURNAMENT_CONSTANTS = {
   // Weekly Tournament Schedule (7 Days)
   ROUNDS: [
     {
-      id: "round-96",
-      name: "Round of 96",
+      id: "round-a",
+      name: "Round A",
       days: "Day 1-3 (Sat-Mon)",
       description: "University-level competition. Top 96 advance.",
     },
     {
-      id: "round-24",
-      name: "Round of 24",
+      id: "round-b",
+      name: "Round B",
       days: "Day 4-5 (Tue-Wed)",
       description: "96 players compete. Top 24 advance.",
     },
     {
-      id: "round-3",
-      name: "Round of 3",
+      id: "round-c",
+      name: "Inter-University Final",
       days: "Day 6 (Thu)",
       description: "24 players compete. Top 3 from each university advance.",
     },
     {
-      id: "finals",
+      id: "final",
       name: "Grand Finals",
       days: "Day 7 (Fri)",
       description: "3 players from each university compete for ultimate glory!",
@@ -369,121 +362,4 @@ export const TOURNAMENT_CONSTANTS = {
     "🎮 Best of 1 game per match",
     "🏆 Higher score wins, tie = sudden death round",
   ],
-};
-
-// ==================== HELPER FUNCTIONS ====================
-
-export const getNextSaturday = (): string => {
-  const today = new Date();
-  const dayOfWeek = today.getDay();
-  const daysUntilSaturday = (6 - dayOfWeek + 7) % 7 || 7;
-  const nextSaturday = new Date(today);
-  nextSaturday.setDate(today.getDate() + daysUntilSaturday);
-  return nextSaturday.toISOString().split("T")[0];
-};
-
-export const formatTournamentDate = (dateStr: string): string => {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-};
-
-// Get current active round based on tournament start date and current date
-export const getCurrentRound = (
-  startDate: string
-): "round-96" | "round-24" | "round-3" | "finals" | null => {
-  // Parse dates at midnight to avoid time zone issues
-  const start = new Date(startDate);
-  start.setHours(0, 0, 0, 0);
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  // Calculate days since tournament start
-  const daysSinceStart = Math.floor(
-    (today.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
-  );
-
-  if (daysSinceStart < 0) {
-    // Tournament hasn't started yet
-    return null;
-  } else if (daysSinceStart >= 0 && daysSinceStart <= 2) {
-    // Day 1-3: Saturday, Sunday, Monday
-    return "round-96";
-  } else if (daysSinceStart >= 3 && daysSinceStart <= 4) {
-    // Day 4-5: Tuesday, Wednesday
-    return "round-24";
-  } else if (daysSinceStart === 5) {
-    // Day 6: Thursday
-    return "round-3";
-  } else if (daysSinceStart === 6) {
-    // Day 7: Friday
-    return "finals";
-  } else {
-    // Tournament ended
-    return null;
-  }
-};
-
-export const getTournamentSchedule = (startDate: string) => {
-  const start = new Date(startDate);
-  const schedule: Array<{
-    round: string;
-    name: string;
-    date: string;
-    days: string;
-    description: string;
-  }> = [];
-
-  TOURNAMENT_CONSTANTS.ROUNDS.forEach((round) => {
-    const matchDate = new Date(start);
-
-    if (round.id === "round-96") {
-      // Day 1-3: Round of 96
-      matchDate.setDate(start.getDate());
-      schedule.push({
-        round: round.id,
-        name: round.name,
-        date: matchDate.toISOString().split("T")[0],
-        days: round.days,
-        description: round.description,
-      });
-    } else if (round.id === "round-24") {
-      // Day 4-5: Round of 24
-      matchDate.setDate(start.getDate() + 3);
-      schedule.push({
-        round: round.id,
-        name: round.name,
-        date: matchDate.toISOString().split("T")[0],
-        days: round.days,
-        description: round.description,
-      });
-    } else if (round.id === "round-3") {
-      // Day 6: Round of 3
-      matchDate.setDate(start.getDate() + 5);
-      schedule.push({
-        round: round.id,
-        name: round.name,
-        date: matchDate.toISOString().split("T")[0],
-        days: round.days,
-        description: round.description,
-      });
-    } else if (round.id === "finals") {
-      // Day 7: Grand Finals
-      matchDate.setDate(start.getDate() + 6);
-      schedule.push({
-        round: round.id,
-        name: round.name,
-        date: matchDate.toISOString().split("T")[0],
-        days: round.days,
-        description: round.description,
-      });
-    }
-  });
-
-  return schedule;
 };

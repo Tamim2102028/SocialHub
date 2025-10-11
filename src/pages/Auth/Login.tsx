@@ -21,8 +21,8 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<LoginForm>({
-    email: "",
-    password: "",
+    email: "demo@socialhub.com",
+    password: "demo123",
     rememberMe: false,
   });
 

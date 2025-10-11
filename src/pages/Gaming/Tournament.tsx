@@ -9,12 +9,18 @@ import {
   FaClock,
   FaCalendarAlt,
 } from "react-icons/fa";
-import { formatTournamentDate } from "../../components/Gaming/data/tournamentData";
 
 const Tournament: React.FC = () => {
   const { currentTournament } = useAppSelector((state) => state.tournament);
 
-  const formattedDate = formatTournamentDate(currentTournament.startDate);
+  const formattedDate = new Date(
+    currentTournament.startDate
+  ).toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   const isRegistered = currentTournament.registeredPlayers.some(
     (player) => player.id === "current-user"
   );
@@ -95,7 +101,7 @@ const Tournament: React.FC = () => {
 
       {/* Tournament Bracket */}
       <TournamentBracket
-        bracket={currentTournament.bracket}
+        matches={currentTournament.matches}
         currentRound={currentTournament.currentRound}
       />
 

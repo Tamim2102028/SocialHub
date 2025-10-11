@@ -20,12 +20,12 @@ interface Match {
 }
 
 interface TournamentBracketProps {
-  bracket: Match[];
+  matches: Match[];
   currentRound: string;
 }
 
 const TournamentBracket: React.FC<TournamentBracketProps> = ({
-  bracket,
+  matches,
   currentRound,
 }) => {
   const roundNames = {
@@ -174,23 +174,23 @@ const TournamentBracket: React.FC<TournamentBracketProps> = ({
       </div>
 
       {/* Match Stats */}
-      {bracket.length > 0 && (
+      {matches.length > 0 && (
         <div className="mt-6 grid grid-cols-3 gap-3">
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 text-center">
             <p className="mb-1 text-2xl font-bold text-blue-900">
-              {bracket.filter((m) => m.status === "completed").length}
+              {matches.filter((m) => m.status === "completed").length}
             </p>
             <p className="text-xs text-blue-700">Completed Matches</p>
           </div>
           <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-center">
             <p className="mb-1 text-2xl font-bold text-green-900">
-              {bracket.filter((m) => m.status === "live").length}
+              {matches.filter((m) => m.status === "live").length}
             </p>
             <p className="text-xs text-green-700">Live Matches</p>
           </div>
           <div className="rounded-lg border border-orange-200 bg-orange-50 p-4 text-center">
             <p className="mb-1 text-2xl font-bold text-orange-900">
-              {bracket.filter((m) => m.status === "upcoming").length}
+              {matches.filter((m) => m.status === "upcoming").length}
             </p>
             <p className="text-xs text-orange-700">Upcoming Matches</p>
           </div>

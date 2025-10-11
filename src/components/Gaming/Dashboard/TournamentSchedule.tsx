@@ -1,16 +1,21 @@
 import React from "react";
 import { FaCalendarAlt } from "react-icons/fa";
-import { TOURNAMENT_CONSTANTS, getCurrentRound } from "../data/tournamentData";
+import dayjs from "dayjs";
+import { TOURNAMENT_CONSTANTS } from "../data/tournamentData";
 
-interface TournamentScheduleProps {
-  startDate: string;
-}
+const TournamentSchedule: React.FC = () => {
+  const today = dayjs().format("dddd");
 
-const TournamentSchedule: React.FC<TournamentScheduleProps> = ({
-  startDate,
-}) => {
-  // Get current active round based on date
-  const activeRound = getCurrentRound(startDate);
+  const getActiveRound = () => {
+    if (today === "Saturday" || today === "Sunday" || today === "Monday")
+      return "round-a";
+    if (today === "Tuesday" || today === "Wednesday") return "round-b";
+    if (today === "Thursday") return "round-c";
+    if (today === "Friday") return "final";
+    return null;
+  };
+
+  const activeRound = getActiveRound();
 
   return (
     <div className="rounded-lg border border-gray-300 bg-white p-6 shadow-sm">
@@ -21,14 +26,14 @@ const TournamentSchedule: React.FC<TournamentScheduleProps> = ({
 
       <div className="space-y-3">
         {TOURNAMENT_CONSTANTS.ROUNDS.map((round, index) => {
-          const isActive = activeRound === round.id;
+          const isActive = round.id === activeRound;
 
           return (
             <div
               key={round.id}
-              className={`rounded-lg border-l-4 p-4 transition-all ${
+              className={`rounded-lg border-l-4 p-4 ${
                 isActive
-                  ? "border-green-600 bg-green-50 shadow-md"
+                  ? "border-green-500 bg-green-50"
                   : "border-gray-300 bg-gray-50"
               }`}
             >
@@ -43,17 +48,13 @@ const TournamentSchedule: React.FC<TournamentScheduleProps> = ({
                       {index + 1}
                     </span>
                     <h4
-                      className={`font-semibold ${
-                        isActive ? "text-green-900" : "text-gray-900"
-                      }`}
+                      className={`font-semibold ${isActive ? "text-green-900" : "text-gray-900"}`}
                     >
                       {round.name}
                     </h4>
                   </div>
                   <p
-                    className={`mt-2 text-sm ${
-                      isActive ? "text-green-700" : "text-gray-600"
-                    }`}
+                    className={`mt-2 text-sm ${isActive ? "text-green-700" : "text-gray-600"}`}
                   >
                     {round.description}
                   </p>
@@ -62,7 +63,7 @@ const TournamentSchedule: React.FC<TournamentScheduleProps> = ({
                   <span
                     className={`rounded-full px-3 py-1 text-xs font-medium ${
                       isActive
-                        ? "bg-green-100 text-green-800"
+                        ? "bg-green-200 text-green-800"
                         : "bg-blue-100 text-blue-800"
                     }`}
                   >

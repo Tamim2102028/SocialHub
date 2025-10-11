@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  FaGift,
-  FaClock,
-  FaTrophy,
-  FaExclamationTriangle,
-} from "react-icons/fa";
+import { FaGift, FaClock, FaTrophy, FaCoins } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { claimDailyXP } from "../../../store/slices/tournamentSlice.ts";
 
@@ -16,14 +12,13 @@ const DailyXPClaim: React.FC = () => {
 
   const [canClaim, setCanClaim] = useState(false);
   const [timeUntilMidnight, setTimeUntilMidnight] = useState("");
-  const [showAnimation, setShowAnimation] = useState(false);
 
   // Check if user can claim today
   useEffect(() => {
     const checkClaimAvailability = () => {
-      const today = new Date().toDateString();
+      const today = dayjs().format("YYYY-MM-DD");
       const lastClaim = lastClaimDate
-        ? new Date(lastClaimDate).toDateString()
+        ? dayjs(lastClaimDate).format("YYYY-MM-DD")
         : null;
 
       // Can claim if never claimed OR last claim was not today
@@ -39,14 +34,13 @@ const DailyXPClaim: React.FC = () => {
   // Calculate time until midnight
   useEffect(() => {
     const updateCountdown = () => {
-      const now = new Date();
-      const midnight = new Date();
-      midnight.setHours(24, 0, 0, 0);
+      const now = dayjs();
+      const midnight = dayjs().endOf("day");
 
-      const diff = midnight.getTime() - now.getTime();
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      const totalSeconds = midnight.diff(now, "second");
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
 
       setTimeUntilMidnight(`${hours}h ${minutes}m ${seconds}s`);
     };
@@ -57,110 +51,81 @@ const DailyXPClaim: React.FC = () => {
   }, []);
 
   const handleClaim = () => {
-    // Show animation first
-    setShowAnimation(true);
-
-    // Wait for animation to finish (2 seconds), then dispatch claim
-    setTimeout(() => {
-      dispatch(claimDailyXP());
-      setShowAnimation(false);
-    }, 2000);
+    dispatch(claimDailyXP());
   };
 
   return (
-    <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white p-5 shadow">
-      {/* Animation Overlay */}
-      {showAnimation && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-green-500/10 backdrop-blur-sm">
-          <div className="animate-bounce text-5xl font-bold text-green-600">
-            +10 XP!
-          </div>
-        </div>
-      )}
-
-      <div className="flex items-center justify-between gap-5">
-        {/* Left Side - Claim Info */}
-        <div className="flex-1">
-          <div className="mb-3 flex items-center gap-2">
-            <FaGift className="text-xl text-blue-600" />
-            <h3 className="text-lg font-semibold text-gray-800">
-              Daily XP Claim
-            </h3>
-          </div>
-
-          {canClaim ? (
-            <div className="space-y-2">
-              <p className="text-sm text-gray-600">
-                Claim your daily{" "}
-                <span className="font-semibold text-blue-600">10 XP</span>{" "}
-                reward!
-              </p>
-              <div className="flex items-center gap-2 text-xs text-gray-500">
-                <FaClock />
-                <span>Expires at midnight ({timeUntilMidnight} remaining)</span>
-              </div>
-            </div>
-          ) : (
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-green-600">
-                ✅ Already claimed today!
-              </p>
-              <div className="rounded-lg bg-blue-50 px-3 py-2">
-                <p className="text-xs text-gray-600">
-                  Next claim available in:
-                </p>
-                <p className="text-lg font-bold text-blue-600">
-                  {timeUntilMidnight}
-                </p>
-              </div>
-            </div>
+    <div className="relative space-y-3 overflow-hidden rounded-lg border border-gray-200 bg-white p-5 shadow">
+      {/* Header with Stats */}
+      <div className="flex items-start justify-between">
+        <div className="flex-1 space-y-1">
+          <h3 className="mb-1 text-2xl font-bold text-blue-600">
+            Daily XP Claim
+          </h3>
+          <p className="text-sm text-gray-600">
+            Claim your free 10 XP every day to participate in tournaments!
+          </p>
+          {canClaim && (
+            <p className="text-sm font-medium text-orange-700">
+              Claim expires at midnight ({timeUntilMidnight} remaining)
+            </p>
           )}
         </div>
-
-        {/* Vertical Divider */}
-        <div className="h-30 w-px bg-gray-500"></div>
-
-        {/* Right Side - Action Button or XP Display */}
-        <div className="flex flex-col items-center gap-3">
-          <button
-            onClick={handleClaim}
-            disabled={!canClaim}
-            className={`flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white shadow transition-all ${
-              canClaim
-                ? "bg-blue-600 hover:bg-blue-700 active:scale-95"
-                : "cursor-not-allowed bg-gray-400 opacity-60"
-            }`}
-          >
-            <FaGift />
-            Claim 10 XP
-          </button>
-
-          {/* Current XP Display */}
-          <div className="rounded-lg border border-gray-200 bg-gray-50 px-4 py-2">
+        <div className="flex gap-3">
+          <div className="rounded-lg border border-gray-200 bg-green-50 px-4 py-2 text-center">
+            <FaGift className="mx-auto mb-1 text-xl text-green-600" />
+            <p className="text-xs text-gray-500">Daily Reward</p>
+            <p className="font-bold text-gray-800">10 XP</p>
+          </div>
+          <div className="rounded-lg border border-gray-200 bg-orange-50 px-4 py-2 text-center">
+            <FaCoins className="mx-auto mb-1 text-xl text-orange-600" />
             <p className="text-xs text-gray-500">Your XP</p>
-            <p className="text-xl font-bold text-gray-800">{userXP}</p>
+            <p className="font-bold text-gray-800">{userXP} XP</p>
           </div>
         </div>
       </div>
 
-      {/* Warning Banner & View Tournament Button */}
-      <div className="mt-3 grid grid-cols-2 gap-3">
-        {/* Warning Banner */}
-        {canClaim && (
-          <div className="flex items-center justify-center gap-2 rounded border border-orange-200 bg-orange-50 px-4 py-2">
-            <FaExclamationTriangle className="text-orange-600" />
-            <p className="text-xs text-orange-700">
-              Claim expires at midnight. Don't miss your daily reward!
+      {/* Claim Button Section */}
+      <div className="space-y-3">
+        {!canClaim && (
+          <div className="rounded-lg border border-green-200 bg-green-50 p-3 text-center">
+            <p className="text-sm font-medium text-green-700">
+              ✅ Already claimed today!
             </p>
+            <div className="mt-2 flex items-center justify-center gap-2 text-xs text-gray-600">
+              <FaClock />
+              <span>
+                Next claim available in:{" "}
+                <span className="font-bold text-blue-600">
+                  {timeUntilMidnight}
+                </span>
+              </span>
+            </div>
           </div>
         )}
 
-        {/* View Tournament Button */}
+        <button
+          onClick={handleClaim}
+          disabled={!canClaim}
+          className={`w-full rounded-lg py-3 font-semibold text-white shadow transition-all ${
+            canClaim
+              ? "bg-blue-600 hover:bg-blue-700 active:scale-95"
+              : "cursor-not-allowed bg-gray-400"
+          }`}
+        >
+          {canClaim ? (
+            <span className="flex items-center justify-center gap-2">
+              <FaGift />
+              Claim 10 XP Now
+            </span>
+          ) : (
+            "Already Claimed Today"
+          )}
+        </button>
+
         <button
           onClick={() => navigate("/gaming/tournament")}
-          className={`flex items-center justify-center gap-2 rounded-lg border border-blue-300 bg-white py-2 font-medium text-blue-600 transition-all hover:border-blue-400 hover:bg-blue-50 active:scale-95 ${
-            canClaim ? "" : "col-span-2"
-          }`}
+          className="flex w-full items-center justify-center gap-2 rounded-lg border border-blue-300 bg-white py-3 font-medium text-blue-600 transition-all hover:border-blue-400 hover:bg-blue-50 active:scale-95"
         >
           <FaTrophy />
           View Tournament

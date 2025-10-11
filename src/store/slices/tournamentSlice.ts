@@ -35,11 +35,11 @@ const initialState: TournamentState = {
   currentTournament: {
     id: "tournament-001",
     status: "registration",
-    startDate: "2025-10-04", // Fixed date for testing (Saturday)
-    currentRound: "round-96",
+    startDate: "2025-10-11",
+    currentRound: "round-a",
     currentDay: 0, // Will start at day 1 when tournament begins
     registeredPlayers: [],
-    bracket: [],
+    matches: [],
     prizePool: defaultPrizePool,
   },
 

@@ -110,7 +110,7 @@ const Dashboard: React.FC = () => {
       <PrizePool />
 
       {/* Tournament Schedule Card */}
-      <TournamentSchedule startDate={currentTournament.startDate} />
+      <TournamentSchedule />
 
       {/* Tournament Rules Card */}
       <TournamentRules />
