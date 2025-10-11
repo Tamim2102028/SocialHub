@@ -14,7 +14,6 @@ interface TuitionRequest {
 }
 
 const FindTutor: React.FC = () => {
-  const [showPostModal, setShowPostModal] = useState(false);
   const [requests, setRequests] = useState<TuitionRequest[]>([]);
 
   const handlePostRequest = (formData: FormData) => {
@@ -31,22 +30,17 @@ const FindTutor: React.FC = () => {
       preferredUniversity:
         formData.get("preferredUniversity")?.toString() || "",
     };
-
     setRequests((prev) => [newRequest, ...prev]);
-    setShowPostModal(false);
   };
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-gray-900">Find a Tutor</h2>
-        <button
-          onClick={() => setShowPostModal(true)}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-        >
-          + Post Tuition Request
-        </button>
       </div>
+
+      {/* Tuition Request Form Card */}
+      <TuitionRequestForm onSubmit={handlePostRequest} />
 
       {/* My Posted Requests */}
       <div className="space-y-4">
@@ -55,12 +49,6 @@ const FindTutor: React.FC = () => {
             <p className="text-gray-500">
               You haven't posted any tuition requests yet.
             </p>
-            <button
-              onClick={() => setShowPostModal(true)}
-              className="mt-4 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-            >
-              + Post Your First Request
-            </button>
           </div>
         ) : (
           requests.map((request) => (
@@ -98,13 +86,6 @@ const FindTutor: React.FC = () => {
           ))
         )}
       </div>
-
-      {/* Tuition Request Form Modal */}
-      <TuitionRequestForm
-        isOpen={showPostModal}
-        onClose={() => setShowPostModal(false)}
-        onSubmit={handlePostRequest}
-      />
     </div>
   );
 };

@@ -83,9 +83,9 @@ const BecomeTutor: React.FC = () => {
     interestedRequests.includes(requestId);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Become a Tutor</h2>
+        <h2 className="text-2xl font-bold text-gray-900">Tuitions</h2>
         <div className="text-sm text-gray-500">
           {availableRequests.length} requests available
         </div>

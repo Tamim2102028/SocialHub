@@ -27,10 +27,10 @@ const Tuition: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <div className="mb-8 text-center">
+        <div className="mb-3 text-center">
           <h1 className="text-4xl font-bold text-gray-900">Tuition Board</h1>
           <p className="mt-2 text-lg text-gray-600">
             Connect with students and tutors for academic opportunities.
@@ -38,7 +38,7 @@ const Tuition: React.FC = () => {
         </div>
 
         {/* Role Switcher */}
-        <div className="mb-8 flex justify-center">
+        <div className="mb-3 flex justify-center">
           <div className="rounded-lg bg-white p-2 shadow-sm">
             <div className="flex space-x-2">
               <button
@@ -59,7 +59,7 @@ const Tuition: React.FC = () => {
                     : "text-gray-500 hover:text-gray-700"
                 }`}
               >
-                Become a Tutor
+                Tutor Corner
               </button>
             </div>
           </div>
