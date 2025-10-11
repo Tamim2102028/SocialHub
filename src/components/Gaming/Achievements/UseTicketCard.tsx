@@ -107,7 +107,7 @@ const UseTicketCard: React.FC<UseTicketCardProps> = ({
           <select
             value={selectedRestaurant}
             onChange={(e) => setSelectedRestaurant(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none"
+            className="w-full appearance-none rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none"
           >
             <option value="">Choose a restaurant...</option>
             {restaurants.map((restaurant) => (
@@ -143,7 +143,6 @@ const UseTicketCard: React.FC<UseTicketCardProps> = ({
             onChange={(e) => setBillAmount(e.target.value)}
             placeholder="Enter total bill amount"
             min="1"
-            step="0.01"
             className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none"
           />
         </div>
