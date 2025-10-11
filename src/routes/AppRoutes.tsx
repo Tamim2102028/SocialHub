@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import ProtectedRoute from "./ProtectedRoute";
+// import ProtectedRoute from "./ProtectedRoute";
 import { routes, getRouteByPath } from "./routeConfig";
 import PageLoader from "../pages/Fallbacks/PageLoader";
 import { prefetchOnIdle } from "./prefetch";
@@ -33,15 +33,16 @@ const AppRoutes: React.FC = () => {
               key={idx}
               path={route.path}
               element={
-                route.requireAuth !== false ? (
-                  <ProtectedRoute>
-                    <Component />
-                  </ProtectedRoute>
-                ) : (
-                  <ProtectedRoute requireAuth={false}>
-                    <Component />
-                  </ProtectedRoute>
-                )
+                <Component />
+                // route.requireAuth !== false ? (
+                //   <ProtectedRoute>
+                //     <Component />
+                //   </ProtectedRoute>
+                // ) : (
+                //   <ProtectedRoute requireAuth={false}>
+                //     <Component />
+                //   </ProtectedRoute>
+                // )
               }
             />
           );
