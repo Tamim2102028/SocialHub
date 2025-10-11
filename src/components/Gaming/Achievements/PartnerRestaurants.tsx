@@ -9,26 +9,29 @@ const PartnerRestaurants: React.FC<PartnerRestaurantsProps> = ({
   restaurants,
 }) => {
   return (
-    <div className="rounded-lg bg-white p-6 shadow-md">
-      <h3 className="mb-4 text-xl font-bold text-gray-900">
+    <div className="rounded-lg bg-white p-5 shadow">
+      <h3 className="mb-3 text-xl font-bold text-gray-900">
         🍽️ Partner Restaurants
       </h3>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {restaurants.map((restaurant) => (
           <div
             key={restaurant.id}
-            className="rounded-lg border-2 border-gray-200 p-4 transition-all hover:border-blue-400 hover:shadow-md"
+            className="group rounded-lg border border-gray-200 bg-blue-50 p-3 transition-all hover:border-blue-400 hover:shadow-lg"
           >
-            <div className="mb-3 text-5xl">{restaurant.logo}</div>
+            <div className="mb-3 flex h-15 w-15 items-center justify-center rounded-full bg-blue-100 text-4xl">
+              {restaurant.logo}
+            </div>
             <h4 className="text-lg font-bold text-gray-900">
               {restaurant.name}
             </h4>
-            <p className="mt-1 text-sm text-gray-600">
+            <p className="mt-2 text-sm text-gray-600">
               {restaurant.description}
             </p>
-            <p className="mt-2 text-xs text-gray-500">
-              📍 {restaurant.location}
-            </p>
+            <div className="mt-3 flex items-center gap-1 text-sm text-gray-500">
+              <span>📍</span>
+              <span>{restaurant.location}</span>
+            </div>
           </div>
         ))}
       </div>

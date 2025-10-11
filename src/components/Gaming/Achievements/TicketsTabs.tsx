@@ -20,12 +20,12 @@ const TicketsTabs: React.FC<TicketsTabsProps> = ({
 }) => {
   return (
     <div className="rounded-lg bg-white p-3 shadow-md">
-      <div className="mb-6 flex gap-4 border-b">
+      <div className="mb-3 flex gap-5 border-b">
         <button
           onClick={() => setActiveTab("available")}
           className={`pb-3 text-lg font-semibold transition-colors ${
             activeTab === "available"
-              ? "border-b-2 border-blue-600 text-blue-600"
+              ? "text-blue-600"
               : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -35,7 +35,7 @@ const TicketsTabs: React.FC<TicketsTabsProps> = ({
           onClick={() => setActiveTab("used")}
           className={`pb-3 text-lg font-semibold transition-colors ${
             activeTab === "used"
-              ? "border-b-2 border-blue-600 text-blue-600"
+              ? "text-blue-600"
               : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -87,7 +87,7 @@ const TicketsTabs: React.FC<TicketsTabsProps> = ({
 
       {/* Used Tickets History */}
       {activeTab === "used" && (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {usedTickets.length === 0 ? (
             <div className="py-12 text-center">
               <div className="mb-4 text-6xl">📋</div>
@@ -106,9 +106,9 @@ const TicketsTabs: React.FC<TicketsTabsProps> = ({
               return (
                 <div
                   key={ticket.id}
-                  className="rounded-lg border-2 border-gray-200 bg-gray-50 p-6"
+                  className="rounded-lg border-2 border-gray-200 bg-gray-50 p-3"
                 >
-                  <div className="flex items-start justify-between">
+                  <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
                       <div className="text-4xl">{restaurant?.logo}</div>
                       <div>
@@ -123,11 +123,8 @@ const TicketsTabs: React.FC<TicketsTabsProps> = ({
                         </p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-bold text-green-600">
-                        {ticket.billAmount} Taka
-                      </div>
-                      <div className="text-xs text-gray-500">Bill Amount</div>
+                    <div className="text-2xl font-bold text-green-600">
+                      {ticket.billAmount} /- 
                     </div>
                   </div>
                 </div>

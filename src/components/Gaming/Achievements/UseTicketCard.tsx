@@ -87,7 +87,9 @@ const UseTicketCard: React.FC<UseTicketCardProps> = ({
   return (
     <div className="rounded-lg border-2 border-blue-500 bg-white p-6 shadow-lg">
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">🎟️ Use Winning Ticket</h2>
+        <h2 className="text-2xl font-bold text-gray-900">
+          🎟️ Use Winning Ticket
+        </h2>
         <button
           onClick={onCancel}
           className="text-gray-400 hover:text-gray-600"
@@ -116,27 +118,10 @@ const UseTicketCard: React.FC<UseTicketCardProps> = ({
           </select>
         </div>
 
-        {/* Show restaurant details if selected */}
-        {selectedRestaurant && (
-          <div className="rounded-lg bg-blue-50 p-3">
-            <div className="text-sm text-gray-700">
-              <strong>
-                {restaurants.find((r) => r.id === selectedRestaurant)?.name}
-              </strong>
-              <p className="mt-1 text-xs text-gray-600">
-                {
-                  restaurants.find((r) => r.id === selectedRestaurant)
-                    ?.description
-                }
-              </p>
-            </div>
-          </div>
-        )}
-
         {/* Owner Password */}
         <div>
           <label className="mb-2 block text-sm font-medium text-gray-700">
-            Restaurant Owner Password
+            Restaurant Password
           </label>
           <input
             type="password"
@@ -145,15 +130,12 @@ const UseTicketCard: React.FC<UseTicketCardProps> = ({
             placeholder="Enter password provided by owner"
             className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none"
           />
-          <p className="mt-1 text-xs text-gray-500">
-            Ask the restaurant owner for this password
-          </p>
         </div>
 
         {/* Bill Amount */}
         <div>
           <label className="mb-2 block text-sm font-medium text-gray-700">
-            Bill Amount (৳)
+            Bill Amount /-
           </label>
           <input
             type="number"
