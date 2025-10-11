@@ -11,6 +11,7 @@ import profileSlice from "./slices/profileSlice";
 import messagesSlice from "./slices/messagesSlice";
 import bloodDonationSlice from "./slices/mainMore/bloodDonationSlice.js";
 import tournamentSlice from "./slices/tournamentSlice";
+import achievementSlice from "./slices/achievementSlice";
 
 export const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export const store = configureStore({
     messages: messagesSlice,
     bloodDonation: bloodDonationSlice,
     tournament: tournamentSlice,
+    achievement: achievementSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

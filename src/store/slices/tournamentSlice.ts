@@ -84,18 +84,6 @@ const tournamentSlice = createSlice({
       }
     },
 
-    // Unregister from tournament (before it starts)
-    unregisterFromTournament: (state) => {
-      if (
-        state.userRegistered &&
-        state.currentTournament.status === "registration"
-      ) {
-        state.userXP += TOURNAMENT_CONSTANTS.ENTRY_FEE; // Refund entry fee
-        state.userRegistered = false;
-        state.userUniversityId = null;
-      }
-    },
-
     // Set user's university from profile
     setUserUniversity: (state, action: PayloadAction<string>) => {
       state.userUniversityId = action.payload;
@@ -151,7 +139,6 @@ const tournamentSlice = createSlice({
 export const {
   claimDailyXP,
   registerForTournament,
-  unregisterFromTournament,
   setUserUniversity,
   updateTournamentStatus,
   selectPrize,

@@ -1,139 +1,116 @@
-export interface Achievement {
-  id: number;
-  title: string;
+// ==================== RESTAURANT DATA ====================
+
+export interface Restaurant {
+  id: string;
+  name: string;
+  logo: string;
   description: string;
-  icon: string;
-  category: "math" | "sudoku" | "arena" | "general";
-  progress: number;
-  maxProgress: number;
-  isUnlocked: boolean;
-  unlockedDate?: string;
-  rarity: "common" | "rare" | "epic" | "legendary";
-  xpReward: number;
+  location: string;
+  ownerPassword: string; // In production, this should be hashed
+  category: "pizza" | "kabab" | "restaurant";
 }
 
-export const achievementsData: Achievement[] = [
+export const restaurants: Restaurant[] = [
   {
-    id: 1,
-    title: "First Steps",
-    description: "Complete your first math competition",
-    icon: "🏁",
-    category: "math",
-    progress: 1,
-    maxProgress: 1,
-    isUnlocked: true,
-    unlockedDate: "2024-01-15",
-    rarity: "common",
-    xpReward: 50,
+    id: "pizza-hut",
+    name: "Pizza Hut",
+    logo: "🍕",
+    description: "Large pizza with drinks for 2 persons",
+    location: "Dhanmondi, Dhaka",
+    ownerPassword: "PIZZA2025", // Demo password
+    category: "pizza",
   },
   {
-    id: 2,
-    title: "Speed Demon",
-    description: "Answer 10 math questions in under 30 seconds",
-    icon: "⚡",
-    category: "math",
-    progress: 7,
-    maxProgress: 10,
-    isUnlocked: false,
-    rarity: "rare",
-    xpReward: 150,
+    id: "masallah-kabab",
+    name: "Masallah Kabab",
+    logo: "🍢",
+    description: "Special kabab platter for 2 persons",
+    location: "Shahbag, Dhaka",
+    ownerPassword: "KABAB2025", // Demo password
+    category: "kabab",
   },
   {
-    id: 3,
-    title: "Sudoku Novice",
-    description: "Complete your first Sudoku puzzle",
-    icon: "🧩",
-    category: "sudoku",
-    progress: 1,
-    maxProgress: 1,
-    isUnlocked: true,
-    unlockedDate: "2024-01-20",
-    rarity: "common",
-    xpReward: 50,
+    id: "coivoj",
+    name: "Coivoj Restaurant",
+    logo: "🍽️",
+    description: "Full buffet meal for 1 person",
+    location: "Mirpur, Dhaka",
+    ownerPassword: "COIVOJ2025", // Demo password
+    category: "restaurant",
+  },
+];
+
+// ==================== WINNING TICKET DATA ====================
+
+export interface WinningTicket {
+  id: string;
+  userId: string;
+  tournamentId: string;
+  isUsed: boolean;
+  usedAt?: string;
+  restaurantId?: string;
+  billAmount?: number;
+}
+
+// Mock winning tickets for current user
+export const mockUserTickets: WinningTicket[] = [
+  {
+    id: "ticket-001",
+    userId: "current-user",
+    tournamentId: "tournament-001",
+    isUsed: false,
   },
   {
-    id: 4,
-    title: "Master Solver",
-    description: "Complete 50 Sudoku puzzles",
-    icon: "🏆",
-    category: "sudoku",
-    progress: 23,
-    maxProgress: 50,
-    isUnlocked: false,
-    rarity: "epic",
-    xpReward: 300,
+    id: "ticket-002",
+    userId: "current-user",
+    tournamentId: "tournament-002",
+    isUsed: false,
   },
   {
-    id: 5,
-    title: "Academic Warrior",
-    description: "Win 10 Academic Arena challenges",
-    icon: "⚔️",
-    category: "arena",
-    progress: 4,
-    maxProgress: 10,
-    isUnlocked: false,
-    rarity: "rare",
-    xpReward: 200,
+    id: "ticket-003",
+    userId: "current-user",
+    tournamentId: "tournament-000",
+    isUsed: true,
+    usedAt: "2025-09-22",
+    restaurantId: "pizza-hut",
+    billAmount: 450,
+  },
+];
+
+// ==================== RESTAURANT TRANSACTION DATA ====================
+
+export interface RestaurantTransaction {
+  restaurantId: string;
+  restaurantName: string;
+  totalAmount: number;
+  totalTicketsUsed: number;
+  tickets: WinningTicket[];
+  lastSettlementDate?: string;
+}
+
+// Mock transactions (for admin/owner view)
+export const mockRestaurantTransactions: RestaurantTransaction[] = [
+  {
+    restaurantId: "pizza-hut",
+    restaurantName: "Pizza Hut",
+    totalAmount: 1250,
+    totalTicketsUsed: 3,
+    tickets: [],
+    lastSettlementDate: "2025-09-30",
   },
   {
-    id: 6,
-    title: "Perfect Score",
-    description: "Score 100% in any competition",
-    icon: "💯",
-    category: "general",
-    progress: 1,
-    maxProgress: 1,
-    isUnlocked: true,
-    unlockedDate: "2024-01-25",
-    rarity: "epic",
-    xpReward: 250,
+    restaurantId: "masallah-kabab",
+    restaurantName: "Masallah Kabab",
+    totalAmount: 800,
+    totalTicketsUsed: 2,
+    tickets: [],
+    lastSettlementDate: "2025-09-30",
   },
   {
-    id: 7,
-    title: "Dedication",
-    description: "Play games for 7 consecutive days",
-    icon: "🔥",
-    category: "general",
-    progress: 5,
-    maxProgress: 7,
-    isUnlocked: false,
-    rarity: "rare",
-    xpReward: 180,
-  },
-  {
-    id: 8,
-    title: "Gaming Legend",
-    description: "Reach level 20 in any game",
-    icon: "👑",
-    category: "general",
-    progress: 15,
-    maxProgress: 20,
-    isUnlocked: false,
-    rarity: "legendary",
-    xpReward: 500,
-  },
-  {
-    id: 9,
-    title: "Quick Thinker",
-    description: "Complete 5 Easy Sudokus in under 3 minutes each",
-    icon: "💨",
-    category: "sudoku",
-    progress: 2,
-    maxProgress: 5,
-    isUnlocked: false,
-    rarity: "rare",
-    xpReward: 120,
-  },
-  {
-    id: 10,
-    title: "Math Genius",
-    description: "Answer 100 math questions correctly",
-    icon: "🧠",
-    category: "math",
-    progress: 67,
-    maxProgress: 100,
-    isUnlocked: false,
-    rarity: "epic",
-    xpReward: 280,
+    restaurantId: "coivoj",
+    restaurantName: "Coivoj Restaurant",
+    totalAmount: 0,
+    totalTicketsUsed: 0,
+    tickets: [],
   },
 ];
