@@ -9,11 +9,10 @@ import {
   FaBookmark,
 } from "react-icons/fa";
 import { getPostsByUserId } from "../data/postData";
-import { getUserById } from "../data/userData";
+import { getUserById, getCurrentUserId } from "../data/userData";
 import { getPublicFoldersByUserId } from "../data/publicFilesData";
 import ProfilePosts from "../components/Profile/ProfilePosts";
 import PublicFiles from "../components/Profile/PublicFiles";
-import { useAppSelector } from "../store/hooks";
 import PageLoader from "./Fallbacks/PageLoader";
 
 const Profile: React.FC = () => {
@@ -22,17 +21,18 @@ const Profile: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"posts" | "files">("posts");
   const [isLoading, setIsLoading] = useState(true);
 
+  // Get current user ID
+  const currentUserId = getCurrentUserId();
+
   // Check if viewing own profile
-  const isOwnProfile = !userId || userId === "current-user";
+  const isOwnProfile = !userId || userId === currentUserId;
 
-  // Get actual user ID (default to current user ID "1")
-  const actualUserId = userId || "1";
-
-  // Fetch updated profile data from Redux store
-  const profileData = useAppSelector((state) => state.profile);
+  // Get actual user ID (default to current user ID)
+  const actualUserId = userId || currentUserId;
 
   // Get dynamic user data based on userId
-  const userData = profileData || getUserById(actualUserId);
+  // Always get from userData.ts for consistency and dynamic data
+  const userData = getUserById(actualUserId);
 
   // Get user's posts
   const userPosts = getPostsByUserId(actualUserId);
@@ -41,10 +41,41 @@ const Profile: React.FC = () => {
   const userPublicFolders = getPublicFoldersByUserId(actualUserId);
 
   useEffect(() => {
-    if (profileData) {
+    // Debug: Log the data being used
+    console.log("Profile Debug:", {
+      userId,
+      actualUserId,
+      isOwnProfile,
+      userData: userData
+        ? {
+            id: userData.id,
+            name: userData.name,
+            username: userData.username,
+            university: userData.university,
+            avatar: userData.avatar,
+            bio: userData.bio,
+          }
+        : null,
+      currentUserId,
+      userPosts: userPosts.length,
+      userPublicFolders: userPublicFolders.length,
+    });
+
+    // Set loading to false after component mounts
+    const timer = setTimeout(() => {
       setIsLoading(false);
-    }
-  }, [profileData]);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [
+    userData,
+    userId,
+    actualUserId,
+    isOwnProfile,
+    currentUserId,
+    userPosts.length,
+    userPublicFolders.length,
+  ]);
 
   // If user not found, show error
   if (!userData) {

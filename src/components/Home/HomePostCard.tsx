@@ -26,6 +26,7 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [showCommentBox, setShowCommentBox] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const showMenu = useAppSelector(
     (state) => state.ui.menus.postMenus[post.postId] || false
   );
@@ -65,10 +66,15 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center space-x-3">
           <img
-            src={userData?.avatar || "https://via.placeholder.com/40"}
+            src={
+              imageError
+                ? "https://via.placeholder.com/40"
+                : userData?.avatar || "https://via.placeholder.com/40"
+            }
             alt={userData?.name || "User"}
             className="h-10 w-10 cursor-pointer rounded-full bg-gray-300 transition-all hover:ring-2 hover:ring-blue-300"
             onClick={handleProfileClick}
+            onError={() => setImageError(true)}
           />
           <div>
             <h3

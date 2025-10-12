@@ -3,6 +3,35 @@ export const getCurrentUserId = (): string => {
   return "1";
 };
 
+// Generate dynamic avatar URL using RandomUser.me API
+export const generateAvatarUrl = (
+  userId: string,
+  gender: "male" | "female"
+): string => {
+  // Convert userId to number for consistent avatar selection
+  const numericId = parseInt(userId) || 1;
+  // Use modulo to get a number between 1-100 for RandomUser API
+  const avatarNumber = ((numericId - 1) % 100) + 1;
+
+  return `https://randomuser.me/api/portraits/${gender}/${avatarNumber}.jpg`;
+};
+
+// Helper function to assign gender based on name patterns
+export const assignGender = (name: string): "male" | "female" => {
+  const femaleNames = [
+    "Sarah",
+    "Emma",
+    "Linda",
+    "Sophia",
+    "Olivia",
+    "Mia",
+    "Ava",
+    "Rachel",
+  ];
+  const firstName = name.split(" ")[0];
+  return femaleNames.includes(firstName) ? "female" : "male";
+};
+
 export interface UserData {
   id: string;
   name: string;
@@ -10,6 +39,7 @@ export interface UserData {
   avatar: string;
   bio: string;
   university: string;
+  gender?: "male" | "female"; // Make gender optional for now
   friends: string[];
   pendingRequests?: string[];
   saved?: string[]; // Bookmarked post IDs
@@ -20,10 +50,10 @@ export const usersData: UserData[] = [
     id: "1",
     name: "Tamim Ikbal (1/20)",
     username: "tamim_ikbal",
-    avatar:
-      "https://ui-avatars.com/api/?name=Tamim+Ikbal&background=3b82f6&color=fff&size=150",
+    avatar: generateAvatarUrl("1", "male"),
     bio: "User 1 bio",
     university: "University 1",
+    gender: "male",
     friends: ["2", "3", "5", "6", "12", "14", "15"],
     pendingRequests: ["4", "7", "8", "9"],
     saved: ["p1", "p3"],
@@ -32,10 +62,10 @@ export const usersData: UserData[] = [
     id: "2",
     name: "Sarah Wilson (2/20)",
     username: "sarahw",
-    avatar:
-      "https://ui-avatars.com/api/?name=Sarah+Wilson&background=3b82f6&color=fff&size=150",
+    avatar: generateAvatarUrl("2", "female"),
     bio: "User 2 bio",
     university: "University 2",
+    gender: "female",
     friends: ["1", "3"],
     pendingRequests: ["5"],
     saved: ["p2"],
@@ -44,10 +74,10 @@ export const usersData: UserData[] = [
     id: "3",
     name: "Alex Chen (3/20)",
     username: "alexc",
-    avatar:
-      "https://ui-avatars.com/api/?name=Alex+Chen&background=10b981&color=fff&size=150",
+    avatar: generateAvatarUrl("3", "male"),
     bio: "User 3 bio",
     university: "University 3",
+    gender: "male",
     friends: ["1", "2"],
     pendingRequests: [],
     saved: [],
@@ -56,10 +86,10 @@ export const usersData: UserData[] = [
     id: "4",
     name: "Mike Johnson (4/20)",
     username: "mikej",
-    avatar:
-      "https://ui-avatars.com/api/?name=Mike+Johnson&background=f59e0b&color=fff&size=150",
+    avatar: generateAvatarUrl("4", "male"),
     bio: "User 4 bio",
     university: "University 4",
+    gender: "male",
     friends: ["5"],
     pendingRequests: [],
     saved: [],
@@ -68,10 +98,10 @@ export const usersData: UserData[] = [
     id: "5",
     name: "Emma Davis (5/20)",
     username: "emmad",
-    avatar:
-      "https://ui-avatars.com/api/?name=Emma+Davis&background=ef4444&color=fff&size=150",
+    avatar: generateAvatarUrl("5", "female"),
     bio: "User 5 bio",
     university: "University 5",
+    gender: "female",
     friends: ["4"],
     pendingRequests: [],
     saved: [],
@@ -80,10 +110,10 @@ export const usersData: UserData[] = [
     id: "6",
     name: "Alex Johnson (6/20)",
     username: "alexj",
-    avatar:
-      "https://ui-avatars.com/api/?name=Alex+Johnson&background=f39c12&color=fff&size=150",
+    avatar: generateAvatarUrl("6", "male"),
     bio: "User 6 bio",
     university: "University 6",
+    gender: "male",
     friends: [],
     pendingRequests: [],
     saved: [],
@@ -92,10 +122,10 @@ export const usersData: UserData[] = [
     id: "7",
     name: "Emma Wilson (7/20)",
     username: "emmaw",
-    avatar:
-      "https://ui-avatars.com/api/?name=Emma+Wilson&background=9b59b6&color=fff&size=150",
+    avatar: generateAvatarUrl("7", "female"),
     bio: "User 7 bio",
     university: "University 7",
+    gender: "female",
     friends: [],
     pendingRequests: [],
     saved: [],
@@ -104,10 +134,10 @@ export const usersData: UserData[] = [
     id: "8",
     name: "James Kim (8/20)",
     username: "jamesk",
-    avatar:
-      "https://ui-avatars.com/api/?name=James+Kim&background=34495e&color=fff&size=150",
+    avatar: generateAvatarUrl("8", "male"),
     bio: "User 8 bio",
     university: "University 8",
+    gender: "male",
     friends: [],
     pendingRequests: [],
     saved: [],
@@ -116,10 +146,10 @@ export const usersData: UserData[] = [
     id: "9",
     name: "Sarah Kim (9/20)",
     username: "sarahk",
-    avatar:
-      "https://ui-avatars.com/api/?name=Sarah+Kim&background=9b59b6&color=fff&size=150",
+    avatar: generateAvatarUrl("9", "female"),
     bio: "User 9 bio",
     university: "University 9",
+    gender: "female",
     friends: [],
     pendingRequests: [],
     saved: [],
@@ -128,10 +158,10 @@ export const usersData: UserData[] = [
     id: "10",
     name: "Rachel Kim (10/20)",
     username: "rachelk",
-    avatar:
-      "https://ui-avatars.com/api/?name=Rachel+Kim&background=9b59b6&color=fff&size=150",
+    avatar: generateAvatarUrl("10", "female"),
     bio: "User 10 bio",
     university: "University 10",
+    gender: "female",
     friends: [],
     pendingRequests: [],
     saved: [],

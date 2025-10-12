@@ -1,21 +1,28 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface ProfileState {
+  id: string;
   name: string;
-  email: string;
-  bio: string;
+  username: string;
   avatar: string;
-  username?: string;
-  university?: string;
+  bio: string;
+  university: string;
+  friends: string[];
+  pendingRequests?: string[];
+  saved?: string[];
 }
 
+// Simple initial state for profile editing
 const initialState: ProfileState = {
-  name: "Tamim Ikbal",
-  email: "tamim@example.com",
-  bio: "Web Developer and Open Source Enthusiast | Love to build amazing web applications.",
-  avatar: "https://picsum.photos/200/300",
-  username: "tamim_ikbal",
-  university: "XYZ University",
+  id: "",
+  name: "",
+  username: "",
+  avatar: "",
+  bio: "",
+  university: "",
+  friends: [],
+  pendingRequests: [],
+  saved: [],
 };
 
 const profileSlice = createSlice({
@@ -25,8 +32,15 @@ const profileSlice = createSlice({
     updateProfile(state, action: PayloadAction<Partial<ProfileState>>) {
       return { ...state, ...action.payload };
     },
+    loadProfile(_, action: PayloadAction<ProfileState>) {
+      return action.payload;
+    },
+    clearProfile() {
+      return initialState;
+    },
   },
 });
 
-export const { updateProfile } = profileSlice.actions;
+export const { updateProfile, loadProfile, clearProfile } =
+  profileSlice.actions;
 export default profileSlice.reducer;
