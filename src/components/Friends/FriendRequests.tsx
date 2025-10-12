@@ -23,7 +23,7 @@ const FriendRequests: React.FC = () => {
   if (filteredRequests.length === 0) {
     return (
       <div className="py-8 text-center">
-        <p className="text-gray-700">
+        <p className="text-gray-500">
           {searchQuery
             ? "No friend requests found matching your search."
             : "No pending friend requests."}

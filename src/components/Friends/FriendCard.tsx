@@ -26,19 +26,18 @@ const FriendCard: React.FC<FriendCardProps> = ({
           Message
         </button>
       );
-    }
-    if (type === "request") {
+    } else if (type === "request") {
       return (
         <div className="flex space-x-2">
           <button
-            onClick={() => onAcceptRequest?.(friend.id)}
+            onClick={() => onAcceptRequest?.(friend.userId)}
             className="flex items-center rounded-lg bg-green-100 px-3 py-2 text-green-600 transition-colors hover:bg-green-200"
           >
             <FaCheck className="mr-1" />
             Accept
           </button>
           <button
-            onClick={() => onRejectRequest?.(friend.id)}
+            onClick={() => onRejectRequest?.(friend.userId)}
             className="flex items-center rounded-lg bg-red-100 px-3 py-2 text-red-600 transition-colors hover:bg-red-200"
           >
             <FaTimes className="mr-1" />
@@ -46,26 +45,25 @@ const FriendCard: React.FC<FriendCardProps> = ({
           </button>
         </div>
       );
-    }
-    if (type === "suggestion") {
+    } else if (type === "suggestion") {
       return (
         <button
-          onClick={() => onAddFriend?.(friend.id)}
+          onClick={() => onAddFriend?.(friend.userId)}
           className="flex items-center rounded-lg bg-blue-100 px-4 py-2 text-blue-600 transition-colors hover:bg-blue-200"
         >
           <FaUserPlus className="mr-2" />
           Add Friend
         </button>
       );
-    }
-    if (type === "search") {
+    } else if (type === "search") {
+      return null;
+    } else {
       return null;
     }
-    return null;
   };
 
   return (
-    <div className="flex items-center space-x-4 rounded-lg border border-gray-300 bg-white p-3 shadow-sm">
+    <div className="flex items-center space-x-3 rounded-lg border border-gray-300 bg-white p-3 shadow-sm">
       <img
         src={friend.avatar}
         alt={friend.name}
@@ -74,7 +72,7 @@ const FriendCard: React.FC<FriendCardProps> = ({
       <div className="flex-1">
         <h3>
           <NavLink
-            to={`/profile/${friend.username}`}
+            to={`/profile/${friend.userId}`}
             className="font-semibold text-gray-900 transition-colors hover:text-blue-600 hover:underline"
           >
             {friend.name}

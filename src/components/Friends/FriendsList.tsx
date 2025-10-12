@@ -13,7 +13,7 @@ const FriendsList: React.FC = () => {
   if (filteredFriends.length === 0) {
     return (
       <div>
-        <p className="text-gray-500">
+        <p className="py-8 text-center text-gray-500">
           {searchQuery
             ? "No friends found matching your search."
             : "No friends yet."}
@@ -25,7 +25,7 @@ const FriendsList: React.FC = () => {
   return (
     <div className="space-y-3">
       {filteredFriends.map((friend: Friend) => (
-        <FriendCard key={friend.id} friend={friend} type="friend" />
+        <FriendCard key={friend.userId} friend={friend} type="friend" />
       ))}
     </div>
   );

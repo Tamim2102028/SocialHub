@@ -1,6 +1,6 @@
 // Friends Data Types
 export interface Friend {
-  id: string;
+  userId: string;
   name: string;
   username: string;
   avatar: string;
@@ -14,7 +14,7 @@ export interface Friend {
 // Mock Friends Data
 export const mockFriends: Friend[] = [
   {
-    id: "1",
+    userId: "1",
     name: "Sarah Wilson",
     username: "sarahw",
     avatar:
@@ -25,7 +25,7 @@ export const mockFriends: Friend[] = [
     role: "student",
   },
   {
-    id: "2",
+    userId: "2",
     name: "Alex Chen",
     username: "alexc",
     avatar:
@@ -36,7 +36,7 @@ export const mockFriends: Friend[] = [
     role: "teacher",
   },
   {
-    id: "3",
+    userId: "3",
     name: "Mike Johnson",
     username: "mikej",
     avatar:
@@ -47,7 +47,7 @@ export const mockFriends: Friend[] = [
     role: "student",
   },
   {
-    id: "4",
+    userId: "4",
     name: "Emma Davis",
     username: "emmad",
     avatar:
@@ -58,7 +58,7 @@ export const mockFriends: Friend[] = [
     role: "student",
   },
   {
-    id: "5",
+    userId: "5",
     name: "David Lee",
     username: "davidl",
     avatar:
@@ -69,7 +69,7 @@ export const mockFriends: Friend[] = [
     role: "teacher",
   },
   {
-    id: "6",
+    userId: "6",
     name: "Jessica Brown",
     username: "jessicab",
     avatar:
@@ -83,7 +83,7 @@ export const mockFriends: Friend[] = [
 
 export const mockFriendRequests: Friend[] = [
   {
-    id: "1",
+    userId: "1",
     name: "John Smith",
     username: "johns",
     avatar:
@@ -94,7 +94,7 @@ export const mockFriendRequests: Friend[] = [
     role: "student",
   },
   {
-    id: "2",
+    userId: "2",
     name: "Lisa Wang",
     username: "lisaw",
     avatar:
@@ -108,7 +108,7 @@ export const mockFriendRequests: Friend[] = [
 
 export const mockFriendSuggestions: Friend[] = [
   {
-    id: "7",
+    userId: "7",
     name: "Ryan Garcia",
     username: "ryang",
     avatar:
@@ -119,7 +119,7 @@ export const mockFriendSuggestions: Friend[] = [
     role: "student",
   },
   {
-    id: "8",
+    userId: "8",
     name: "Sophia Martinez",
     username: "sophiam",
     avatar:
@@ -130,7 +130,7 @@ export const mockFriendSuggestions: Friend[] = [
     role: "teacher",
   },
   {
-    id: "9",
+    userId: "9",
     name: "Kevin Park",
     username: "kevinp",
     avatar:
