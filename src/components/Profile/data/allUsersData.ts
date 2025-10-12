@@ -53,7 +53,7 @@ export const allUsersData: UserData[] = [
     bio: "User 1 bio",
     university: "University 1",
     friends: ["2", "3", "5"],
-    pendingRequests: ["1", "4"],
+    pendingRequests: ["4"],
   },
   {
     id: "2",
