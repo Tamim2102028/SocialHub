@@ -34,8 +34,7 @@ export const groupsData: Group[] = [
     tags: ["tech", "programming", "coding"],
     memberCount: 5,
     postCount: 12,
-    coverImage: "/images/tech-group-cover.jpg",
-    profileImage: "/images/tech-group-profile.jpg",
+    coverImage: "https://i.pravatar.cc/150?img=1",
     rules: [
       "Be respectful to all members",
       "Stay on topic related to technology",
@@ -58,8 +57,7 @@ export const groupsData: Group[] = [
     tags: ["study", "education", "academic"],
     memberCount: 6,
     postCount: 8,
-    coverImage: "/images/study-group-cover.jpg",
-    profileImage: "/images/study-group-profile.jpg",
+    coverImage: "https://i.pravatar.cc/150?img=2",
     rules: [
       "Share study materials and resources",
       "Help each other with academic questions",
@@ -81,8 +79,7 @@ export const groupsData: Group[] = [
     tags: ["fitness", "workout", "health"],
     memberCount: 5,
     postCount: 15,
-    coverImage: "/images/fitness-group-cover.jpg",
-    profileImage: "/images/fitness-group-profile.jpg",
+    coverImage: "https://i.pravatar.cc/150?img=3",
     rules: [
       "Share workout routines and tips",
       "Encourage healthy lifestyle choices",
@@ -104,8 +101,7 @@ export const groupsData: Group[] = [
     tags: ["books", "reading", "literature"],
     memberCount: 4,
     postCount: 6,
-    coverImage: "/images/books-group-cover.jpg",
-    profileImage: "/images/books-group-profile.jpg",
+    coverImage: "https://i.pravatar.cc/150?img=4",
     rules: [
       "Share book recommendations",
       "Discuss plot points and themes",
@@ -127,8 +123,7 @@ export const groupsData: Group[] = [
     tags: ["cooking", "recipes", "food"],
     memberCount: 6,
     postCount: 20,
-    coverImage: "/images/cooking-group-cover.jpg",
-    profileImage: "/images/cooking-group-profile.jpg",
+    coverImage: "https://i.pravatar.cc/150?img=5",
     rules: [
       "Share original recipes and cooking tips",
       "Post photos of your culinary creations",
@@ -150,8 +145,7 @@ export const groupsData: Group[] = [
     tags: ["photography", "art", "creativity"],
     memberCount: 5,
     postCount: 18,
-    coverImage: "/images/photography-group-cover.jpg",
-    profileImage: "/images/photography-group-profile.jpg",
+    coverImage: "https://i.pravatar.cc/150?img=6",
     rules: [
       "Share your best photographs",
       "Provide constructive feedback",
@@ -173,8 +167,7 @@ export const groupsData: Group[] = [
     tags: ["gaming", "esports", "games"],
     memberCount: 5,
     postCount: 25,
-    coverImage: "/images/gaming-group-cover.jpg",
-    profileImage: "/images/gaming-group-profile.jpg",
+    coverImage: "https://i.pravatar.cc/150?img=7",
     rules: [
       "Share gaming achievements and screenshots",
       "Organize gaming sessions",
@@ -196,8 +189,7 @@ export const groupsData: Group[] = [
     tags: ["music", "songs", "artists"],
     memberCount: 6,
     postCount: 14,
-    coverImage: "/images/music-group-cover.jpg",
-    profileImage: "/images/music-group-profile.jpg",
+    coverImage: "https://i.pravatar.cc/150?img=8",
     rules: [
       "Share music recommendations",
       "Discuss different genres and artists",

@@ -3,11 +3,6 @@ import GroupCard from "./GroupCard";
 
 import type { Group } from "../../data/groupsData";
 
-interface GroupCardProps {
-  group: Group;
-  showJoinButton: boolean;
-}
-
 interface MyGroupsProps {
   groups: Group[];
 }
