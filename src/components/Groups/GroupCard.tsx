@@ -1,15 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUsers, FaLock, FaGlobe } from "react-icons/fa";
-
-interface Group {
-  id: number;
-  name: string;
-  members: number;
-  isPrivate: boolean;
-  coverImage: string;
-  category?: string;
-}
+import type { Group } from "../../data/groupsData";
 
 interface GroupCardProps {
   group: Group;
@@ -23,7 +15,7 @@ const GroupCard: React.FC<GroupCardProps> = ({
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate(`/groups/${group.id}`);
+    navigate(`/groups/${group.groupId}`);
   };
 
   const handleJoinClick = (e: React.MouseEvent) => {
@@ -39,14 +31,14 @@ const GroupCard: React.FC<GroupCardProps> = ({
     >
       <div className="relative overflow-hidden">
         <img
-          src={group.coverImage}
+          src={group.coverImage || "/images/default-group-cover.jpg"}
           alt={group.name}
           className="h-40 w-full object-cover transition-transform duration-300 group-hover:scale-110"
         />
 
         {/* Privacy/Category Badge */}
         <div className="absolute top-3 right-3">
-          {group.isPrivate ? (
+          {group.privacy === "private" ? (
             <div className="flex items-center gap-1.5 rounded-full bg-gray-900 px-3 py-1.5 text-xs font-semibold text-white">
               <FaLock size={10} />
               Private
@@ -70,7 +62,7 @@ const GroupCard: React.FC<GroupCardProps> = ({
         <div className="mb-3 flex items-center gap-2 text-sm text-gray-600">
           <FaUsers size={14} />
           <span className="font-medium">
-            {group.members.toLocaleString()} members
+            {group.memberCount.toLocaleString()} members
           </span>
         </div>
 

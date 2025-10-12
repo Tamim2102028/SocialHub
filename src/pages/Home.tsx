@@ -44,7 +44,7 @@ const Home: React.FC = () => {
       {/* Posts List */}
       <div className="space-y-5">
         {posts.map((post) => (
-          <HomePostCard key={post.id} post={post} />
+          <HomePostCard key={post.postId} post={post} />
         ))}
       </div>
 

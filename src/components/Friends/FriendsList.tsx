@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import { allUsersData, getCurrentUserId } from "../Profile/data/allUsersData";
+import { allUsersData, getCurrentUserId } from "../../data/publicFilesData";
 import FriendCard from "./FriendCard";
 
 const FriendsList: React.FC = () => {
@@ -11,7 +11,7 @@ const FriendsList: React.FC = () => {
   const friends =
     currentUser?.friends
       ?.map((id) => allUsersData.find((u) => u.id === id))
-      .filter((f): f is import("../Profile/data/allUsersData").UserData =>
+      .filter((f): f is import("../../data/publicFilesData").UserData =>
         Boolean(f)
       ) || [];
   const filteredFriends = friends.filter((friend) =>

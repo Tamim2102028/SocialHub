@@ -1,13 +1,22 @@
 import React from "react";
 import ProfilePostCard from "./ProfilePostCard";
-import type { PostData } from "./data/allUsersData";
+import type { PostData } from "../../data/postData";
 
 interface ProfilePostsProps {
   posts: PostData[];
   isOwnProfile: boolean;
+  userData?: {
+    name: string;
+    username: string;
+    avatar: string;
+  }; // User data for author info
 }
 
-const ProfilePosts: React.FC<ProfilePostsProps> = ({ posts, isOwnProfile }) => {
+const ProfilePosts: React.FC<ProfilePostsProps> = ({
+  posts,
+  isOwnProfile,
+  userData,
+}) => {
   return (
     <>
       {/* Posts Header */}
@@ -22,17 +31,22 @@ const ProfilePosts: React.FC<ProfilePostsProps> = ({ posts, isOwnProfile }) => {
         <div className="space-y-4">
           {posts.map((post) => (
             <ProfilePostCard
-              key={post.id}
+              key={post.postId}
               post={{
-                id: post.id,
+                id: post.postId,
                 content: post.content,
-                author: post.author,
-                timestamp: post.timestamp,
-                likes: post.likes,
+                author: {
+                  id: post.userId,
+                  name: userData?.name || "User Name",
+                  username: userData?.username || "username",
+                  avatar: userData?.avatar || "https://via.placeholder.com/40",
+                },
+                timestamp: post.createdAt,
+                likes: post.likedBy.length,
                 comments: post.comments,
-                shares: post.shares,
-                isLiked: post.isLiked,
-                image: post.image,
+                shares: post.sharesBy.length,
+                isLiked: post.likedBy.includes("1"), // Current user ID
+                image: post.images?.[0] || "",
               }}
               isOwnProfile={isOwnProfile}
             />

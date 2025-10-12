@@ -1,6 +1,6 @@
 import React from "react";
 import { FaFolder, FaDownload, FaEye, FaCalendarAlt } from "react-icons/fa";
-import type { PublicFileItem } from "./data/allUsersData";
+import type { PublicFileItem } from "../../data/publicFilesData";
 
 interface PublicFilesProps {
   publicFolders: PublicFileItem[];
@@ -43,7 +43,7 @@ const PublicFiles: React.FC<PublicFilesProps> = ({
     <>
       {publicFolders.map((folder) => (
         <div
-          key={folder.id}
+          key={folder.fileId}
           className="group rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
         >
           <div className="flex items-center justify-between">

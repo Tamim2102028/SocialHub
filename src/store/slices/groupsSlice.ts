@@ -1,10 +1,9 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import {
-  mockMyGroups,
-  mockSuggestedGroups,
-  mockCareerGroups,
+  groupsData,
+  getGroupsByUserId,
   type Group,
-} from "../../components/Groups/data/groupsData";
+} from "../../data/groupsData";
 
 interface GroupsState {
   myGroups: Group[];
@@ -12,16 +11,37 @@ interface GroupsState {
   careerGroups: Group[];
   loading: boolean;
   error: string | null;
-  joinedGroups: number[]; // Array of group IDs user has joined
+  joinedGroups: string[]; // Array of group IDs user has joined
 }
 
+// Helper function to categorize groups
+const categorizeGroups = (groups: Group[]) => {
+  const myGroups = getGroupsByUserId("1"); // Current user ID
+  const careerGroups = groups.filter(
+    (group) =>
+      group.category === "Job & Career" ||
+      group.category === "Technology" ||
+      group.category === "Education"
+  );
+  const suggestedGroups = groups.filter(
+    (group) =>
+      !myGroups.some((myGroup) => myGroup.groupId === group.groupId) &&
+      !careerGroups.some((careerGroup) => careerGroup.groupId === group.groupId)
+  );
+
+  return { myGroups, suggestedGroups, careerGroups };
+};
+
+const { myGroups, suggestedGroups, careerGroups } =
+  categorizeGroups(groupsData);
+
 const initialState: GroupsState = {
-  myGroups: mockMyGroups,
-  suggestedGroups: mockSuggestedGroups,
-  careerGroups: mockCareerGroups,
+  myGroups,
+  suggestedGroups,
+  careerGroups,
   loading: false,
   error: null,
-  joinedGroups: mockMyGroups.map((group) => group.id), // Initially joined groups
+  joinedGroups: myGroups.map((group) => group.groupId), // Initially joined groups
 };
 
 const groupsSlice = createSlice({
@@ -53,7 +73,7 @@ const groupsSlice = createSlice({
     },
 
     // Join group
-    joinGroup: (state, action: PayloadAction<number>) => {
+    joinGroup: (state, action: PayloadAction<string>) => {
       const groupId = action.payload;
 
       // Add to joined groups if not already joined
@@ -62,52 +82,58 @@ const groupsSlice = createSlice({
       }
 
       // Check suggested groups
-      let groupIndex = state.suggestedGroups.findIndex((g) => g.id === groupId);
+      let groupIndex = state.suggestedGroups.findIndex(
+        (g) => g.groupId === groupId
+      );
       if (groupIndex !== -1) {
         const group = state.suggestedGroups[groupIndex];
         state.suggestedGroups.splice(groupIndex, 1);
         state.myGroups.push({
           ...group,
-          members: group.members + 1,
+          memberCount: group.memberCount + 1,
         });
         return;
       }
 
       // Check career groups
-      groupIndex = state.careerGroups.findIndex((g) => g.id === groupId);
+      groupIndex = state.careerGroups.findIndex((g) => g.groupId === groupId);
       if (groupIndex !== -1) {
         const group = state.careerGroups[groupIndex];
         state.careerGroups.splice(groupIndex, 1);
         state.myGroups.push({
           ...group,
-          members: group.members + 1,
+          memberCount: group.memberCount + 1,
         });
       }
     },
 
     // Leave group
-    leaveGroup: (state, action: PayloadAction<number>) => {
+    leaveGroup: (state, action: PayloadAction<string>) => {
       const groupId = action.payload;
 
       // Remove from joined groups
       state.joinedGroups = state.joinedGroups.filter((id) => id !== groupId);
 
       // Find and move from my groups back to appropriate category
-      const groupIndex = state.myGroups.findIndex((g) => g.id === groupId);
+      const groupIndex = state.myGroups.findIndex((g) => g.groupId === groupId);
       if (groupIndex !== -1) {
         const group = state.myGroups[groupIndex];
         state.myGroups.splice(groupIndex, 1);
 
         // Check if it's a career group
-        if (group.category === "Job & Career") {
+        if (
+          group.category === "Job & Career" ||
+          group.category === "Technology" ||
+          group.category === "Education"
+        ) {
           state.careerGroups.push({
             ...group,
-            members: Math.max(0, group.members - 1),
+            memberCount: Math.max(0, group.memberCount - 1),
           });
         } else {
           state.suggestedGroups.push({
             ...group,
-            members: Math.max(0, group.members - 1),
+            memberCount: Math.max(0, group.memberCount - 1),
           });
         }
       }
@@ -116,21 +142,23 @@ const groupsSlice = createSlice({
     // Create new group
     createGroup: (state, action: PayloadAction<Group>) => {
       state.myGroups.unshift(action.payload);
-      state.joinedGroups.push(action.payload.id);
+      state.joinedGroups.push(action.payload.groupId);
     },
 
     // Update group info
     updateGroup: (
       state,
       action: PayloadAction<{
-        groupId: number;
+        groupId: string;
         updates: Partial<Group>;
       }>
     ) => {
       const { groupId, updates } = action.payload;
 
       // Update in my groups
-      const myGroupIndex = state.myGroups.findIndex((g) => g.id === groupId);
+      const myGroupIndex = state.myGroups.findIndex(
+        (g) => g.groupId === groupId
+      );
       if (myGroupIndex !== -1) {
         state.myGroups[myGroupIndex] = {
           ...state.myGroups[myGroupIndex],
@@ -140,7 +168,7 @@ const groupsSlice = createSlice({
 
       // Update in suggested groups
       const suggestedGroupIndex = state.suggestedGroups.findIndex(
-        (g) => g.id === groupId
+        (g) => g.groupId === groupId
       );
       if (suggestedGroupIndex !== -1) {
         state.suggestedGroups[suggestedGroupIndex] = {
@@ -154,24 +182,24 @@ const groupsSlice = createSlice({
     updateMemberCount: (
       state,
       action: PayloadAction<{
-        groupId: number;
+        groupId: string;
         count: number;
       }>
     ) => {
       const { groupId, count } = action.payload;
 
       // Update in my groups
-      const myGroup = state.myGroups.find((g) => g.id === groupId);
+      const myGroup = state.myGroups.find((g) => g.groupId === groupId);
       if (myGroup) {
-        myGroup.members = count;
+        myGroup.memberCount = count;
       }
 
       // Update in suggested groups
       const suggestedGroup = state.suggestedGroups.find(
-        (g) => g.id === groupId
+        (g) => g.groupId === groupId
       );
       if (suggestedGroup) {
-        suggestedGroup.members = count;
+        suggestedGroup.memberCount = count;
       }
     },
 

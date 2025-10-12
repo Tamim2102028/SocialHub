@@ -1,15 +1,17 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { mockPosts, type Post } from "../../components/Home/data/feedData";
+
+import { postData } from "../../data/postData";
+import type { PostData } from "../../data/postData";
 
 interface PostsState {
-  posts: Post[];
+  posts: PostData[];
   loading: boolean;
   error: string | null;
   createPostLoading: boolean;
 }
 
 const initialState: PostsState = {
-  posts: mockPosts,
+  posts: postData,
   loading: false,
   error: null,
   createPostLoading: false,
@@ -24,7 +26,7 @@ const postsSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    fetchPostsSuccess: (state, action: PayloadAction<Post[]>) => {
+    fetchPostsSuccess: (state, action: PayloadAction<PostData[]>) => {
       state.posts = action.payload;
       state.loading = false;
       state.error = null;
@@ -39,7 +41,7 @@ const postsSlice = createSlice({
       state.createPostLoading = true;
       state.error = null;
     },
-    createPostSuccess: (state, action: PayloadAction<Post>) => {
+    createPostSuccess: (state, action: PayloadAction<PostData>) => {
       state.posts.unshift(action.payload);
       state.createPostLoading = false;
       state.error = null;
@@ -51,24 +53,24 @@ const postsSlice = createSlice({
 
     // Like/Unlike post
     toggleLikePost: (state, action: PayloadAction<string>) => {
-      const post = state.posts.find((p) => p.id === action.payload);
+      const post = state.posts.find(
+        (p: PostData) => p.postId === action.payload
+      );
       if (post) {
-        if (post.isLiked) {
-          post.likes -= 1;
-          post.isLiked = false;
+        // Toggle like for current user (for demo, just toggle userId '1')
+        const userId = "1";
+        if (post.likedBy.includes(userId)) {
+          post.likedBy = post.likedBy.filter((id) => id !== userId);
         } else {
-          post.likes += 1;
-          post.isLiked = true;
+          post.likedBy.push(userId);
         }
       }
     },
 
     // Bookmark/Unbookmark post
+    // Bookmarks are not in PostData, so this is a placeholder
     toggleBookmarkPost: (state, action: PayloadAction<string>) => {
-      const post = state.posts.find((p) => p.id === action.payload);
-      if (post) {
-        post.isBookmarked = !post.isBookmarked;
-      }
+      // Implement if you add bookmarks to PostData
     },
 
     // Update comment count
@@ -76,7 +78,9 @@ const postsSlice = createSlice({
       state,
       action: PayloadAction<{ postId: string; count: number }>
     ) => {
-      const post = state.posts.find((p) => p.id === action.payload.postId);
+      const post = state.posts.find(
+        (p: PostData) => p.postId === action.payload.postId
+      );
       if (post) {
         post.comments = action.payload.count;
       }
@@ -87,15 +91,20 @@ const postsSlice = createSlice({
       state,
       action: PayloadAction<{ postId: string; count: number }>
     ) => {
-      const post = state.posts.find((p) => p.id === action.payload.postId);
+      const post = state.posts.find(
+        (p: PostData) => p.postId === action.payload.postId
+      );
       if (post) {
-        post.shares = action.payload.count;
+        // PostData uses sharesBy array, so update its length if needed
+        // For demo, do nothing or implement logic as needed
       }
     },
 
     // Delete post
     deletePost: (state, action: PayloadAction<string>) => {
-      state.posts = state.posts.filter((p) => p.id !== action.payload);
+      state.posts = state.posts.filter(
+        (p: PostData) => p.postId !== action.payload
+      );
     },
 
     // Clear error

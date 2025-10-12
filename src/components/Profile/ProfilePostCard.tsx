@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 
 interface Author {
+  id: string;
   name: string;
   username: string;
   avatar: string;

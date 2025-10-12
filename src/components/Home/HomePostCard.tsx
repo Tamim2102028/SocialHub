@@ -9,35 +9,17 @@ import { togglePostMenu } from "../../store/slices/uiSlice";
 import {
   FaHeart,
   FaShare,
-  FaBookmark,
   FaEllipsisH,
   FaRegHeart,
   FaRegComment,
   FaRegBookmark,
 } from "react-icons/fa";
 
-interface Author {
-  id: string;
-  username: string;
-  name: string;
-  avatar: string;
-}
-
-interface Post {
-  id: string;
-  author: Author;
-  content: string;
-  images: string[];
-  likes: number;
-  comments: number;
-  shares: number;
-  createdAt: string;
-  isLiked: boolean;
-  isBookmarked: boolean;
-}
+import type { PostData } from "../../data/postData";
+import { getUserById } from "../../data/userData";
 
 interface HomePostCardProps {
-  post: Post;
+  post: PostData;
 }
 
 const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
@@ -45,19 +27,23 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
   const navigate = useNavigate();
   const [showCommentBox, setShowCommentBox] = useState(false);
   const showMenu = useAppSelector(
-    (state) => state.ui.menus.postMenus[post.id] || false
+    (state) => state.ui.menus.postMenus[post.postId] || false
   );
 
+  // Get user data for the post author
+  const userData = getUserById(post.userId);
+  const isLiked = post.likedBy.includes("1"); // Current user ID
+
   const handleLike = () => {
-    dispatch(toggleLikePost(post.id));
+    dispatch(toggleLikePost(post.postId));
   };
 
   const handleBookmark = () => {
-    dispatch(toggleBookmarkPost(post.id));
+    dispatch(toggleBookmarkPost(post.postId));
   };
 
   const handleProfileClick = () => {
-    navigate(`/profile/${post.author.id}`);
+    navigate(`/profile/${post.userId}`);
   };
 
   const formatTime = (timestamp: string) => {
@@ -79,8 +65,8 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center space-x-3">
           <img
-            src={post.author.avatar}
-            alt={post.author.name}
+            src={userData?.avatar || "https://via.placeholder.com/40"}
+            alt={userData?.name || "User"}
             className="h-10 w-10 cursor-pointer rounded-full bg-gray-300 transition-all hover:ring-2 hover:ring-blue-300"
             onClick={handleProfileClick}
           />
@@ -89,7 +75,7 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
               className="cursor-pointer font-semibold text-gray-900 transition-colors hover:text-blue-600 hover:underline"
               onClick={handleProfileClick}
             >
-              {post.author.name}
+              {userData?.name || "User"}
             </h3>
             <p className="text-sm text-gray-500">
               @
@@ -97,7 +83,7 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
                 className="cursor-pointer transition-colors hover:text-blue-600 hover:underline"
                 onClick={handleProfileClick}
               >
-                {post.author.username}
+                {userData?.username || "username"}
               </span>{" "}
               • {formatTime(post.createdAt)}
             </p>
@@ -106,7 +92,7 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
 
         <div className="relative">
           <button
-            onClick={() => dispatch(togglePostMenu(post.id))}
+            onClick={() => dispatch(togglePostMenu(post.postId))}
             className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
           >
             <FaEllipsisH size={16} />
@@ -119,20 +105,14 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
                   onClick={handleBookmark}
                   className="flex w-full items-center px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                 >
-                  {post.isBookmarked ? (
-                    <>
-                      <FaBookmark className="mr-3 text-blue-600" size={14} />
-                      Remove bookmark
-                    </>
-                  ) : (
-                    <>
-                      <FaRegBookmark className="mr-3" size={14} />
-                      Save post
-                    </>
-                  )}
+                  {/* TODO: Implement bookmark functionality */}
+                  <>
+                    <FaRegBookmark className="mr-3" size={14} />
+                    Save post
+                  </>
                 </button>
                 <button className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
-                  Follow @{post.author.username}
+                  Follow @{userData?.username || "username"}
                 </button>
                 <button className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
                   Hide this post
@@ -152,7 +132,7 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
       </div>
 
       {/* Post Images */}
-      {post.images.length > 0 && (
+      {post.images && post.images.length > 0 && (
         <div className="px-4 pb-3">
           {post.images.length === 1 ? (
             <img
@@ -169,10 +149,10 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
                     alt={`Post content ${index + 1}`}
                     className="h-48 w-full rounded-lg object-cover"
                   />
-                  {index === 3 && post.images.length > 4 && (
+                  {index === 3 && post.images && post.images.length > 4 && (
                     <div className="bg-opacity-50 absolute inset-0 flex items-center justify-center rounded-lg bg-black">
                       <span className="text-lg font-semibold text-white">
-                        +{post.images.length - 4}
+                        +{post.images!.length - 4}
                       </span>
                     </div>
                   )}
@@ -187,9 +167,9 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
       <div className="border-t border-gray-100 px-4 py-2">
         <div className="flex items-center justify-between text-sm text-gray-500">
           <div className="flex items-center space-x-4">
-            <span>{post.likes} likes</span>
+            <span>{post.likedBy.length} likes</span>
             <span>{post.comments} comments</span>
-            <span>{post.shares} shares</span>
+            <span>{post.sharesBy.length} shares</span>
           </div>
         </div>
       </div>
@@ -200,12 +180,12 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
           <button
             onClick={handleLike}
             className={`flex items-center justify-center space-x-2 rounded-lg px-3 py-2 transition-colors ${
-              post.isLiked
+              isLiked
                 ? "bg-red-50 text-red-600 hover:bg-red-100"
                 : "text-gray-600 hover:bg-gray-100"
             }`}
           >
-            {post.isLiked ? <FaHeart size={18} /> : <FaRegHeart size={18} />}
+            {isLiked ? <FaHeart size={18} /> : <FaRegHeart size={18} />}
             <span className="text-sm font-medium">Like</span>
           </button>
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import { allUsersData, getCurrentUserId } from "../Profile/data/allUsersData";
+import { allUsersData, getCurrentUserId } from "../../data/publicFilesData";
 import FriendCard from "./FriendCard";
 
 const FriendRequests: React.FC = () => {
@@ -11,7 +11,7 @@ const FriendRequests: React.FC = () => {
   const currentUser = allUsersData.find((u) => u.id === getCurrentUserId());
   const requests = (currentUser?.pendingRequests || [])
     .map((id) => allUsersData.find((u) => u.id === id))
-    .filter((f): f is import("../Profile/data/allUsersData").UserData =>
+    .filter((f): f is import("../../data/publicFilesData").UserData =>
       Boolean(f)
     );
   const filteredRequests = requests.filter((user) =>

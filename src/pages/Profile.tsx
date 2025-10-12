@@ -8,11 +8,9 @@ import {
   FaFileAlt,
   FaBookmark,
 } from "react-icons/fa";
-import {
-  getUserById,
-  getPostsByUserId,
-  getPublicFoldersByUserId,
-} from "../components/Profile/data/allUsersData";
+import { getPostsByUserId } from "../data/postData";
+import { getUserById } from "../data/userData";
+import { getPublicFoldersByUserId } from "../data/publicFilesData";
 import ProfilePosts from "../components/Profile/ProfilePosts";
 import PublicFiles from "../components/Profile/PublicFiles";
 import { useAppSelector } from "../store/hooks";
@@ -27,17 +25,20 @@ const Profile: React.FC = () => {
   // Check if viewing own profile
   const isOwnProfile = !userId || userId === "current-user";
 
+  // Get actual user ID (default to current user ID "1")
+  const actualUserId = userId || "1";
+
   // Fetch updated profile data from Redux store
   const profileData = useAppSelector((state) => state.profile);
 
   // Get dynamic user data based on userId
-  const userData = profileData || getUserById(userId || "current-user");
+  const userData = profileData || getUserById(actualUserId);
 
   // Get user's posts
-  const userPosts = getPostsByUserId(userId || "current-user");
+  const userPosts = getPostsByUserId(actualUserId);
 
   // Get user's public folders
-  const userPublicFolders = getPublicFoldersByUserId(userId || "current-user");
+  const userPublicFolders = getPublicFoldersByUserId(actualUserId);
 
   useEffect(() => {
     if (profileData) {
@@ -171,7 +172,15 @@ const Profile: React.FC = () => {
       <div>
         {activeTab === "posts" && (
           <div className="space-y-3">
-            <ProfilePosts posts={userPosts} isOwnProfile={isOwnProfile} />
+            <ProfilePosts
+              posts={userPosts}
+              isOwnProfile={isOwnProfile}
+              userData={{
+                name: userData?.name || "User",
+                username: userData?.username || "username",
+                avatar: userData?.avatar || "https://via.placeholder.com/40",
+              }}
+            />
           </div>
         )}
 

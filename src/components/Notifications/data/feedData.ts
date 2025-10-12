@@ -1,23 +1,23 @@
 // Types
-export interface Author {
-  id: string;
-  username: string;
-  name: string;
-  avatar: string;
-}
+// export interface Author {
+//   id: string;
+//   username: string;
+//   name: string;
+//   avatar: string;
+// }
 
-export interface Post {
-  id: string;
-  author: Author;
-  content: string;
-  images: string[];
-  likes: number;
-  comments: number;
-  shares: number;
-  createdAt: string;
-  isLiked: boolean;
-  isBookmarked: boolean;
-}
+// export interface Post {
+//   id: string;
+//   author: Author;
+//   content: string;
+//   images: string[];
+//   likes: number;
+//   comments: number;
+//   shares: number;
+//   createdAt: string;
+//   isLiked: boolean;
+//   isBookmarked: boolean;
+// }
 
 export interface NotificationUser {
   name: string;
@@ -34,7 +34,7 @@ export interface Notification {
   isRead: boolean;
   postContent?: string;
 }
-
+/*
 // Mock Posts Data
 export const mockPosts: Post[] = [
   {
@@ -100,6 +100,7 @@ export const mockPosts: Post[] = [
     isBookmarked: false,
   },
 ];
+*/
 
 // Mock Notifications Data
 export const mockNotifications: Notification[] = [

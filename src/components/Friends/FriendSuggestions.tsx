@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import { allUsersData, getCurrentUserId } from "../Profile/data/allUsersData";
+import { allUsersData, getCurrentUserId } from "../../data/publicFilesData";
 import FriendCard from "./FriendCard";
 
 const FriendSuggestions: React.FC = () => {
