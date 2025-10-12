@@ -1,5 +1,5 @@
 import React from "react";
-import { FaImage, FaVideo, FaSmile, FaPaperPlane } from "react-icons/fa";
+import { FaImage, FaVideo, FaPaperPlane } from "react-icons/fa";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import {
   setPostContent,
@@ -24,14 +24,14 @@ const CreatePost: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow border border-gray-400 p-4">
+    <div className="rounded-lg border border-gray-400 bg-white p-4 shadow">
       <form onSubmit={handleSubmit}>
         {/* User Avatar and Input */}
         <div className="flex space-x-3">
           <img
             src={currentUser?.avatar}
             alt="Your avatar"
-            className="h-10 w-10 rounded-full bg-gray-300 flex-shrink-0"
+            className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"
           />
           <div className="flex-1">
             <textarea
@@ -39,7 +39,7 @@ const CreatePost: React.FC = () => {
               onChange={(e) => dispatch(setPostContent(e.target.value))}
               onFocus={() => dispatch(setPostExpanded(true))}
               placeholder="What's on your mind?"
-              className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full resize-none rounded-lg border border-gray-300 p-3 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
               rows={isExpanded ? 4 : 2}
             />
           </div>
@@ -49,11 +49,11 @@ const CreatePost: React.FC = () => {
         {isExpanded && (
           <div className="mt-4">
             {/* Media Options */}
-            <div className="flex items-center justify-between mb-4">
+            <div className="mb-4 flex items-center justify-between">
               <div className="flex space-x-4">
                 <button
                   type="button"
-                  className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="flex items-center space-x-2 rounded-lg px-3 py-2 text-gray-600 transition-colors hover:bg-gray-100"
                 >
                   <FaImage className="h-5 w-5 text-green-500" />
                   <span className="text-sm font-medium">Photo</span>
@@ -61,37 +61,32 @@ const CreatePost: React.FC = () => {
 
                 <button
                   type="button"
-                  className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="flex items-center space-x-2 rounded-lg px-3 py-2 text-gray-600 transition-colors hover:bg-gray-100"
                 >
                   <FaVideo className="h-5 w-5 text-red-500" />
                   <span className="text-sm font-medium">Video</span>
                 </button>
-
-                <button
-                  type="button"
-                  className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  <FaSmile className="h-5 w-5 text-yellow-500" />
-                  <span className="text-sm font-medium">Feeling</span>
-                </button>
               </div>
 
               {/* Privacy Selector */}
-              <select className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="public">🌐 Public</option>
-                <option value="friends">👥 Friends</option>
-                <option value="private">🔒 Only me</option>
-              </select>
+              <div className="flex items-center justify-center">
+                <p className="mr-2 text-sm font-medium">Privacy:</p>
+                <select className="appearance-none rounded-lg border border-gray-300 px-3 py-1 text-center text-sm font-semibold">
+                  <option value="public">Public</option>
+                  <option value="friends">Friends</option>
+                  <option value="private">Only me</option>
+                </select>
+              </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <button
                 type="button"
                 onClick={() => {
                   dispatch(clearPostContent());
                 }}
-                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                className="rounded-lg border border-red-300 px-3 py-1 text-red-600 transition-colors hover:bg-gray-100"
               >
                 Cancel
               </button>
@@ -99,7 +94,7 @@ const CreatePost: React.FC = () => {
               <button
                 type="submit"
                 disabled={!postContent.trim()}
-                className="flex items-center space-x-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="flex items-center space-x-2 rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <FaPaperPlane className="h-4 w-4" />
                 <span>Post</span>
@@ -110,10 +105,10 @@ const CreatePost: React.FC = () => {
 
         {/* Simple Post Button (when not expanded) */}
         {!isExpanded && postContent && (
-          <div className="flex justify-end mt-3">
+          <div className="mt-3 flex justify-end">
             <button
               type="submit"
-              className="flex items-center space-x-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex items-center space-x-2 rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700"
             >
               <FaPaperPlane className="h-4 w-4" />
               <span>Post</span>
