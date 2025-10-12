@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import { allUsersData, getCurrentUserId } from "../../data/publicFilesData";
+import { usersData, getCurrentUserId } from "../../data/userData";
 import FriendCard from "./FriendCard";
 
 const FriendSuggestions: React.FC = () => {
@@ -8,13 +8,13 @@ const FriendSuggestions: React.FC = () => {
 
   // Suggest users who are not the current user, not already friends, and not in pendingRequests
   const currentUserId = getCurrentUserId();
-  const currentUser = allUsersData.find((u) => u.id === currentUserId);
+  const currentUser = usersData.find((u) => u.id === currentUserId);
   const excludeIds = new Set([
     currentUserId,
     ...(currentUser?.friends || []),
     ...(currentUser?.pendingRequests || []),
   ]);
-  const suggestions = allUsersData.filter((user) => !excludeIds.has(user.id));
+  const suggestions = usersData.filter((user) => !excludeIds.has(user.id));
   const filteredSuggestions = suggestions.filter((user) =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );

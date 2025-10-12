@@ -25,7 +25,7 @@ export const usersData: UserData[] = [
     bio: "User 1 bio",
     university: "University 1",
     friends: ["2", "3", "5", "6", "12", "14", "15"],
-    pendingRequests: ["1", "4", "7", "8", "9"],
+    pendingRequests: ["4", "7", "8", "9"],
     saved: ["p1", "p3"],
   },
   {

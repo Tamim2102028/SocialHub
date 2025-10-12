@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import { allUsersData, getCurrentUserId } from "../../data/publicFilesData";
+import { usersData, getCurrentUserId } from "../../data/userData";
 import FriendCard from "./FriendCard";
 
 const FriendRequests: React.FC = () => {
@@ -8,12 +8,10 @@ const FriendRequests: React.FC = () => {
 
   // TODO: Replace with real friend request logic
   // Show users who have sent a friend request to the current user
-  const currentUser = allUsersData.find((u) => u.id === getCurrentUserId());
+  const currentUser = usersData.find((u) => u.id === getCurrentUserId());
   const requests = (currentUser?.pendingRequests || [])
-    .map((id) => allUsersData.find((u) => u.id === id))
-    .filter((f): f is import("../../data/publicFilesData").UserData =>
-      Boolean(f)
-    );
+    .map((id) => usersData.find((u) => u.id === id))
+    .filter((f): f is import("../../data/userData").UserData => Boolean(f));
   const filteredRequests = requests.filter((user) =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );

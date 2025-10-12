@@ -1,6 +1,6 @@
 import React from "react";
 import { FaUserPlus, FaComment, FaCheck, FaTimes } from "react-icons/fa";
-import type { UserData } from "../../data/publicFilesData";
+import type { UserData } from "../../data/userData";
 import { NavLink } from "react-router-dom";
 
 interface FriendCardProps {

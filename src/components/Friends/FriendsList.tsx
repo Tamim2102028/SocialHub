@@ -1,19 +1,18 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import { allUsersData, getCurrentUserId } from "../../data/publicFilesData";
+import { usersData, getCurrentUserId } from "../../data/userData";
 import FriendCard from "./FriendCard";
 
 const FriendsList: React.FC = () => {
   const searchQuery = useAppSelector((state) => state.ui.friends.searchQuery);
 
   // Use getCurrentUserId() for current user.
-  const currentUser = allUsersData.find((u) => u.id === getCurrentUserId());
+  const currentUser = usersData.find((u) => u.id === getCurrentUserId());
   const friends =
     currentUser?.friends
-      ?.map((id) => allUsersData.find((u) => u.id === id))
-      .filter((f): f is import("../../data/publicFilesData").UserData =>
-        Boolean(f)
-      ) || [];
+      ?.map((id) => usersData.find((u) => u.id === id))
+      .filter((f): f is import("../../data/userData").UserData => Boolean(f)) ||
+    [];
   const filteredFriends = friends.filter((friend) =>
     friend.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
