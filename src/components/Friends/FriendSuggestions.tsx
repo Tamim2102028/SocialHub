@@ -1,14 +1,22 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import { mockFriendSuggestions, type Friend } from "./data/friendsData";
+import { allUsersData, getCurrentUserId } from "../Profile/data/allUsersData";
 import FriendCard from "./FriendCard";
 
 const FriendSuggestions: React.FC = () => {
   const searchQuery = useAppSelector((state) => state.ui.friends.searchQuery);
 
-  const filteredSuggestions = mockFriendSuggestions.filter(
-    (suggestion: Friend) =>
-      suggestion.name.toLowerCase().includes(searchQuery.toLowerCase())
+  // Suggest users who are not the current user, not already friends, and not in pendingRequests
+  const currentUserId = getCurrentUserId();
+  const currentUser = allUsersData.find((u) => u.id === currentUserId);
+  const excludeIds = new Set([
+    currentUserId,
+    ...(currentUser?.friends || []),
+    ...(currentUser?.pendingRequests || []),
+  ]);
+  const suggestions = allUsersData.filter((user) => !excludeIds.has(user.id));
+  const filteredSuggestions = suggestions.filter((user) =>
+    user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleAddFriend = (id: string) => {
@@ -30,7 +38,7 @@ const FriendSuggestions: React.FC = () => {
 
   return (
     <div className="space-y-3">
-      {filteredSuggestions.map((suggestion: Friend) => (
+      {filteredSuggestions.map((suggestion) => (
         <FriendCard
           key={suggestion.id}
           friend={suggestion}

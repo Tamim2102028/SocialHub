@@ -1,3 +1,8 @@
+// Helper to get the current user id (for demo, just returns a fixed id, but in real app, get from auth)
+export const getCurrentUserId = (): string => {
+  // For demo, treat id '1' as the current user
+  return "1";
+};
 export interface UserData {
   id: string;
   name: string;
@@ -5,6 +10,8 @@ export interface UserData {
   avatar: string;
   bio: string;
   university: string;
+  friends: string[];
+  pendingRequests?: string[];
 }
 
 export interface PostData {
@@ -35,101 +42,230 @@ export interface PublicFileItem {
   downloads?: number;
 }
 
-// All users data with their profiles and posts
-export const allUsersData: Record<string, UserData> = {
-  "current-user": {
-    id: "current-user",
-    name: "John Doe",
-    username: "john_doe",
+// All users data as an array of user objects (Mongoose style)
+export const allUsersData: UserData[] = [
+  {
+    id: "1",
+    name: "Tamim Ikbal (1/20)",
+    username: "tamim_ikbal",
     avatar:
-      "https://ui-avatars.com/api/?name=John+Doe&background=3b82f6&color=fff&size=150",
-    bio: "Computer Science student passionate about web development and AI. Love coding and exploring new technologies!",
-    university: "University of California, Berkeley",
+      "https://ui-avatars.com/api/?name=Tamim+Ikbal&background=3b82f6&color=fff&size=150",
+    bio: "User 1 bio",
+    university: "University 1",
+    friends: ["2", "3", "5"],
+    pendingRequests: ["1", "4"],
   },
-  "2": {
+  {
     id: "2",
-    name: "Sarah Wilson",
+    name: "Sarah Wilson (2/20)",
     username: "sarahw",
     avatar:
       "https://ui-avatars.com/api/?name=Sarah+Wilson&background=3b82f6&color=fff&size=150",
-    bio: "Full-stack developer and UI/UX enthusiast. Building beautiful and functional web applications. Coffee lover ☕",
-    university: "Stanford University",
+    bio: "User 2 bio",
+    university: "University 2",
+    friends: ["1", "3"],
+    pendingRequests: ["5"],
   },
-  "3": {
+  {
     id: "3",
-    name: "Alex Chen",
+    name: "Alex Chen (3/20)",
     username: "alexc",
     avatar:
       "https://ui-avatars.com/api/?name=Alex+Chen&background=10b981&color=fff&size=150",
-    bio: "Machine Learning Engineer passionate about AI and data science. Love exploring nature and photography 📸",
-    university: "MIT",
+    bio: "User 3 bio",
+    university: "University 3",
+    friends: ["1", "2"],
+    pendingRequests: [],
   },
-  "4": {
+  {
     id: "4",
-    name: "Mike Johnson",
+    name: "Mike Johnson (4/20)",
     username: "mikej",
     avatar:
       "https://ui-avatars.com/api/?name=Mike+Johnson&background=f59e0b&color=fff&size=150",
-    bio: "Frontend Developer specializing in React and TypeScript. Open source contributor and tech blogger 🚀",
-    university: "Carnegie Mellon University",
+    bio: "User 4 bio",
+    university: "University 4",
+    friends: ["5"],
+    pendingRequests: [],
   },
-  "5": {
+  {
     id: "5",
-    name: "Emma Davis",
+    name: "Emma Davis (5/20)",
     username: "emmad",
     avatar:
       "https://ui-avatars.com/api/?name=Emma+Davis&background=ef4444&color=fff&size=150",
-    bio: "Product Designer with a passion for creating user-centered experiences. Digital nomad 🌍",
-    university: "Design Institute of Technology",
+    bio: "User 5 bio",
+    university: "University 5",
+    friends: ["4"],
+    pendingRequests: [],
   },
-  "28": {
-    id: "28",
-    name: "Alex Johnson",
+  {
+    id: "6",
+    name: "Alex Johnson (6/20)",
     username: "alexj",
     avatar:
       "https://ui-avatars.com/api/?name=Alex+Johnson&background=f39c12&color=fff&size=150",
-    bio: "Senior Software Engineer building scalable systems. React component library creator 📚",
-    university: "Georgia Tech",
+    bio: "User 6 bio",
+    university: "University 6",
+    friends: [],
+    pendingRequests: [],
   },
-  "32": {
-    id: "32",
-    name: "Emma Wilson",
+  {
+    id: "7",
+    name: "Emma Wilson (7/20)",
     username: "emmaw",
     avatar:
       "https://ui-avatars.com/api/?name=Emma+Wilson&background=9b59b6&color=fff&size=150",
-    bio: "React Developer and performance optimization enthusiast. Love clean code and best practices ✨",
-    university: "University of Washington",
+    bio: "User 7 bio",
+    university: "University 7",
+    friends: [],
+    pendingRequests: [],
   },
-  "154": {
-    id: "154",
-    name: "James Kim",
+  {
+    id: "8",
+    name: "James Kim (8/20)",
     username: "jamesk",
     avatar:
       "https://ui-avatars.com/api/?name=James+Kim&background=34495e&color=fff&size=150",
-    bio: "Blockchain developer specializing in Solidity and Web3. Gas optimization expert ⛽",
-    university: "Seoul National University",
+    bio: "User 8 bio",
+    university: "University 8",
+    friends: [],
+    pendingRequests: [],
   },
-  "145": {
-    id: "145",
-    name: "Sarah Kim",
+  {
+    id: "9",
+    name: "Sarah Kim (9/20)",
     username: "sarahk",
     avatar:
       "https://ui-avatars.com/api/?name=Sarah+Kim&background=9b59b6&color=fff&size=150",
-    bio: "Digital Marketing strategist with focus on B2B SaaS. Email marketing and growth hacking expert 📈",
-    university: "Northwestern University",
+    bio: "User 9 bio",
+    university: "University 9",
+    friends: [],
+    pendingRequests: [],
   },
-  "56": {
-    id: "56",
-    name: "Rachel Kim",
+  {
+    id: "10",
+    name: "Rachel Kim (10/20)",
     username: "rachelk",
     avatar:
       "https://ui-avatars.com/api/?name=Rachel+Kim&background=9b59b6&color=fff&size=150",
-    bio: "UX Researcher and design systems advocate. Human-centered design practitioner 🎨",
-    university: "ArtCenter College of Design",
+    bio: "User 10 bio",
+    university: "University 10",
+    friends: [],
+    pendingRequests: [],
   },
-};
+  {
+    id: "11",
+    name: "John Smith (11/20)",
+    username: "johns",
+    avatar:
+      "https://ui-avatars.com/api/?name=John+Smith&background=1abc9c&color=fff&size=150",
+    bio: "User 11 bio",
+    university: "University 11",
+    friends: [],
+    pendingRequests: [],
+  },
+  {
+    id: "12",
+    name: "Linda Lee (12/20)",
+    username: "lindal",
+    avatar:
+      "https://ui-avatars.com/api/?name=Linda+Lee&background=2ecc71&color=fff&size=150",
+    bio: "User 12 bio",
+    university: "University 12",
+    friends: [],
+    pendingRequests: [],
+  },
+  {
+    id: "13",
+    name: "David Brown (13/20)",
+    username: "davidb",
+    avatar:
+      "https://ui-avatars.com/api/?name=David+Brown&background=3498db&color=fff&size=150",
+    bio: "User 13 bio",
+    university: "University 13",
+    friends: [],
+    pendingRequests: [],
+  },
+  {
+    id: "14",
+    name: "Sophia Miller (14/20)",
+    username: "sophiam",
+    avatar:
+      "https://ui-avatars.com/api/?name=Sophia+Miller&background=9b59b6&color=fff&size=150",
+    bio: "User 14 bio",
+    university: "University 14",
+    friends: [],
+    pendingRequests: [],
+  },
+  {
+    id: "15",
+    name: "William Garcia (15/20)",
+    username: "williamg",
+    avatar:
+      "https://ui-avatars.com/api/?name=William+Garcia&background=e67e22&color=fff&size=150",
+    bio: "User 15 bio",
+    university: "University 15",
+    friends: [],
+    pendingRequests: [],
+  },
+  {
+    id: "16",
+    name: "Olivia Martinez (16/20)",
+    username: "oliviam",
+    avatar:
+      "https://ui-avatars.com/api/?name=Olivia+Martinez&background=e74c3c&color=fff&size=150",
+    bio: "User 16 bio",
+    university: "University 16",
+    friends: [],
+    pendingRequests: [],
+  },
+  {
+    id: "17",
+    name: "Benjamin Lee (17/20)",
+    username: "benjaminl",
+    avatar:
+      "https://ui-avatars.com/api/?name=Benjamin+Lee&background=34495e&color=fff&size=150",
+    bio: "User 17 bio",
+    university: "University 17",
+    friends: [],
+    pendingRequests: [],
+  },
+  {
+    id: "18",
+    name: "Mia Clark (18/20)",
+    username: "miac",
+    avatar:
+      "https://ui-avatars.com/api/?name=Mia+Clark&background=16a085&color=fff&size=150",
+    bio: "User 18 bio",
+    university: "University 18",
+    friends: [],
+    pendingRequests: [],
+  },
+  {
+    id: "19",
+    name: "Elijah Walker (19/20)",
+    username: "elijahw",
+    avatar:
+      "https://ui-avatars.com/api/?name=Elijah+Walker&background=27ae60&color=fff&size=150",
+    bio: "User 19 bio",
+    university: "University 19",
+    friends: [],
+    pendingRequests: [],
+  },
+  {
+    id: "20",
+    name: "Ava Hall (20/20)",
+    username: "avah",
+    avatar:
+      "https://ui-avatars.com/api/?name=Ava+Hall&background=2980b9&color=fff&size=150",
+    bio: "User 20 bio",
+    university: "University 20",
+    friends: [],
+    pendingRequests: [],
+  },
+];
 
-// Posts data for each user (3 posts per user)
 export const allUsersPosts: Record<string, PostData[]> = {
   "current-user": [
     {
@@ -651,7 +787,6 @@ export const allUsersPosts: Record<string, PostData[]> = {
   ],
 };
 
-// Public folders data for each user (only public folders are shown)
 export const allUsersPublicFolders: Record<string, PublicFileItem[]> = {
   "current-user": [
     {
@@ -824,7 +959,7 @@ export const allUsersPublicFolders: Record<string, PublicFileItem[]> = {
 
 // Helper function to get user data by ID
 export const getUserById = (userId: string): UserData | null => {
-  return allUsersData[userId] || null;
+  return allUsersData.find((user) => user.id === userId) || null;
 };
 
 // Helper function to get posts by user ID

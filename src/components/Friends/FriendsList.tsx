@@ -1,12 +1,20 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import { mockFriends, type Friend } from "./data/friendsData";
+import { allUsersData, getCurrentUserId } from "../Profile/data/allUsersData";
 import FriendCard from "./FriendCard";
 
 const FriendsList: React.FC = () => {
   const searchQuery = useAppSelector((state) => state.ui.friends.searchQuery);
 
-  const filteredFriends = mockFriends.filter((friend: Friend) =>
+  // Use getCurrentUserId() for current user.
+  const currentUser = allUsersData.find((u) => u.id === getCurrentUserId());
+  const friends =
+    currentUser?.friends
+      ?.map((id) => allUsersData.find((u) => u.id === id))
+      .filter((f): f is import("../Profile/data/allUsersData").UserData =>
+        Boolean(f)
+      ) || [];
+  const filteredFriends = friends.filter((friend) =>
     friend.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -24,8 +32,8 @@ const FriendsList: React.FC = () => {
 
   return (
     <div className="space-y-3">
-      {filteredFriends.map((friend: Friend) => (
-        <FriendCard key={friend.userId} friend={friend} type="friend" />
+      {filteredFriends.map((friend) => (
+        <FriendCard key={friend.id} friend={friend} type="friend" />
       ))}
     </div>
   );
