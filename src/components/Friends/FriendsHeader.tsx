@@ -20,7 +20,7 @@ const FriendsHeader: React.FC = () => {
           placeholder="Search friends..."
           value={searchQuery}
           onChange={(e) => dispatch(setFriendsSearchQuery(e.target.value))}
-          className="rounded-lg border border-gray-700 py-2 pr-4 pl-10 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          className="rounded-lg border border-gray-300 bg-white py-2 pr-4 pl-10 text-base font-medium placeholder-gray-400"
         />
       </div>
     </div>

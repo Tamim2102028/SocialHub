@@ -33,7 +33,11 @@ const App: React.FC = () => {
 
       {/* Main Content - Middle Column */}
       <div className="h-full overflow-y-auto">
-        <div className={isMessagesPage || isStudyHelperPage ? "mx-3" : "mx-20"}>
+        <div
+          className={
+            isMessagesPage || isStudyHelperPage ? "mx-5" : "mx-auto w-[750px]"
+          }
+        >
           <MainContent />
         </div>
       </div>
