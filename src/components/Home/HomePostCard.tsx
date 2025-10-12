@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {
-  toggleLikePost,
-  toggleBookmarkPost,
-} from "../../store/slices/postsSlice";
+import { toggleLikePost } from "../../store/slices/postsSlice";
 import { togglePostMenu } from "../../store/slices/uiSlice";
 import {
   FaHeart,
@@ -26,7 +23,6 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [showCommentBox, setShowCommentBox] = useState(false);
-  const [imageError, setImageError] = useState(false);
   const showMenu = useAppSelector(
     (state) => state.ui.menus.postMenus[post.postId] || false
   );
@@ -37,10 +33,6 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
 
   const handleLike = () => {
     dispatch(toggleLikePost(post.postId));
-  };
-
-  const handleBookmark = () => {
-    dispatch(toggleBookmarkPost(post.postId));
   };
 
   const handleProfileClick = () => {
@@ -66,15 +58,10 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center space-x-3">
           <img
-            src={
-              imageError
-                ? "https://via.placeholder.com/40"
-                : userData?.avatar || "https://via.placeholder.com/40"
-            }
+            src={userData?.avatar}
             alt={userData?.name || "User"}
             className="h-10 w-10 cursor-pointer rounded-full bg-gray-300 transition-all hover:ring-2 hover:ring-blue-300"
             onClick={handleProfileClick}
-            onError={() => setImageError(true)}
           />
           <div>
             <h3
@@ -107,10 +94,7 @@ const HomePostCard: React.FC<HomePostCardProps> = ({ post }) => {
           {showMenu && (
             <div className="ring-opacity-5 absolute right-0 z-10 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black">
               <div className="py-1">
-                <button
-                  onClick={handleBookmark}
-                  className="flex w-full items-center px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
-                >
+                <button className="flex w-full items-center px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
                   {/* TODO: Implement bookmark functionality */}
                   <>
                     <FaRegBookmark className="mr-3" size={14} />

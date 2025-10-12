@@ -3,35 +3,6 @@ export const getCurrentUserId = (): string => {
   return "1";
 };
 
-// Generate dynamic avatar URL using RandomUser.me API
-export const generateAvatarUrl = (
-  userId: string,
-  gender: "male" | "female"
-): string => {
-  // Convert userId to number for consistent avatar selection
-  const numericId = parseInt(userId) || 1;
-  // Use modulo to get a number between 1-100 for RandomUser API
-  const avatarNumber = ((numericId - 1) % 100) + 1;
-
-  return `https://randomuser.me/api/portraits/${gender}/${avatarNumber}.jpg`;
-};
-
-// Helper function to assign gender based on name patterns
-export const assignGender = (name: string): "male" | "female" => {
-  const femaleNames = [
-    "Sarah",
-    "Emma",
-    "Linda",
-    "Sophia",
-    "Olivia",
-    "Mia",
-    "Ava",
-    "Rachel",
-  ];
-  const firstName = name.split(" ")[0];
-  return femaleNames.includes(firstName) ? "female" : "male";
-};
-
 export interface UserData {
   id: string;
   name: string;
@@ -50,7 +21,7 @@ export const usersData: UserData[] = [
     id: "1",
     name: "Tamim Ikbal (1/20)",
     username: "tamim_ikbal",
-    avatar: generateAvatarUrl("1", "male"),
+    avatar: "https://i.pravatar.cc/150?img=1",
     bio: "User 1 bio",
     university: "University 1",
     gender: "male",
@@ -62,7 +33,7 @@ export const usersData: UserData[] = [
     id: "2",
     name: "Sarah Wilson (2/20)",
     username: "sarahw",
-    avatar: generateAvatarUrl("2", "female"),
+    avatar: "https://i.pravatar.cc/150?img=2",
     bio: "User 2 bio",
     university: "University 2",
     gender: "female",
@@ -74,7 +45,7 @@ export const usersData: UserData[] = [
     id: "3",
     name: "Alex Chen (3/20)",
     username: "alexc",
-    avatar: generateAvatarUrl("3", "male"),
+    avatar: "https://i.pravatar.cc/150?img=3",
     bio: "User 3 bio",
     university: "University 3",
     gender: "male",
@@ -86,7 +57,7 @@ export const usersData: UserData[] = [
     id: "4",
     name: "Mike Johnson (4/20)",
     username: "mikej",
-    avatar: generateAvatarUrl("4", "male"),
+    avatar: "https://i.pravatar.cc/150?img=4",
     bio: "User 4 bio",
     university: "University 4",
     gender: "male",
@@ -98,7 +69,7 @@ export const usersData: UserData[] = [
     id: "5",
     name: "Emma Davis (5/20)",
     username: "emmad",
-    avatar: generateAvatarUrl("5", "female"),
+    avatar: "https://i.pravatar.cc/150?img=5",
     bio: "User 5 bio",
     university: "University 5",
     gender: "female",
@@ -110,7 +81,7 @@ export const usersData: UserData[] = [
     id: "6",
     name: "Alex Johnson (6/20)",
     username: "alexj",
-    avatar: generateAvatarUrl("6", "male"),
+    avatar: "https://i.pravatar.cc/150?img=6",
     bio: "User 6 bio",
     university: "University 6",
     gender: "male",
@@ -122,7 +93,7 @@ export const usersData: UserData[] = [
     id: "7",
     name: "Emma Wilson (7/20)",
     username: "emmaw",
-    avatar: generateAvatarUrl("7", "female"),
+    avatar: "https://i.pravatar.cc/150?img=7",
     bio: "User 7 bio",
     university: "University 7",
     gender: "female",
@@ -134,7 +105,7 @@ export const usersData: UserData[] = [
     id: "8",
     name: "James Kim (8/20)",
     username: "jamesk",
-    avatar: generateAvatarUrl("8", "male"),
+    avatar: "https://i.pravatar.cc/150?img=8",
     bio: "User 8 bio",
     university: "University 8",
     gender: "male",
@@ -146,7 +117,7 @@ export const usersData: UserData[] = [
     id: "9",
     name: "Sarah Kim (9/20)",
     username: "sarahk",
-    avatar: generateAvatarUrl("9", "female"),
+    avatar: "https://i.pravatar.cc/150?img=9",
     bio: "User 9 bio",
     university: "University 9",
     gender: "female",
@@ -158,7 +129,7 @@ export const usersData: UserData[] = [
     id: "10",
     name: "Rachel Kim (10/20)",
     username: "rachelk",
-    avatar: generateAvatarUrl("10", "female"),
+    avatar: "https://i.pravatar.cc/150?img=10",
     bio: "User 10 bio",
     university: "University 10",
     gender: "female",
@@ -170,8 +141,7 @@ export const usersData: UserData[] = [
     id: "11",
     name: "John Smith (11/20)",
     username: "johns",
-    avatar:
-      "https://ui-avatars.com/api/?name=John+Smith&background=1abc9c&color=fff&size=150",
+    avatar: "https://i.pravatar.cc/150?img=11",
     bio: "User 11 bio",
     university: "University 11",
     friends: [],
@@ -182,8 +152,7 @@ export const usersData: UserData[] = [
     id: "12",
     name: "Linda Lee (12/20)",
     username: "lindal",
-    avatar:
-      "https://ui-avatars.com/api/?name=Linda+Lee&background=2ecc71&color=fff&size=150",
+    avatar: "https://i.pravatar.cc/150?img=12",
     bio: "User 12 bio",
     university: "University 12",
     friends: [],
@@ -194,8 +163,7 @@ export const usersData: UserData[] = [
     id: "13",
     name: "David Brown (13/20)",
     username: "davidb",
-    avatar:
-      "https://ui-avatars.com/api/?name=David+Brown&background=3498db&color=fff&size=150",
+    avatar: "https://i.pravatar.cc/150?img=13",
     bio: "User 13 bio",
     university: "University 13",
     friends: [],
@@ -206,8 +174,7 @@ export const usersData: UserData[] = [
     id: "14",
     name: "Sophia Miller (14/20)",
     username: "sophiam",
-    avatar:
-      "https://ui-avatars.com/api/?name=Sophia+Miller&background=9b59b6&color=fff&size=150",
+    avatar: "https://i.pravatar.cc/150?img=14",
     bio: "User 14 bio",
     university: "University 14",
     friends: [],
@@ -218,8 +185,7 @@ export const usersData: UserData[] = [
     id: "15",
     name: "William Garcia (15/20)",
     username: "williamg",
-    avatar:
-      "https://ui-avatars.com/api/?name=William+Garcia&background=e67e22&color=fff&size=150",
+    avatar: "https://i.pravatar.cc/150?img=15",
     bio: "User 15 bio",
     university: "University 15",
     friends: [],
@@ -230,8 +196,7 @@ export const usersData: UserData[] = [
     id: "16",
     name: "Olivia Martinez (16/20)",
     username: "oliviam",
-    avatar:
-      "https://ui-avatars.com/api/?name=Olivia+Martinez&background=e74c3c&color=fff&size=150",
+    avatar: "https://i.pravatar.cc/150?img=16",
     bio: "User 16 bio",
     university: "University 16",
     friends: [],
@@ -242,8 +207,7 @@ export const usersData: UserData[] = [
     id: "17",
     name: "Benjamin Lee (17/20)",
     username: "benjaminl",
-    avatar:
-      "https://ui-avatars.com/api/?name=Benjamin+Lee&background=34495e&color=fff&size=150",
+    avatar: "https://i.pravatar.cc/150?img=17",
     bio: "User 17 bio",
     university: "University 17",
     friends: [],
@@ -253,8 +217,7 @@ export const usersData: UserData[] = [
     id: "18",
     name: "Mia Clark (18/20)",
     username: "miac",
-    avatar:
-      "https://ui-avatars.com/api/?name=Mia+Clark&background=16a085&color=fff&size=150",
+    avatar: "https://i.pravatar.cc/150?img=18",
     bio: "User 18 bio",
     university: "University 18",
     friends: [],
@@ -264,8 +227,7 @@ export const usersData: UserData[] = [
     id: "19",
     name: "Elijah Walker (19/20)",
     username: "elijahw",
-    avatar:
-      "https://ui-avatars.com/api/?name=Elijah+Walker&background=27ae60&color=fff&size=150",
+    avatar: "https://i.pravatar.cc/150?img=19",
     bio: "User 19 bio",
     university: "University 19",
     friends: [],
@@ -275,8 +237,7 @@ export const usersData: UserData[] = [
     id: "20",
     name: "Ava Hall (20/20)",
     username: "avah",
-    avatar:
-      "https://ui-avatars.com/api/?name=Ava+Hall&background=2980b9&color=fff&size=150",
+    avatar: "https://i.pravatar.cc/150?img=20",
     bio: "User 20 bio",
     university: "University 20",
     friends: [],

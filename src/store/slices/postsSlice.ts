@@ -67,11 +67,7 @@ const postsSlice = createSlice({
       }
     },
 
-    // Bookmark/Unbookmark post
-    // Bookmarks are not in PostData, so this is a placeholder
-    toggleBookmarkPost: (state, action: PayloadAction<string>) => {
-      // Implement if you add bookmarks to PostData
-    },
+    
 
     // Update comment count
     updateCommentCount: (
@@ -122,7 +118,6 @@ export const {
   createPostSuccess,
   createPostFailure,
   toggleLikePost,
-  toggleBookmarkPost,
   updateCommentCount,
   updateShareCount,
   deletePost,

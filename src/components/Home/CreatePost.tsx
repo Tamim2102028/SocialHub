@@ -6,11 +6,14 @@ import {
   setPostExpanded,
   clearPostContent,
 } from "../../store/slices/uiSlice";
+import { getCurrentUserId, getUserById } from "../../data/userData";
 
 const CreatePost: React.FC = () => {
   const dispatch = useAppDispatch();
   const postContent = useAppSelector((state) => state.ui.createPost.content);
   const isExpanded = useAppSelector((state) => state.ui.createPost.isExpanded);
+  const currentUserId = getCurrentUserId();
+  const currentUser = getUserById(currentUserId);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +29,7 @@ const CreatePost: React.FC = () => {
         {/* User Avatar and Input */}
         <div className="flex space-x-3">
           <img
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+            src={currentUser?.avatar}
             alt="Your avatar"
             className="h-10 w-10 rounded-full bg-gray-300 flex-shrink-0"
           />
