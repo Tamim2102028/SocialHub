@@ -3,17 +3,34 @@ export const getCurrentUserId = (): string => {
   return "1";
 };
 
+export interface UniversityInfo {
+  name: string;
+  department?: string;
+  section?: string;
+  subSection?: string;
+}
+
+export interface TeacherInfo {
+  position?: string; // e.g., Lecturer, Professor
+  office?: string; // e.g., Room number or building
+  contactEmail?: string;
+}
+
 export interface UserData {
   id: string;
   name: string;
   username: string;
   avatar: string;
   bio: string;
-  university: string;
+  university: UniversityInfo;
   gender?: "male" | "female"; // Make gender optional for now
   friends: string[];
   pendingRequests?: string[];
   saved?: string[]; // Bookmarked post IDs
+  educationLevel?: "university" | "hsc" | "graduate" | "other";
+  role?: ("student" | "teacher" | "admin" | "other")[];
+  joinedGroups: string[]; // Array of group IDs user has joined
+  teacherInfo?: TeacherInfo; // Only for teachers
 }
 
 export const usersData: UserData[] = [
@@ -23,11 +40,19 @@ export const usersData: UserData[] = [
     username: "tamim_ikbal",
     avatar: "https://i.pravatar.cc/150?img=1",
     bio: "User 1 bio",
-    university: "University 1",
+    university: {
+      name: "University 1",
+      department: "Chemical Engineering (ChE)",
+      section: "A",
+      subSection: "1",
+    },
     gender: "male",
     friends: ["2", "3", "5", "6", "12", "14", "15"],
     pendingRequests: ["4", "7", "8", "9"],
     saved: ["p1", "p3"],
+    educationLevel: "university",
+    role: ["student", "admin"],
+    joinedGroups: ["g1", "g2", "g6", "g16"],
   },
   {
     id: "2",
@@ -35,11 +60,19 @@ export const usersData: UserData[] = [
     username: "sarahw",
     avatar: "https://i.pravatar.cc/150?img=2",
     bio: "User 2 bio",
-    university: "University 2",
+    university: {
+      name: "University 2",
+      department: "Electrical & Electronic Engineering (EEE)",
+      section: "A",
+      subSection: "1",
+    },
     gender: "female",
     friends: ["1", "3"],
     pendingRequests: ["5"],
     saved: ["p2"],
+    educationLevel: "university",
+    role: ["student"],
+    joinedGroups: ["g1", "g2", "g3", "g7", "g17"],
   },
   {
     id: "3",
@@ -47,11 +80,19 @@ export const usersData: UserData[] = [
     username: "alexc",
     avatar: "https://i.pravatar.cc/150?img=3",
     bio: "User 3 bio",
-    university: "University 3",
+    university: {
+      name: "University 3",
+      department: "Bachelor of Business Administration (BBA)",
+      section: "A",
+      subSection: "1",
+    },
     gender: "male",
     friends: ["1", "2"],
     pendingRequests: [],
     saved: [],
+    educationLevel: "university",
+    role: ["student"],
+    joinedGroups: ["g1", "g3", "g8", "g18"],
   },
   {
     id: "4",
@@ -59,11 +100,24 @@ export const usersData: UserData[] = [
     username: "mikej",
     avatar: "https://i.pravatar.cc/150?img=4",
     bio: "User 4 bio",
-    university: "University 4",
+    university: {
+      name: "University 4",
+      department: "English",
+      section: "A",
+      subSection: "1",
+    },
     gender: "male",
     friends: ["5"],
     pendingRequests: [],
     saved: [],
+    educationLevel: "university",
+    role: ["student", "teacher"],
+    joinedGroups: ["g2", "g3", "g4", "g9", "g19"],
+    teacherInfo: {
+      position: "Lecturer",
+      office: "Room 203, English Dept.",
+      contactEmail: "mikej@university4.edu",
+    },
   },
   {
     id: "5",
@@ -71,11 +125,19 @@ export const usersData: UserData[] = [
     username: "emmad",
     avatar: "https://i.pravatar.cc/150?img=5",
     bio: "User 5 bio",
-    university: "University 5",
+    university: {
+      name: "University 5",
+      department: "Law",
+      section: "A",
+      subSection: "1",
+    },
     gender: "female",
     friends: ["4"],
     pendingRequests: [],
     saved: [],
+    educationLevel: "university",
+    role: ["student"],
+    joinedGroups: ["g3", "g5", "g10", "g20"],
   },
   {
     id: "6",
@@ -83,11 +145,18 @@ export const usersData: UserData[] = [
     username: "alexj",
     avatar: "https://i.pravatar.cc/150?img=6",
     bio: "User 6 bio",
-    university: "University 6",
+    university: {
+      name: "University 6",
+      department: "Software Engineering",
+      section: "A",
+    },
     gender: "male",
     friends: [],
     pendingRequests: [],
     saved: [],
+    educationLevel: "university",
+    role: ["student"],
+    joinedGroups: ["g1", "g6", "g11"],
   },
   {
     id: "7",
@@ -95,11 +164,14 @@ export const usersData: UserData[] = [
     username: "emmaw",
     avatar: "https://i.pravatar.cc/150?img=7",
     bio: "User 7 bio",
-    university: "University 7",
+    university: { name: "University 7", department: "Science" },
     gender: "female",
     friends: [],
     pendingRequests: [],
     saved: [],
+    educationLevel: "hsc",
+    role: ["student"],
+    joinedGroups: ["g6", "g7", "g12"],
   },
   {
     id: "8",
@@ -107,11 +179,14 @@ export const usersData: UserData[] = [
     username: "jamesk",
     avatar: "https://i.pravatar.cc/150?img=8",
     bio: "User 8 bio",
-    university: "University 8",
+    university: { name: "University 8", department: "Business" },
     gender: "male",
     friends: [],
     pendingRequests: [],
     saved: [],
+    educationLevel: "hsc",
+    role: ["student"],
+    joinedGroups: ["g6", "g8", "g13"],
   },
   {
     id: "9",
@@ -119,11 +194,19 @@ export const usersData: UserData[] = [
     username: "sarahk",
     avatar: "https://i.pravatar.cc/150?img=9",
     bio: "User 9 bio",
-    university: "University 9",
+    university: { name: "University 9", department: "Medical" },
     gender: "female",
     friends: [],
     pendingRequests: [],
     saved: [],
+    educationLevel: "hsc",
+    role: ["student", "teacher"],
+    joinedGroups: ["g7", "g8", "g9", "g14"],
+    teacherInfo: {
+      position: "Assistant Teacher",
+      office: "Room 101, Medical Dept.",
+      contactEmail: "sarahk@university9.edu",
+    },
   },
   {
     id: "10",
@@ -131,11 +214,14 @@ export const usersData: UserData[] = [
     username: "rachelk",
     avatar: "https://i.pravatar.cc/150?img=10",
     bio: "User 10 bio",
-    university: "University 10",
+    university: { name: "University 10", department: "Freelancing" },
     gender: "female",
     friends: [],
     pendingRequests: [],
     saved: [],
+    educationLevel: "hsc",
+    role: ["student"],
+    joinedGroups: ["g8", "g9", "g10", "g15"],
   },
   {
     id: "11",
@@ -143,10 +229,13 @@ export const usersData: UserData[] = [
     username: "johns",
     avatar: "https://i.pravatar.cc/150?img=11",
     bio: "User 11 bio",
-    university: "University 11",
+    university: { name: "University 11", department: "Science", section: "A" },
     friends: [],
     pendingRequests: [],
     saved: [],
+    educationLevel: "graduate",
+    role: ["student", "admin"],
+    joinedGroups: ["g10", "g11", "g12", "g16"],
   },
   {
     id: "12",
@@ -154,10 +243,18 @@ export const usersData: UserData[] = [
     username: "lindal",
     avatar: "https://i.pravatar.cc/150?img=12",
     bio: "User 12 bio",
-    university: "University 12",
+    university: { name: "University 12", department: "Commerce", section: "A" },
     friends: [],
     pendingRequests: [],
     saved: [],
+    educationLevel: "graduate",
+    role: ["teacher"],
+    joinedGroups: ["g10", "g11", "g12", "g13", "g17"],
+    teacherInfo: {
+      position: "Professor",
+      office: "Room 305, Commerce Dept.",
+      contactEmail: "lindal@university12.edu",
+    },
   },
   {
     id: "13",
@@ -165,10 +262,13 @@ export const usersData: UserData[] = [
     username: "davidb",
     avatar: "https://i.pravatar.cc/150?img=13",
     bio: "User 13 bio",
-    university: "University 13",
+    university: { name: "University 13", department: "Arts", section: "A" },
     friends: [],
     pendingRequests: [],
     saved: [],
+    educationLevel: "graduate",
+    role: ["admin"],
+    joinedGroups: ["g11", "g12", "g13", "g14", "g18"],
   },
   {
     id: "14",
@@ -176,10 +276,13 @@ export const usersData: UserData[] = [
     username: "sophiam",
     avatar: "https://i.pravatar.cc/150?img=14",
     bio: "User 14 bio",
-    university: "University 14",
+    university: { name: "University 14", department: "English" },
     friends: [],
     pendingRequests: [],
     saved: [],
+    educationLevel: "other",
+    role: ["other"],
+    joinedGroups: ["g13", "g14", "g15", "g19"],
   },
   {
     id: "15",
@@ -187,10 +290,13 @@ export const usersData: UserData[] = [
     username: "williamg",
     avatar: "https://i.pravatar.cc/150?img=15",
     bio: "User 15 bio",
-    university: "University 15",
+    university: { name: "University 15", department: "Debate" },
     friends: [],
     pendingRequests: [],
     saved: [],
+    educationLevel: "other",
+    role: ["student"],
+    joinedGroups: ["g14", "g15", "g16", "g20"],
   },
   {
     id: "16",
@@ -198,10 +304,18 @@ export const usersData: UserData[] = [
     username: "oliviam",
     avatar: "https://i.pravatar.cc/150?img=16",
     bio: "User 16 bio",
-    university: "University 16",
+    university: { name: "University 16", department: "Book Lovers" },
     friends: [],
     pendingRequests: [],
     saved: [],
+    educationLevel: "other",
+    role: ["student", "teacher"],
+    joinedGroups: ["g16", "g17", "g18"],
+    teacherInfo: {
+      position: "Instructor",
+      office: "Room 110, Book Lovers Dept.",
+      contactEmail: "oliviam@university16.edu",
+    },
   },
   {
     id: "17",
@@ -209,9 +323,12 @@ export const usersData: UserData[] = [
     username: "benjaminl",
     avatar: "https://i.pravatar.cc/150?img=17",
     bio: "User 17 bio",
-    university: "University 17",
+    university: { name: "University 17", department: "Movie Fans" },
     friends: [],
     pendingRequests: [],
+    educationLevel: "other",
+    role: ["other"],
+    joinedGroups: ["g17", "g18", "g19"],
   },
   {
     id: "18",
@@ -219,9 +336,12 @@ export const usersData: UserData[] = [
     username: "miac",
     avatar: "https://i.pravatar.cc/150?img=18",
     bio: "User 18 bio",
-    university: "University 18",
+    university: { name: "University 18", department: "Travel Buddies" },
     friends: [],
     pendingRequests: [],
+    educationLevel: "other",
+    role: ["student"],
+    joinedGroups: ["g18", "g19", "g20"],
   },
   {
     id: "19",
@@ -229,9 +349,12 @@ export const usersData: UserData[] = [
     username: "elijahw",
     avatar: "https://i.pravatar.cc/150?img=19",
     bio: "User 19 bio",
-    university: "University 19",
+    university: { name: "University 19", department: "Foodies" },
     friends: [],
     pendingRequests: [],
+    educationLevel: "other",
+    role: ["student", "admin"],
+    joinedGroups: ["g19", "g20", "g1"],
   },
   {
     id: "20",
@@ -239,9 +362,12 @@ export const usersData: UserData[] = [
     username: "avah",
     avatar: "https://i.pravatar.cc/150?img=20",
     bio: "User 20 bio",
-    university: "University 20",
+    university: { name: "University 20", department: "Fitness Freaks" },
     friends: [],
     pendingRequests: [],
+    educationLevel: "other",
+    role: ["student"],
+    joinedGroups: ["g20", "g1", "g2"],
   },
 ];
 

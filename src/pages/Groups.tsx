@@ -4,41 +4,39 @@ import MyGroups from "../components/Groups/MyGroups";
 import SuggestedGroups from "../components/Groups/SuggestedGroups";
 import CareerGroups from "../components/Groups/CareerGroups";
 import UniversityGroups from "../components/Groups/UniversityGroups";
-import { useAppSelector } from "../store/hooks";
-import { getUniversityGroups } from "../data/groupsData";
+import { getUniversityGroups, groupsData } from "../data/groupsData";
 import { getCurrentUserId, usersData } from "../data/userData";
 
 const Groups: React.FC = () => {
-  // Get groups data from Redux store
-  const { myGroups, suggestedGroups, careerGroups, loading, error } =
-    useAppSelector((state) => state.groups);
-
-  // Get current user's university
+  // Get current user
   const currentUserId = getCurrentUserId();
   const currentUser = usersData.find((u) => u.id === currentUserId);
-  const userUniversity = currentUser?.university || "";
+  const userUniversityName = currentUser?.university?.name || "";
+
+  // Compute myGroups, suggestedGroups, careerGroups for the current user
+  const myGroups = useMemo(() => {
+    if (!currentUser) return [];
+    return groupsData.filter((g) =>
+      currentUser.joinedGroups.includes(g.groupId)
+    );
+  }, [currentUser]);
+
+  const suggestedGroups = useMemo(() => {
+    if (!currentUser) return [];
+    return groupsData.filter(
+      (g) => !currentUser.joinedGroups.includes(g.groupId) && g.isActive
+    );
+  }, [currentUser]);
+
+  const careerGroups = useMemo(() => {
+    return groupsData.filter((g) => g.category === "career" && g.isActive);
+  }, []);
 
   // Get university groups for current user's university
   const universityGroups = useMemo(() => {
-    if (!userUniversity) return [];
-    return getUniversityGroups(userUniversity);
-  }, [userUniversity]);
-
-  if (loading) {
-    return (
-      <div className="flex h-64 items-center justify-center">
-        <div className="text-lg text-gray-600">Loading groups...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex h-64 items-center justify-center">
-        <div className="text-lg text-red-600">Error: {error}</div>
-      </div>
-    );
-  }
+    if (!userUniversityName) return [];
+    return getUniversityGroups(userUniversityName);
+  }, [userUniversityName]);
 
   return (
     <>
@@ -47,7 +45,7 @@ const Groups: React.FC = () => {
       {universityGroups.length > 0 && (
         <UniversityGroups
           groups={universityGroups}
-          universityName={userUniversity}
+          universityName={userUniversityName}
         />
       )}
       <CareerGroups groups={careerGroups} />

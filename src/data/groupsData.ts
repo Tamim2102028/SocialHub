@@ -1,3 +1,10 @@
+export interface UniversityInfo {
+  name: string;
+  department?: string;
+  section?: string;
+  subSection?: string;
+}
+
 export interface Group {
   groupId: string;
   name: string;
@@ -8,305 +15,562 @@ export interface Group {
   members: string[];
   admins: string[];
   privacy: "public" | "private" | "closed";
-  category: string;
-  tags: string[];
+  category: "university" | "career" | "hsc" | "normal";
   memberCount: number;
   postCount: number;
   coverImage?: string;
   profileImage?: string;
   rules?: string[];
   isActive: boolean;
-  university?: string; // University name for university-specific groups
-  isUniversityGroup?: boolean; // Flag to identify university groups
+  university?: UniversityInfo;
 }
 
-// Mock groups data
 export const groupsData: Group[] = [
+  // BUET University Groups (Arch, ChE, EEE)
+  // Architecture (Arch)
   {
-    groupId: "g1",
-    name: "Tech Enthusiasts",
-    description: "A community for technology lovers and developers",
+    groupId: "g21",
+    name: "BUET - Architecture (Arch) - Section A - Subsection 1",
+    description: "Architecture (Arch) group for BUET, Section A, Subsection 1",
     createdBy: "1",
-    createdAt: "2024-05-01T10:00:00Z",
-    updatedAt: "2024-06-01T12:00:00Z",
-    members: ["1", "2", "3", "4", "5"],
-    admins: ["1", "2"],
-    privacy: "public",
-    category: "Technology",
-    tags: ["tech", "programming", "coding"],
-    memberCount: 5,
-    postCount: 12,
-    coverImage:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=400&fit=crop",
-    rules: [
-      "Be respectful to all members",
-      "Stay on topic related to technology",
-      "No spam or promotional content",
-    ],
-    isActive: true,
-  },
-  {
-    groupId: "g2",
-    name: "Study Buddies",
-    description:
-      "Connect with fellow students for study sessions and academic support",
-    createdBy: "6",
-    createdAt: "2024-05-15T14:30:00Z",
-    updatedAt: "2024-06-15T16:00:00Z",
-    members: ["6", "7", "8", "9", "10", "11"],
-    admins: ["6", "7"],
-    privacy: "public",
-    category: "Education",
-    tags: ["study", "education", "academic"],
-    memberCount: 6,
-    postCount: 8,
-    coverImage:
-      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=400&fit=crop",
-    rules: [
-      "Share study materials and resources",
-      "Help each other with academic questions",
-      "Maintain a supportive learning environment",
-    ],
-    isActive: true,
-  },
-  {
-    groupId: "g3",
-    name: "Fitness Freaks",
-    description: "Motivate each other to stay fit and healthy",
-    createdBy: "12",
-    createdAt: "2024-05-20T08:00:00Z",
-    updatedAt: "2024-06-20T10:30:00Z",
-    members: ["12", "13", "14", "15", "16"],
-    admins: ["12", "13"],
-    privacy: "public",
-    category: "Health & Fitness",
-    tags: ["fitness", "workout", "health"],
-    memberCount: 5,
-    postCount: 15,
-    coverImage:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=400&fit=crop",
-    rules: [
-      "Share workout routines and tips",
-      "Encourage healthy lifestyle choices",
-      "Post progress updates and achievements",
-    ],
-    isActive: true,
-  },
-  {
-    groupId: "g4",
-    name: "Book Lovers",
-    description: "Discuss your favorite books and discover new reads",
-    createdBy: "17",
-    createdAt: "2024-05-25T19:00:00Z",
-    updatedAt: "2024-06-25T21:00:00Z",
-    members: ["17", "18", "19", "20"],
-    admins: ["17"],
-    privacy: "public",
-    category: "Literature",
-    tags: ["books", "reading", "literature"],
-    memberCount: 4,
-    postCount: 6,
-    coverImage:
-      "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&h=400&fit=crop",
-    rules: [
-      "Share book recommendations",
-      "Discuss plot points and themes",
-      "Respect different reading preferences",
-    ],
-    isActive: true,
-  },
-  {
-    groupId: "g5",
-    name: "Cooking Masters",
-    description: "Share recipes, cooking tips, and food adventures",
-    createdBy: "8",
-    createdAt: "2024-06-01T12:00:00Z",
-    updatedAt: "2024-07-01T14:00:00Z",
-    members: ["8", "9", "10", "11", "12", "13"],
-    admins: ["8", "9"],
-    privacy: "public",
-    category: "Food & Cooking",
-    tags: ["cooking", "recipes", "food"],
-    memberCount: 6,
-    postCount: 20,
-    coverImage:
-      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&h=400&fit=crop",
-    rules: [
-      "Share original recipes and cooking tips",
-      "Post photos of your culinary creations",
-      "Be helpful with cooking questions",
-    ],
-    isActive: true,
-  },
-  {
-    groupId: "g6",
-    name: "Photography Club",
-    description: "Showcase your photography skills and learn from others",
-    createdBy: "14",
-    createdAt: "2024-06-05T16:00:00Z",
-    updatedAt: "2024-07-05T18:00:00Z",
-    members: ["14", "15", "16", "17", "18"],
-    admins: ["14", "15"],
-    privacy: "public",
-    category: "Arts & Photography",
-    tags: ["photography", "art", "creativity"],
-    memberCount: 5,
-    postCount: 18,
-    coverImage:
-      "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&h=400&fit=crop",
-    rules: [
-      "Share your best photographs",
-      "Provide constructive feedback",
-      "Credit photographers when sharing others' work",
-    ],
-    isActive: true,
-  },
-  {
-    groupId: "g7",
-    name: "Gaming Squad",
-    description: "Connect with fellow gamers and discuss your favorite games",
-    createdBy: "19",
-    createdAt: "2024-06-10T20:00:00Z",
-    updatedAt: "2024-07-10T22:00:00Z",
-    members: ["19", "20", "1", "2", "3"],
-    admins: ["19", "20"],
-    privacy: "public",
-    category: "Gaming",
-    tags: ["gaming", "esports", "games"],
-    memberCount: 5,
-    postCount: 25,
-    coverImage:
-      "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&h=400&fit=crop",
-    rules: [
-      "Share gaming achievements and screenshots",
-      "Organize gaming sessions",
-      "Discuss game strategies and tips",
-    ],
-    isActive: true,
-  },
-  {
-    groupId: "g8",
-    name: "Music Lovers",
-    description: "Discover new music and share your favorite tracks",
-    createdBy: "5",
-    createdAt: "2024-06-15T11:00:00Z",
-    updatedAt: "2024-07-15T13:00:00Z",
-    members: ["5", "6", "7", "8", "9", "10"],
-    admins: ["5", "6"],
-    privacy: "public",
-    category: "Music",
-    tags: ["music", "songs", "artists"],
-    memberCount: 6,
-    postCount: 14,
-    coverImage:
-      "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=400&fit=crop",
-    rules: [
-      "Share music recommendations",
-      "Discuss different genres and artists",
-      "Be respectful of diverse musical tastes",
-    ],
-    isActive: true,
-  },
-  // University Groups
-  {
-    groupId: "ug1",
-    name: "University 1 - CSE Department",
-    description: "Official group for Computer Science & Engineering students",
-    createdBy: "admin",
-    createdAt: "2024-01-01T10:00:00Z",
-    updatedAt: "2024-06-01T12:00:00Z",
-    members: ["1", "2", "3", "4", "5", "6"],
+    createdAt: "2023-01-01T10:00:00Z",
+    updatedAt: "2025-10-01T12:00:00Z",
+    members: [],
     admins: ["1"],
     privacy: "public",
-    category: "University",
-    tags: ["university", "cse", "department"],
-    memberCount: 6,
-    postCount: 45,
+    category: "university",
+    memberCount: 0,
+    postCount: 0,
     coverImage:
       "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=400&fit=crop",
     rules: [
-      "Only for University 1 students",
-      "Share academic resources",
-      "Respect university guidelines",
+      "Only for Architecture (Arch) students of BUET, Section A, Subsection 1",
     ],
     isActive: true,
-    university: "University 1",
-    isUniversityGroup: true,
+    university: {
+      name: "Bangladesh University of Engineering and Technology (BUET)",
+      department: "Architecture (Arch)",
+      section: "A",
+      subSection: "1",
+    },
   },
   {
-    groupId: "ug2",
-    name: "University 1 - Student Council",
-    description: "Official student council group for University 1",
-    createdBy: "admin",
-    createdAt: "2024-01-15T10:00:00Z",
-    updatedAt: "2024-06-01T12:00:00Z",
-    members: ["1", "2", "3", "5", "6"],
-    admins: ["1", "2"],
+    groupId: "g22",
+    name: "BUET - Architecture (Arch) - Section A - Subsection 2",
+    description: "Architecture (Arch) group for BUET, Section A, Subsection 2",
+    createdBy: "1",
+    createdAt: "2023-01-01T10:00:00Z",
+    updatedAt: "2025-10-01T12:00:00Z",
+    members: [],
+    admins: ["1"],
     privacy: "public",
-    category: "University",
-    tags: ["university", "student-council", "events"],
-    memberCount: 5,
-    postCount: 30,
+    category: "university",
+    memberCount: 0,
+    postCount: 0,
     coverImage:
-      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=400&fit=crop",
     rules: [
-      "University 1 students only",
-      "Discuss campus events and activities",
-      "Be respectful and constructive",
+      "Only for Architecture (Arch) students of BUET, Section A, Subsection 2",
     ],
     isActive: true,
-    university: "University 1",
-    isUniversityGroup: true,
+    university: {
+      name: "Bangladesh University of Engineering and Technology (BUET)",
+      department: "Architecture (Arch)",
+      section: "A",
+      subSection: "2",
+    },
   },
   {
-    groupId: "ug3",
-    name: "University 2 - Engineering Club",
-    description: "Engineering students community at University 2",
-    createdBy: "admin",
-    createdAt: "2024-02-01T10:00:00Z",
-    updatedAt: "2024-06-01T12:00:00Z",
-    members: ["2", "7", "8", "9"],
+    groupId: "g23",
+    name: "BUET - Architecture (Arch) - Section B - Subsection 1",
+    description: "Architecture (Arch) group for BUET, Section B, Subsection 1",
+    createdBy: "1",
+    createdAt: "2023-01-01T10:00:00Z",
+    updatedAt: "2025-10-01T12:00:00Z",
+    members: [],
+    admins: ["1"],
+    privacy: "public",
+    category: "university",
+    memberCount: 0,
+    postCount: 0,
+    coverImage:
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=400&fit=crop",
+    rules: [
+      "Only for Architecture (Arch) students of BUET, Section B, Subsection 1",
+    ],
+    isActive: true,
+    university: {
+      name: "Bangladesh University of Engineering and Technology (BUET)",
+      department: "Architecture (Arch)",
+      section: "B",
+      subSection: "1",
+    },
+  },
+  {
+    groupId: "g24",
+    name: "BUET - Architecture (Arch) - Section B - Subsection 2",
+    description: "Architecture (Arch) group for BUET, Section B, Subsection 2",
+    createdBy: "1",
+    createdAt: "2023-01-01T10:00:00Z",
+    updatedAt: "2025-10-01T12:00:00Z",
+    members: [],
+    admins: ["1"],
+    privacy: "public",
+    category: "university",
+    memberCount: 0,
+    postCount: 0,
+    coverImage:
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=400&fit=crop",
+    rules: [
+      "Only for Architecture (Arch) students of BUET, Section B, Subsection 2",
+    ],
+    isActive: true,
+    university: {
+      name: "Bangladesh University of Engineering and Technology (BUET)",
+      department: "Architecture (Arch)",
+      section: "B",
+      subSection: "2",
+    },
+  },
+  // Chemical Engineering (ChE)
+  {
+    groupId: "g25",
+    name: "BUET - Chemical Engineering (ChE) - Section A - Subsection 1",
+    description:
+      "Chemical Engineering (ChE) group for BUET, Section A, Subsection 1",
+    createdBy: "2",
+    createdAt: "2023-01-02T10:00:00Z",
+    updatedAt: "2025-10-02T12:00:00Z",
+    members: [],
     admins: ["2"],
     privacy: "public",
-    category: "University",
-    tags: ["university", "engineering", "projects"],
-    memberCount: 4,
-    postCount: 25,
+    category: "university",
+    memberCount: 0,
+    postCount: 0,
     coverImage:
-      "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=400&fit=crop",
     rules: [
-      "University 2 students only",
-      "Share engineering projects",
-      "Collaborate on assignments",
+      "Only for Chemical Engineering (ChE) students of BUET, Section A, Subsection 1",
     ],
     isActive: true,
-    university: "University 2",
-    isUniversityGroup: true,
+    university: {
+      name: "Bangladesh University of Engineering and Technology (BUET)",
+      department: "Chemical Engineering (ChE)",
+      section: "A",
+      subSection: "1",
+    },
   },
   {
-    groupId: "ug4",
-    name: "University 1 - Sports Club",
-    description: "Sports and fitness enthusiasts at University 1",
-    createdBy: "admin",
-    createdAt: "2024-03-01T10:00:00Z",
-    updatedAt: "2024-06-01T12:00:00Z",
-    members: ["1", "3", "5", "6", "12"],
-    admins: ["3"],
+    groupId: "g26",
+    name: "BUET - Chemical Engineering (ChE) - Section A - Subsection 2",
+    description:
+      "Chemical Engineering (ChE) group for BUET, Section A, Subsection 2",
+    createdBy: "2",
+    createdAt: "2023-01-02T10:00:00Z",
+    updatedAt: "2025-10-02T12:00:00Z",
+    members: [],
+    admins: ["2"],
     privacy: "public",
-    category: "University",
-    tags: ["university", "sports", "fitness"],
-    memberCount: 5,
-    postCount: 20,
+    category: "university",
+    memberCount: 0,
+    postCount: 0,
     coverImage:
-      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=400&fit=crop",
     rules: [
-      "University 1 students only",
-      "Organize sports events",
-      "Promote healthy lifestyle",
+      "Only for Chemical Engineering (ChE) students of BUET, Section A, Subsection 2",
     ],
     isActive: true,
-    university: "University 1",
-    isUniversityGroup: true,
+    university: {
+      name: "Bangladesh University of Engineering and Technology (BUET)",
+      department: "Chemical Engineering (ChE)",
+      section: "A",
+      subSection: "2",
+    },
+  },
+  {
+    groupId: "g27",
+    name: "BUET - Chemical Engineering (ChE) - Section B - Subsection 1",
+    description:
+      "Chemical Engineering (ChE) group for BUET, Section B, Subsection 1",
+    createdBy: "2",
+    createdAt: "2023-01-02T10:00:00Z",
+    updatedAt: "2025-10-02T12:00:00Z",
+    members: [],
+    admins: ["2"],
+    privacy: "public",
+    category: "university",
+    memberCount: 0,
+    postCount: 0,
+    coverImage:
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=400&fit=crop",
+    rules: [
+      "Only for Chemical Engineering (ChE) students of BUET, Section B, Subsection 1",
+    ],
+    isActive: true,
+    university: {
+      name: "Bangladesh University of Engineering and Technology (BUET)",
+      department: "Chemical Engineering (ChE)",
+      section: "B",
+      subSection: "1",
+    },
+  },
+  {
+    groupId: "g28",
+    name: "BUET - Chemical Engineering (ChE) - Section B - Subsection 2",
+    description:
+      "Chemical Engineering (ChE) group for BUET, Section B, Subsection 2",
+    createdBy: "2",
+    createdAt: "2023-01-02T10:00:00Z",
+    updatedAt: "2025-10-02T12:00:00Z",
+    members: [],
+    admins: ["2"],
+    privacy: "public",
+    category: "university",
+    memberCount: 0,
+    postCount: 0,
+    coverImage:
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=400&fit=crop",
+    rules: [
+      "Only for Chemical Engineering (ChE) students of BUET, Section B, Subsection 2",
+    ],
+    isActive: true,
+    university: {
+      name: "Bangladesh University of Engineering and Technology (BUET)",
+      department: "Chemical Engineering (ChE)",
+      section: "B",
+      subSection: "2",
+    },
+  },
+  // Electrical & Electronic Engineering (EEE)
+  {
+    groupId: "g29",
+    name: "BUET - Electrical & Electronic Engineering (EEE) - Section A - Subsection 1",
+    description:
+      "Electrical & Electronic Engineering (EEE) group for BUET, Section A, Subsection 1",
+    createdBy: "3",
+    createdAt: "2023-01-03T10:00:00Z",
+    updatedAt: "2025-10-03T12:00:00Z",
+    members: [],
+    admins: ["3"],
+    privacy: "public",
+    category: "university",
+    memberCount: 0,
+    postCount: 0,
+    coverImage:
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=800&h=400&fit=crop",
+    rules: [
+      "Only for Electrical & Electronic Engineering (EEE) students of BUET, Section A, Subsection 1",
+    ],
+    isActive: true,
+    university: {
+      name: "Bangladesh University of Engineering and Technology (BUET)",
+      department: "Electrical & Electronic Engineering (EEE)",
+      section: "A",
+      subSection: "1",
+    },
+  },
+  {
+    groupId: "g30",
+    name: "BUET - Electrical & Electronic Engineering (EEE) - Section A - Subsection 2",
+    description:
+      "Electrical & Electronic Engineering (EEE) group for BUET, Section A, Subsection 2",
+    createdBy: "3",
+    createdAt: "2023-01-03T10:00:00Z",
+    updatedAt: "2025-10-03T12:00:00Z",
+    members: [],
+    admins: ["3"],
+    privacy: "public",
+    category: "university",
+    memberCount: 0,
+    postCount: 0,
+    coverImage:
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=800&h=400&fit=crop",
+    rules: [
+      "Only for Electrical & Electronic Engineering (EEE) students of BUET, Section A, Subsection 2",
+    ],
+    isActive: true,
+    university: {
+      name: "Bangladesh University of Engineering and Technology (BUET)",
+      department: "Electrical & Electronic Engineering (EEE)",
+      section: "A",
+      subSection: "2",
+    },
+  },
+  {
+    groupId: "g31",
+    name: "BUET - Electrical & Electronic Engineering (EEE) - Section B - Subsection 1",
+    description:
+      "Electrical & Electronic Engineering (EEE) group for BUET, Section B, Subsection 1",
+    createdBy: "3",
+    createdAt: "2023-01-03T10:00:00Z",
+    updatedAt: "2025-10-03T12:00:00Z",
+    members: [],
+    admins: ["3"],
+    privacy: "public",
+    category: "university",
+    memberCount: 0,
+    postCount: 0,
+    coverImage:
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=800&h=400&fit=crop",
+    rules: [
+      "Only for Electrical & Electronic Engineering (EEE) students of BUET, Section B, Subsection 1",
+    ],
+    isActive: true,
+    university: {
+      name: "Bangladesh University of Engineering and Technology (BUET)",
+      department: "Electrical & Electronic Engineering (EEE)",
+      section: "B",
+      subSection: "1",
+    },
+  },
+  {
+    groupId: "g32",
+    name: "BUET - Electrical & Electronic Engineering (EEE) - Section B - Subsection 2",
+    description:
+      "Electrical & Electronic Engineering (EEE) group for BUET, Section B, Subsection 2",
+    createdBy: "3",
+    createdAt: "2023-01-03T10:00:00Z",
+    updatedAt: "2025-10-03T12:00:00Z",
+    members: [],
+    admins: ["3"],
+    privacy: "public",
+    category: "university",
+    memberCount: 0,
+    postCount: 0,
+    coverImage:
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=800&h=400&fit=crop",
+    rules: [
+      "Only for Electrical & Electronic Engineering (EEE) students of BUET, Section B, Subsection 2",
+    ],
+    isActive: true,
+    university: {
+      name: "Bangladesh University of Engineering and Technology (BUET)",
+      department: "Electrical & Electronic Engineering (EEE)",
+      section: "B",
+      subSection: "2",
+    },
+  },
+
+  // Career Groups
+  {
+    groupId: "g9",
+    name: "Career - Government Jobs",
+    description: "Group for government job seekers",
+    createdBy: "9",
+    createdAt: "2025-02-04T10:00:00Z",
+    updatedAt: "2025-07-04T12:00:00Z",
+    members: ["9", "10", "11"],
+    admins: ["9"],
+    privacy: "public",
+    category: "career",
+    memberCount: 3,
+    postCount: 7,
+    coverImage:
+      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=400&fit=crop",
+    rules: ["Government job discussions only"],
+    isActive: true,
+  },
+  {
+    groupId: "g10",
+    name: "Career - Freelancing",
+    description: "Freelancing and remote work group",
+    createdBy: "10",
+    createdAt: "2025-02-05T10:00:00Z",
+    updatedAt: "2025-07-05T12:00:00Z",
+    members: ["10", "11", "12"],
+    admins: ["10"],
+    privacy: "public",
+    category: "career",
+    memberCount: 3,
+    postCount: 6,
+    coverImage:
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&h=400&fit=crop",
+    rules: ["Freelancing and remote work only"],
+    isActive: true,
+  },
+
+  // HSC Groups
+  {
+    groupId: "g11",
+    name: "HSC Science Batch 2025",
+    description: "Science batch group for HSC 2025",
+    createdBy: "11",
+    createdAt: "2025-03-01T10:00:00Z",
+    updatedAt: "2025-08-01T12:00:00Z",
+    members: ["11", "12", "13"],
+    admins: ["11"],
+    privacy: "public",
+    category: "hsc",
+    memberCount: 3,
+    postCount: 9,
+    coverImage:
+      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=400&fit=crop",
+    rules: ["Only for HSC science students"],
+    isActive: true,
+  },
+  {
+    groupId: "g12",
+    name: "HSC Commerce Batch 2025",
+    description: "Commerce batch group for HSC 2025",
+    createdBy: "12",
+    createdAt: "2025-03-02T10:00:00Z",
+    updatedAt: "2025-08-02T12:00:00Z",
+    members: ["12", "13", "14"],
+    admins: ["12"],
+    privacy: "public",
+    category: "hsc",
+    memberCount: 3,
+    postCount: 8,
+    coverImage:
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=400&fit=crop",
+    rules: ["Only for HSC commerce students"],
+    isActive: true,
+  },
+  {
+    groupId: "g13",
+    name: "HSC Arts Batch 2025",
+    description: "Arts batch group for HSC 2025",
+    createdBy: "13",
+    createdAt: "2025-03-03T10:00:00Z",
+    updatedAt: "2025-08-03T12:00:00Z",
+    members: ["13", "14", "15"],
+    admins: ["13"],
+    privacy: "public",
+    category: "hsc",
+    memberCount: 3,
+    postCount: 7,
+    coverImage:
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=400&fit=crop",
+    rules: ["Only for HSC arts students"],
+    isActive: true,
+  },
+  {
+    groupId: "g14",
+    name: "HSC English Club",
+    description: "English club for HSC students",
+    createdBy: "14",
+    createdAt: "2025-03-04T10:00:00Z",
+    updatedAt: "2025-08-04T12:00:00Z",
+    members: ["14", "15", "16"],
+    admins: ["14"],
+    privacy: "public",
+    category: "hsc",
+    memberCount: 3,
+    postCount: 6,
+    coverImage:
+      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&h=400&fit=crop",
+    rules: ["English club activities"],
+    isActive: true,
+  },
+  {
+    groupId: "g15",
+    name: "HSC Debate Club",
+    description: "Debate club for HSC students",
+    createdBy: "15",
+    createdAt: "2025-03-05T10:00:00Z",
+    updatedAt: "2025-08-05T12:00:00Z",
+    members: ["15", "16", "17"],
+    admins: ["15"],
+    privacy: "public",
+    category: "hsc",
+    memberCount: 3,
+    postCount: 5,
+    coverImage:
+      "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&h=400&fit=crop",
+    rules: ["Debate club activities"],
+    isActive: true,
+  },
+
+  // Normal Groups
+  {
+    groupId: "g16",
+    name: "Book Lovers",
+    description: "Group for book lovers and readers",
+    createdBy: "16",
+    createdAt: "2025-04-01T10:00:00Z",
+    updatedAt: "2025-09-01T12:00:00Z",
+    members: ["16", "17", "18"],
+    admins: ["16"],
+    privacy: "public",
+    category: "normal",
+    memberCount: 3,
+    postCount: 10,
+    coverImage:
+      "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=400&fit=crop",
+    rules: ["Book discussions only"],
+    isActive: true,
+  },
+  {
+    groupId: "g17",
+    name: "Movie Fans",
+    description: "Group for movie lovers and fans",
+    createdBy: "17",
+    createdAt: "2025-04-02T10:00:00Z",
+    updatedAt: "2025-09-02T12:00:00Z",
+    members: ["17", "18", "19"],
+    admins: ["17"],
+    privacy: "public",
+    category: "normal",
+    memberCount: 3,
+    postCount: 8,
+    coverImage:
+      "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&h=400&fit=crop",
+    rules: ["Movie discussions only"],
+    isActive: true,
+  },
+  {
+    groupId: "g18",
+    name: "Travel Buddies",
+    description: "Group for travel lovers and explorers",
+    createdBy: "18",
+    createdAt: "2025-04-03T10:00:00Z",
+    updatedAt: "2025-09-03T12:00:00Z",
+    members: ["18", "19", "20"],
+    admins: ["18"],
+    privacy: "public",
+    category: "normal",
+    memberCount: 3,
+    postCount: 7,
+    coverImage:
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=400&fit=crop",
+    rules: ["Travel stories and tips"],
+    isActive: true,
+  },
+  {
+    groupId: "g19",
+    name: "Foodies",
+    description: "Group for food lovers and cooking enthusiasts",
+    createdBy: "19",
+    createdAt: "2025-04-04T10:00:00Z",
+    updatedAt: "2025-09-04T12:00:00Z",
+    members: ["19", "20", "1"],
+    admins: ["19"],
+    privacy: "public",
+    category: "normal",
+    memberCount: 3,
+    postCount: 6,
+    coverImage:
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&h=400&fit=crop",
+    rules: ["Food and cooking only"],
+    isActive: true,
+  },
+  {
+    groupId: "g20",
+    name: "Fitness Freaks",
+    description: "Group for fitness and health enthusiasts",
+    createdBy: "20",
+    createdAt: "2025-04-05T10:00:00Z",
+    updatedAt: "2025-09-05T12:00:00Z",
+    members: ["20", "1", "2"],
+    admins: ["20"],
+    privacy: "public",
+    category: "normal",
+    memberCount: 3,
+    postCount: 5,
+    coverImage:
+      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=400&fit=crop",
+    rules: ["Fitness and health only"],
+    isActive: true,
   },
 ];
 
@@ -333,8 +597,7 @@ export const searchGroups = (query: string): Group[] => {
   return groupsData.filter(
     (group) =>
       group.name.toLowerCase().includes(lowercaseQuery) ||
-      group.description.toLowerCase().includes(lowercaseQuery) ||
-      group.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))
+      group.description.toLowerCase().includes(lowercaseQuery)
   );
 };
 
@@ -342,8 +605,8 @@ export const searchGroups = (query: string): Group[] => {
 export const getUniversityGroups = (universityName: string): Group[] => {
   return groupsData.filter(
     (group) =>
-      group.isUniversityGroup &&
-      group.university === universityName &&
+      group.category === "university" &&
+      group.university?.name === universityName &&
       group.isActive
   );
 };
@@ -351,6 +614,6 @@ export const getUniversityGroups = (universityName: string): Group[] => {
 // Get all university groups
 export const getAllUniversityGroups = (): Group[] => {
   return groupsData.filter(
-    (group) => group.isUniversityGroup && group.isActive
+    (group) => group.category === "university" && group.isActive
   );
 };
