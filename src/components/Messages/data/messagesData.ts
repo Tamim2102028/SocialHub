@@ -1,3 +1,5 @@
+import { usersData, getCurrentUserId } from "../../../data/userData";
+
 export interface Conversation {
   id: string;
   name: string;
@@ -18,61 +20,48 @@ export interface Message {
   time: string;
 }
 
-// Direct Messages (Person to Person)
-export const directMessages: Conversation[] = [
-  {
-    id: "dm-1",
-    name: "Rahul Ahmed",
-    avatar: "https://i.pravatar.cc/150?img=12",
-    lastMessage: "Assignment submit korlam!",
-    time: "2m",
-    unread: 2,
-    online: true,
-    type: "direct",
-  },
-  {
-    id: "dm-2",
-    name: "Tanvir Khan",
-    avatar: "https://i.pravatar.cc/150?img=13",
-    lastMessage: "Class kobe hobe?",
-    time: "15m",
-    online: true,
-    type: "direct",
-  },
-  {
-    id: "dm-3",
-    name: "Sabbir Hossain",
-    avatar: "https://i.pravatar.cc/150?img=33",
-    lastMessage: "Thanks for your help!",
-    time: "1h",
-    type: "direct",
-  },
-  {
-    id: "dm-4",
-    name: "Nasir Uddin",
-    avatar: "https://i.pravatar.cc/150?img=17",
-    lastMessage: "Notes ta share korba?",
-    time: "3h",
-    type: "direct",
-  },
-  {
-    id: "dm-5",
-    name: "Farhan Islam",
-    avatar: "https://i.pravatar.cc/150?img=15",
-    lastMessage: "Okay, see you tomorrow",
-    time: "1d",
-    online: true,
-    type: "direct",
-  },
-];
+// Generate direct messages from current user's friends
+const currentUserId = getCurrentUserId();
+const currentUser = usersData.find((u) => u.id === currentUserId);
+const friendIds = currentUser?.friends || [];
+
+export const directMessages: Conversation[] = friendIds
+  .map((friendId, index) => {
+    const friend = usersData.find((u) => u.id === friendId);
+    if (!friend) return null;
+
+    const sampleMessages = [
+      "Hey! How are you?",
+      "Thanks for your help!",
+      "See you tomorrow!",
+      "Let's catch up soon",
+      "Got your message",
+      "That sounds great!",
+      "I'll be there",
+    ];
+
+    const times = ["2m", "15m", "1h", "3h", "5h", "1d", "2d"];
+
+    return {
+      id: `dm-${friendId}`,
+      name: friend.name,
+      avatar: friend.avatar,
+      lastMessage: sampleMessages[index % sampleMessages.length],
+      time: times[index % times.length],
+      unread: index % 3 === 0 ? Math.floor(Math.random() * 5) + 1 : undefined,
+      online: index % 2 === 0,
+      type: "direct" as const,
+    };
+  })
+  .filter((conv) => conv !== null) as Conversation[];
 
 // Group Chats (User Created Groups)
 export const groupChats: Conversation[] = [
   {
     id: "gc-1",
     name: "Study Squad",
-    avatar: "https://i.pravatar.cc/150?img=50",
-    lastMessage: "Mehedi: Tomorrow's quiz er preparation?",
+    avatar: "https://placehold.co/150x150/3b82f6/ffffff?text=SS",
+    lastMessage: "Tomorrow's quiz preparation?",
     time: "5m",
     unread: 5,
     type: "group",
@@ -80,140 +69,36 @@ export const groupChats: Conversation[] = [
   {
     id: "gc-2",
     name: "Project Team A",
-    avatar: "https://i.pravatar.cc/150?img=51",
-    lastMessage: "Arif: Meeting at 3 PM",
+    avatar: "https://placehold.co/150x150/10b981/ffffff?text=PT",
+    lastMessage: "Meeting at 3 PM",
     time: "30m",
     unread: 2,
-    type: "group",
-  },
-  {
-    id: "gc-3",
-    name: "Weekend Gamers",
-    avatar: "https://i.pravatar.cc/150?img=52",
-    lastMessage: "Karim: Anyone free tonight?",
-    time: "2h",
-    type: "group",
-  },
-  {
-    id: "gc-4",
-    name: "Math Lovers",
-    avatar: "https://i.pravatar.cc/150?img=53",
-    lastMessage: "Shakil: Check this problem",
-    time: "5h",
-    unread: 1,
     type: "group",
   },
 ];
 
 // University Groups
 export const universityGroups: Conversation[] = [
-  // Departmental Groups
   {
     id: "ug-dept-1",
     name: "CSE Department",
-    avatar: "https://i.pravatar.cc/150?img=60",
-    lastMessage: "Dr. Rahman: Seminar tomorrow at 10 AM",
+    avatar: "https://placehold.co/150x150/8b5cf6/ffffff?text=CSE",
+    lastMessage: "Seminar tomorrow at 10 AM",
     time: "10m",
     unread: 3,
     type: "university",
     category: "departmental",
   },
   {
-    id: "ug-dept-2",
-    name: "EEE Department",
-    avatar: "https://i.pravatar.cc/150?img=61",
-    lastMessage: "Lab schedule updated",
-    time: "1h",
-    type: "university",
-    category: "departmental",
-  },
-
-  // Section Groups
-  {
     id: "ug-sec-a",
     name: "CSE Section A",
-    avatar: "https://i.pravatar.cc/150?img=62",
-    lastMessage: "CR: Class postponed to 2 PM",
+    avatar: "https://placehold.co/150x150/f59e0b/ffffff?text=A",
+    lastMessage: "Class postponed to 2 PM",
     time: "20m",
     unread: 7,
     type: "university",
     category: "section",
     subCategory: "A",
-  },
-  {
-    id: "ug-sec-b",
-    name: "CSE Section B",
-    avatar: "https://i.pravatar.cc/150?img=63",
-    lastMessage: "Assignment deadline extended",
-    time: "45m",
-    unread: 4,
-    type: "university",
-    category: "section",
-    subCategory: "B",
-  },
-  {
-    id: "ug-sec-c",
-    name: "CSE Section C",
-    avatar: "https://i.pravatar.cc/150?img=64",
-    lastMessage: "Quiz on Friday confirmed",
-    time: "2h",
-    type: "university",
-    category: "section",
-    subCategory: "C",
-  },
-
-  // Sub-section Groups
-  {
-    id: "ug-subsec-a1",
-    name: "CSE Section A1",
-    avatar: "https://i.pravatar.cc/150?img=65",
-    lastMessage: "Group project discussion",
-    time: "1h",
-    unread: 2,
-    type: "university",
-    category: "section",
-    subCategory: "A1",
-  },
-  {
-    id: "ug-subsec-a2",
-    name: "CSE Section A2",
-    avatar: "https://i.pravatar.cc/150?img=66",
-    lastMessage: "Lab report submission reminder",
-    time: "3h",
-    type: "university",
-    category: "section",
-    subCategory: "A2",
-  },
-
-  // Hall Groups
-  {
-    id: "ug-hall-1",
-    name: "Shaheed Salam Hall",
-    avatar: "https://i.pravatar.cc/150?img=67",
-    lastMessage: "Provost: Hall meeting on Sunday",
-    time: "4h",
-    unread: 10,
-    type: "university",
-    category: "hall",
-  },
-  {
-    id: "ug-hall-2",
-    name: "Fazlul Haque Hall",
-    avatar: "https://i.pravatar.cc/150?img=68",
-    lastMessage: "Sports tournament registration open",
-    time: "6h",
-    unread: 5,
-    type: "university",
-    category: "hall",
-  },
-  {
-    id: "ug-hall-3",
-    name: "Rokeya Hall",
-    avatar: "https://i.pravatar.cc/150?img=69",
-    lastMessage: "Cultural program next week",
-    time: "1d",
-    type: "university",
-    category: "hall",
   },
 ];
 
@@ -222,8 +107,8 @@ export const globalChats: Conversation[] = [
   {
     id: "global-1",
     name: "Bangladesh Students",
-    avatar: "https://i.pravatar.cc/150?img=1",
-    lastMessage: "Shakib: Anyone going to the book fair?",
+    avatar: "https://placehold.co/150x150/ef4444/ffffff?text=BD",
+    lastMessage: "Anyone going to the book fair?",
     time: "5m",
     unread: 15,
     type: "global",
@@ -231,36 +116,10 @@ export const globalChats: Conversation[] = [
   {
     id: "global-2",
     name: "Tech Enthusiasts BD",
-    avatar: "https://i.pravatar.cc/150?img=2",
-    lastMessage: "Rafiq: New programming contest announced",
+    avatar: "https://placehold.co/150x150/06b6d4/ffffff?text=Tech",
+    lastMessage: "New programming contest announced",
     time: "20m",
     unread: 8,
-    type: "global",
-  },
-  {
-    id: "global-3",
-    name: "University Sports",
-    avatar: "https://i.pravatar.cc/150?img=3",
-    lastMessage: "Kamal: Inter-university football tournament registration",
-    time: "1h",
-    type: "global",
-  },
-  {
-    id: "global-4",
-    name: "Career Development",
-    avatar: "https://i.pravatar.cc/150?img=4",
-    lastMessage: "Nadia: Google internship opportunities",
-    time: "2h",
-    unread: 12,
-    type: "global",
-  },
-  {
-    id: "global-5",
-    name: "Academic Help",
-    avatar: "https://i.pravatar.cc/150?img=5",
-    lastMessage: "Imran: Need help with calculus problem",
-    time: "3h",
-    unread: 5,
     type: "global",
   },
 ];

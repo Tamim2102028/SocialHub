@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useMemo } from "react";
 import GroupsHeader from "../components/Groups/GroupsHeader";
 import MyGroups from "../components/Groups/MyGroups";
 import SuggestedGroups from "../components/Groups/SuggestedGroups";
 import CareerGroups from "../components/Groups/CareerGroups";
+import UniversityGroups from "../components/Groups/UniversityGroups";
 import { useAppSelector } from "../store/hooks";
+import { getUniversityGroups } from "../data/groupsData";
+import { getCurrentUserId, usersData } from "../data/userData";
 
 const Groups: React.FC = () => {
   // Get groups data from Redux store
   const { myGroups, suggestedGroups, careerGroups, loading, error } =
     useAppSelector((state) => state.groups);
+
+  // Get current user's university
+  const currentUserId = getCurrentUserId();
+  const currentUser = usersData.find((u) => u.id === currentUserId);
+  const userUniversity = currentUser?.university || "";
+
+  // Get university groups for current user's university
+  const universityGroups = useMemo(() => {
+    if (!userUniversity) return [];
+    return getUniversityGroups(userUniversity);
+  }, [userUniversity]);
 
   if (loading) {
     return (
@@ -30,6 +44,12 @@ const Groups: React.FC = () => {
     <>
       <GroupsHeader />
       <MyGroups groups={myGroups} />
+      {universityGroups.length > 0 && (
+        <UniversityGroups
+          groups={universityGroups}
+          universityName={userUniversity}
+        />
+      )}
       <CareerGroups groups={careerGroups} />
       <SuggestedGroups groups={suggestedGroups} />
     </>

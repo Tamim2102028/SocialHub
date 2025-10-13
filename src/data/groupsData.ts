@@ -16,6 +16,8 @@ export interface Group {
   profileImage?: string;
   rules?: string[];
   isActive: boolean;
+  university?: string; // University name for university-specific groups
+  isUniversityGroup?: boolean; // Flag to identify university groups
 }
 
 // Mock groups data
@@ -34,7 +36,8 @@ export const groupsData: Group[] = [
     tags: ["tech", "programming", "coding"],
     memberCount: 5,
     postCount: 12,
-    coverImage: "https://i.pravatar.cc/150?img=1",
+    coverImage:
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=400&fit=crop",
     rules: [
       "Be respectful to all members",
       "Stay on topic related to technology",
@@ -57,7 +60,8 @@ export const groupsData: Group[] = [
     tags: ["study", "education", "academic"],
     memberCount: 6,
     postCount: 8,
-    coverImage: "https://i.pravatar.cc/150?img=2",
+    coverImage:
+      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=400&fit=crop",
     rules: [
       "Share study materials and resources",
       "Help each other with academic questions",
@@ -79,7 +83,8 @@ export const groupsData: Group[] = [
     tags: ["fitness", "workout", "health"],
     memberCount: 5,
     postCount: 15,
-    coverImage: "https://i.pravatar.cc/150?img=3",
+    coverImage:
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=400&fit=crop",
     rules: [
       "Share workout routines and tips",
       "Encourage healthy lifestyle choices",
@@ -101,7 +106,8 @@ export const groupsData: Group[] = [
     tags: ["books", "reading", "literature"],
     memberCount: 4,
     postCount: 6,
-    coverImage: "https://i.pravatar.cc/150?img=4",
+    coverImage:
+      "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&h=400&fit=crop",
     rules: [
       "Share book recommendations",
       "Discuss plot points and themes",
@@ -123,7 +129,8 @@ export const groupsData: Group[] = [
     tags: ["cooking", "recipes", "food"],
     memberCount: 6,
     postCount: 20,
-    coverImage: "https://i.pravatar.cc/150?img=5",
+    coverImage:
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&h=400&fit=crop",
     rules: [
       "Share original recipes and cooking tips",
       "Post photos of your culinary creations",
@@ -145,7 +152,8 @@ export const groupsData: Group[] = [
     tags: ["photography", "art", "creativity"],
     memberCount: 5,
     postCount: 18,
-    coverImage: "https://i.pravatar.cc/150?img=6",
+    coverImage:
+      "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&h=400&fit=crop",
     rules: [
       "Share your best photographs",
       "Provide constructive feedback",
@@ -167,7 +175,8 @@ export const groupsData: Group[] = [
     tags: ["gaming", "esports", "games"],
     memberCount: 5,
     postCount: 25,
-    coverImage: "https://i.pravatar.cc/150?img=7",
+    coverImage:
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&h=400&fit=crop",
     rules: [
       "Share gaming achievements and screenshots",
       "Organize gaming sessions",
@@ -189,13 +198,115 @@ export const groupsData: Group[] = [
     tags: ["music", "songs", "artists"],
     memberCount: 6,
     postCount: 14,
-    coverImage: "https://i.pravatar.cc/150?img=8",
+    coverImage:
+      "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=400&fit=crop",
     rules: [
       "Share music recommendations",
       "Discuss different genres and artists",
       "Be respectful of diverse musical tastes",
     ],
     isActive: true,
+  },
+  // University Groups
+  {
+    groupId: "ug1",
+    name: "University 1 - CSE Department",
+    description: "Official group for Computer Science & Engineering students",
+    createdBy: "admin",
+    createdAt: "2024-01-01T10:00:00Z",
+    updatedAt: "2024-06-01T12:00:00Z",
+    members: ["1", "2", "3", "4", "5", "6"],
+    admins: ["1"],
+    privacy: "public",
+    category: "University",
+    tags: ["university", "cse", "department"],
+    memberCount: 6,
+    postCount: 45,
+    coverImage:
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=400&fit=crop",
+    rules: [
+      "Only for University 1 students",
+      "Share academic resources",
+      "Respect university guidelines",
+    ],
+    isActive: true,
+    university: "University 1",
+    isUniversityGroup: true,
+  },
+  {
+    groupId: "ug2",
+    name: "University 1 - Student Council",
+    description: "Official student council group for University 1",
+    createdBy: "admin",
+    createdAt: "2024-01-15T10:00:00Z",
+    updatedAt: "2024-06-01T12:00:00Z",
+    members: ["1", "2", "3", "5", "6"],
+    admins: ["1", "2"],
+    privacy: "public",
+    category: "University",
+    tags: ["university", "student-council", "events"],
+    memberCount: 5,
+    postCount: 30,
+    coverImage:
+      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&h=400&fit=crop",
+    rules: [
+      "University 1 students only",
+      "Discuss campus events and activities",
+      "Be respectful and constructive",
+    ],
+    isActive: true,
+    university: "University 1",
+    isUniversityGroup: true,
+  },
+  {
+    groupId: "ug3",
+    name: "University 2 - Engineering Club",
+    description: "Engineering students community at University 2",
+    createdBy: "admin",
+    createdAt: "2024-02-01T10:00:00Z",
+    updatedAt: "2024-06-01T12:00:00Z",
+    members: ["2", "7", "8", "9"],
+    admins: ["2"],
+    privacy: "public",
+    category: "University",
+    tags: ["university", "engineering", "projects"],
+    memberCount: 4,
+    postCount: 25,
+    coverImage:
+      "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=400&fit=crop",
+    rules: [
+      "University 2 students only",
+      "Share engineering projects",
+      "Collaborate on assignments",
+    ],
+    isActive: true,
+    university: "University 2",
+    isUniversityGroup: true,
+  },
+  {
+    groupId: "ug4",
+    name: "University 1 - Sports Club",
+    description: "Sports and fitness enthusiasts at University 1",
+    createdBy: "admin",
+    createdAt: "2024-03-01T10:00:00Z",
+    updatedAt: "2024-06-01T12:00:00Z",
+    members: ["1", "3", "5", "6", "12"],
+    admins: ["3"],
+    privacy: "public",
+    category: "University",
+    tags: ["university", "sports", "fitness"],
+    memberCount: 5,
+    postCount: 20,
+    coverImage:
+      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=400&fit=crop",
+    rules: [
+      "University 1 students only",
+      "Organize sports events",
+      "Promote healthy lifestyle",
+    ],
+    isActive: true,
+    university: "University 1",
+    isUniversityGroup: true,
   },
 ];
 
@@ -224,5 +335,22 @@ export const searchGroups = (query: string): Group[] => {
       group.name.toLowerCase().includes(lowercaseQuery) ||
       group.description.toLowerCase().includes(lowercaseQuery) ||
       group.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))
+  );
+};
+
+// Get university groups by university name
+export const getUniversityGroups = (universityName: string): Group[] => {
+  return groupsData.filter(
+    (group) =>
+      group.isUniversityGroup &&
+      group.university === universityName &&
+      group.isActive
+  );
+};
+
+// Get all university groups
+export const getAllUniversityGroups = (): Group[] => {
+  return groupsData.filter(
+    (group) => group.isUniversityGroup && group.isActive
   );
 };

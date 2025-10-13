@@ -108,7 +108,7 @@ const AcademicTimeline: React.FC = () => {
               <div key={event.id} className="group relative flex items-start">
                 {/* Icon Container */}
                 <div
-                  className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-full ${event.iconBg} border-4 border-white shadow-lg transition-transform duration-300 group-hover:scale-110`}
+                  className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-full ${event.iconBg} border-4 border-white shadow-lg`}
                 >
                   <event.icon className={`h-6 w-6 ${event.iconColor}`} />
                   {event.isCompleted && (
@@ -122,7 +122,7 @@ const AcademicTimeline: React.FC = () => {
                 <div
                   className={`ml-8 flex-1 ${index % 2 === 0 ? "md:mr-8" : "md:ml-16"}`}
                 >
-                  <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-lg">
                     {/* Date Badge */}
                     <div className="mb-3 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-3 py-1 text-sm font-medium text-white">
                       <FaClock className="mr-2 h-3 w-3" />
