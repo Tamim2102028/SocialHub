@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import GroupsHeader from "../components/Groups/GroupsHeader";
 import MyGroups from "../components/Groups/MyGroups";
 import SuggestedGroups from "../components/Groups/SuggestedGroups";
@@ -38,18 +38,45 @@ const Groups: React.FC = () => {
     return getUniversityGroups(userUniversityName);
   }, [userUniversityName]);
 
+  const [activeTab, setActiveTab] = useState("my");
+
+  const tabs = [
+    { key: "my", label: "My Groups" },
+    { key: "university", label: "University Groups" },
+    { key: "career", label: "Career Groups" },
+    { key: "suggested", label: "Suggested Groups" },
+  ];
+
   return (
     <>
       <GroupsHeader />
-      <MyGroups groups={myGroups} />
-      {universityGroups.length > 0 && (
+      <div className="mt-6 mb-8 flex gap-3 border-b">
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            className={`border-b-2 px-4 py-2 font-semibold transition-colors duration-150 ${
+              activeTab === tab.key
+                ? "border-blue-600 text-blue-600"
+                : "border-transparent text-gray-600 hover:text-blue-600"
+            }`}
+            onClick={() => setActiveTab(tab.key)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {activeTab === "my" && <MyGroups groups={myGroups} />}
+      {activeTab === "university" && universityGroups.length > 0 && (
         <UniversityGroups
           groups={universityGroups}
           universityName={userUniversityName}
         />
       )}
-      <CareerGroups groups={careerGroups} />
-      <SuggestedGroups groups={suggestedGroups} />
+      {activeTab === "career" && <CareerGroups groups={careerGroups} />}
+      {activeTab === "suggested" && (
+        <SuggestedGroups groups={suggestedGroups} />
+      )}
     </>
   );
 };
