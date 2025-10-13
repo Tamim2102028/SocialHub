@@ -140,7 +140,13 @@ const Profile: React.FC = () => {
             {/* University */}
             <div className="flex items-center gap-2">
               <FaUniversity className="h-4 w-4 text-blue-600" />
-              <p className="font-medium text-gray-800">{userData.university}</p>
+              <p className="font-medium text-gray-800">
+                {typeof userData.university === 'string' 
+                  ? userData.university 
+                  : userData.university.name}
+                {typeof userData.university === 'object' && userData.university.department && 
+                  ` - ${userData.university.department}`}
+              </p>
             </div>
 
             {/* Edit Button (only for own profile) */}

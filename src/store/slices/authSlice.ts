@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { getUserById } from "../../data/userData";
 
 interface User {
   id: string;
@@ -26,10 +27,32 @@ interface AuthState {
   error: string | null;
 }
 
+// Get current user data from userData.ts
+const getCurrentUser = (): User | null => {
+  const userData = getUserById("1"); // Current user ID
+  if (!userData) return null;
+  
+  return {
+    id: userData.id,
+    name: userData.name,
+    username: userData.username,
+    email: "demo@socialhub.com", // Since email is not in userData.ts
+    avatar: userData.avatar,
+    bio: userData.bio,
+    university: typeof userData.university === 'string' 
+      ? userData.university 
+      : userData.university.name,
+    followers: 150, // These could be calculated from friends array
+    following: userData.friends.length,
+    postsCount: 25, // This could be calculated from posts
+    joinedDate: "2024-01-01",
+  };
+};
+
 const initialState: AuthState = {
-  isAuthenticated: false, // Set to false initially
-  user: null,
-  token: null,
+  isAuthenticated: true, // Set to true for development
+  user: getCurrentUser(),
+  token: "demo-token",
   loading: false,
   error: null,
 };
