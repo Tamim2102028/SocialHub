@@ -32,7 +32,7 @@ const UniversityGroups: React.FC<UniversityGroupsProps> = ({
       </div>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {groups.map((group) => (
-          <GroupCard key={group.groupId} group={group} showJoinButton={true} />
+          <GroupCard key={group.groupId} group={group} showJoinButton={false} />
         ))}
       </div>
     </div>

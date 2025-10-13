@@ -56,7 +56,7 @@ const GroupCard: React.FC<GroupCardProps> = ({
         </div>
       </div>
 
-      <div className="flex flex-col justify-between p-4">
+      <div className="flex flex-col justify-between p-3">
         <div>
           <h3
             className="mb-2 line-clamp-2 text-lg font-bold break-words text-gray-900"
@@ -77,14 +77,16 @@ const GroupCard: React.FC<GroupCardProps> = ({
             </span>
           </div>
         </div>
-        {showJoinButton && (
-          <button
-            onClick={handleJoinClick}
-            className="mt-2 w-full rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
-          >
-            Join Group
-          </button>
-        )}
+        <div>
+          {showJoinButton && (
+            <button
+              onClick={handleJoinClick}
+              className="mt-2 w-full rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+            >
+              Join Group
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

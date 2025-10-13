@@ -4,7 +4,7 @@ import MyGroups from "../components/Groups/MyGroups";
 import SuggestedGroups from "../components/Groups/SuggestedGroups";
 import CareerGroups from "../components/Groups/CareerGroups";
 import UniversityGroups from "../components/Groups/UniversityGroups";
-import { getUniversityGroups, groupsData } from "../data/groupsData";
+import { groupsData } from "../data/groupsData";
 import { getCurrentUserId, usersData } from "../data/userData";
 
 const Groups: React.FC = () => {
@@ -32,11 +32,16 @@ const Groups: React.FC = () => {
     return groupsData.filter((g) => g.category === "career" && g.isActive);
   }, []);
 
-  // Get university groups for current user's university
+  // Get university groups for current user's university that the user has joined
   const universityGroups = useMemo(() => {
-    if (!userUniversityName) return [];
-    return getUniversityGroups(userUniversityName);
-  }, [userUniversityName]);
+    if (!currentUser || !userUniversityName) return [];
+    return groupsData.filter(
+      (g) =>
+        g.category === "university" &&
+        g.university?.name === userUniversityName &&
+        currentUser.joinedGroups.includes(g.groupId)
+    );
+  }, [currentUser, userUniversityName]);
 
   const [activeTab, setActiveTab] = useState("my");
 

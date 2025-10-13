@@ -67,7 +67,7 @@ export const groupsData: Group[] = [
     ],
     isActive: true,
     university: {
-      name: "Bangladesh University of Engineering and Technology (BUET)",
+      name: "University 1",
       department: "Architecture (Arch)",
       section: "A",
       subSection: "1",
@@ -93,7 +93,7 @@ export const groupsData: Group[] = [
     ],
     isActive: true,
     university: {
-      name: "Bangladesh University of Engineering and Technology (BUET)",
+      name: "University 1",
       department: "Architecture (Arch)",
       section: "A",
       subSection: "2",
@@ -119,7 +119,7 @@ export const groupsData: Group[] = [
     ],
     isActive: true,
     university: {
-      name: "Bangladesh University of Engineering and Technology (BUET)",
+      name: "University 1",
       department: "Architecture (Arch)",
       section: "B",
       subSection: "1",
@@ -145,7 +145,7 @@ export const groupsData: Group[] = [
     ],
     isActive: true,
     university: {
-      name: "Bangladesh University of Engineering and Technology (BUET)",
+      name: "University 1",
       department: "Architecture (Arch)",
       section: "B",
       subSection: "2",
@@ -173,7 +173,7 @@ export const groupsData: Group[] = [
     ],
     isActive: true,
     university: {
-      name: "Bangladesh University of Engineering and Technology (BUET)",
+      name: "University 1",
       department: "Chemical Engineering (ChE)",
       section: "A",
       subSection: "1",
@@ -200,7 +200,7 @@ export const groupsData: Group[] = [
     ],
     isActive: true,
     university: {
-      name: "Bangladesh University of Engineering and Technology (BUET)",
+      name: "University 1",
       department: "Chemical Engineering (ChE)",
       section: "A",
       subSection: "2",
@@ -227,7 +227,7 @@ export const groupsData: Group[] = [
     ],
     isActive: true,
     university: {
-      name: "Bangladesh University of Engineering and Technology (BUET)",
+      name: "University 1",
       department: "Chemical Engineering (ChE)",
       section: "B",
       subSection: "1",
@@ -254,7 +254,7 @@ export const groupsData: Group[] = [
     ],
     isActive: true,
     university: {
-      name: "Bangladesh University of Engineering and Technology (BUET)",
+      name: "University 1",
       department: "Chemical Engineering (ChE)",
       section: "B",
       subSection: "2",
@@ -282,7 +282,7 @@ export const groupsData: Group[] = [
     ],
     isActive: true,
     university: {
-      name: "Bangladesh University of Engineering and Technology (BUET)",
+      name: "University 1",
       department: "Electrical & Electronic Engineering (EEE)",
       section: "A",
       subSection: "1",
@@ -309,7 +309,7 @@ export const groupsData: Group[] = [
     ],
     isActive: true,
     university: {
-      name: "Bangladesh University of Engineering and Technology (BUET)",
+      name: "University 1",
       department: "Electrical & Electronic Engineering (EEE)",
       section: "A",
       subSection: "2",
@@ -336,7 +336,7 @@ export const groupsData: Group[] = [
     ],
     isActive: true,
     university: {
-      name: "Bangladesh University of Engineering and Technology (BUET)",
+      name: "University 1",
       department: "Electrical & Electronic Engineering (EEE)",
       section: "B",
       subSection: "1",
@@ -363,7 +363,7 @@ export const groupsData: Group[] = [
     ],
     isActive: true,
     university: {
-      name: "Bangladesh University of Engineering and Technology (BUET)",
+      name: "University 1",
       department: "Electrical & Electronic Engineering (EEE)",
       section: "B",
       subSection: "2",
