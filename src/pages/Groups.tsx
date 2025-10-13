@@ -50,7 +50,8 @@ const Groups: React.FC = () => {
   return (
     <>
       <GroupsHeader />
-      <div className="mt-6 mb-8 flex gap-3 border-b">
+      {/* Tabs */}
+      <div className="flex gap-2.5 border-b">
         {tabs.map((tab) => (
           <button
             key={tab.key}
@@ -66,8 +67,9 @@ const Groups: React.FC = () => {
         ))}
       </div>
 
+      {/* Tab Content */}
       {activeTab === "my" && <MyGroups groups={myGroups} />}
-      {activeTab === "university" && universityGroups.length > 0 && (
+      {activeTab === "university" && (
         <UniversityGroups
           groups={universityGroups}
           universityName={userUniversityName}

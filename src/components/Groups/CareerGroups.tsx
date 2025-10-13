@@ -9,7 +9,7 @@ interface CareerGroupsProps {
 
 const CareerGroups: React.FC<CareerGroupsProps> = ({ groups }) => {
   return (
-    <div className="mt-8">
+    <div>
       <div className="mb-4 flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
           <FaBriefcase className="text-xl text-white" />
@@ -23,7 +23,7 @@ const CareerGroups: React.FC<CareerGroupsProps> = ({ groups }) => {
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-2">
         {groups.map((group) => (
           <GroupCard key={group.groupId} group={group} showJoinButton={true} />
         ))}

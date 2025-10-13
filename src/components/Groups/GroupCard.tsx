@@ -56,7 +56,7 @@ const GroupCard: React.FC<GroupCardProps> = ({
         </div>
       </div>
 
-      <div className="flex h-44 flex-col justify-between p-4">
+      <div className="flex flex-col justify-between p-4">
         <div>
           <h3
             className="mb-2 line-clamp-2 text-lg font-bold break-words text-gray-900"
@@ -70,8 +70,8 @@ const GroupCard: React.FC<GroupCardProps> = ({
             {group.name}
           </h3>
 
-          <div className="mb-3 flex items-center gap-2 text-sm text-gray-600">
-            <FaUsers size={14} />
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <FaUsers size={15} />
             <span className="font-medium">
               {group.memberCount.toLocaleString()} members
             </span>
