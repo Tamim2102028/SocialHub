@@ -26,6 +26,25 @@ export interface Group {
 }
 
 export const groupsData: Group[] = [
+  {
+    groupId: "g7",
+    name: "Matha Mota Group",
+    description:
+      "A group for matha mota (thick-headed) friends to hang out and share fun!",
+    createdBy: "1",
+    createdAt: "2025-10-13T10:00:00Z",
+    updatedAt: "2025-10-13T10:00:00Z",
+    members: ["1", "2", "7", "9"],
+    admins: ["1"],
+    privacy: "public",
+    category: "normal",
+    memberCount: 4,
+    postCount: 0,
+    coverImage:
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=400&fit=crop",
+    rules: ["No serious talk allowed!", "Fun only"],
+    isActive: true,
+  },
   // BUET University Groups (Arch, ChE, EEE)
   // Architecture (Arch)
   {

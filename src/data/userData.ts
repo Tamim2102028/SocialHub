@@ -52,7 +52,7 @@ export const usersData: UserData[] = [
     saved: ["p1", "p3"],
     educationLevel: "university",
     role: ["student", "admin"],
-    joinedGroups: ["g1", "g2", "g6", "g16"],
+    joinedGroups: ["g25", "g26", "g7"],
   },
   {
     id: "2",

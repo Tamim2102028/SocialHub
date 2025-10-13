@@ -56,20 +56,31 @@ const GroupCard: React.FC<GroupCardProps> = ({
         </div>
       </div>
 
-      <div className="p-4">
-        <h3 className="mb-2 text-lg font-bold text-gray-900">{group.name}</h3>
+      <div className="flex h-44 flex-col justify-between p-4">
+        <div>
+          <h3
+            className="mb-2 line-clamp-2 text-lg font-bold break-words text-gray-900"
+            style={{
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {group.name}
+          </h3>
 
-        <div className="mb-3 flex items-center gap-2 text-sm text-gray-600">
-          <FaUsers size={14} />
-          <span className="font-medium">
-            {group.memberCount.toLocaleString()} members
-          </span>
+          <div className="mb-3 flex items-center gap-2 text-sm text-gray-600">
+            <FaUsers size={14} />
+            <span className="font-medium">
+              {group.memberCount.toLocaleString()} members
+            </span>
+          </div>
         </div>
-
         {showJoinButton && (
           <button
             onClick={handleJoinClick}
-            className="w-full rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+            className="mt-2 w-full rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
           >
             Join Group
           </button>
